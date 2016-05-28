@@ -1,10 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Test</title>
-</head>
+{% extends "main.html" %}
+{% load staticfiles %}
 
-<body>
-Index.
-</body>
-</html>
+{% block main %}
+<div id="main" class="flex-container">
+    <div class="block project">
+        <a href="{% url 'blog' %}">
+            <h1>Pokyfriends Blog</h1>
+            <img src="{% static 'images/pokyfriends.jpg' %}">
+            <p>A blog to preserve things I've written, and hopefully write some new things.</p>
+        </a>
+    </div>
+    
+    <div class="block project">
+        <a href="/">
+            <h1>Pokédex Ebooks</h1>
+            <img src="{% static 'images/pokedex-ebooks.jpg' %}">
+            <p>Random Pokédex entry generator using a Markov generator.</p>
+        </a>
+    </div>
+    
+    <div class="block project">
+        <a href="/">
+            <h1>Pokémon Size Quiz</h1>
+            <img src="{% static 'images/size-quiz.png' %}">
+            <p>Quiz yourself and challenge your friends to impossibly guess the heights of Pokémon.</p>
+        </a>
+    </div>
+    
+    <div class="block project">
+        <a href="/">
+            <h1>Pokémon Type Chart Quiz</h1>
+            <img src="{% static 'images/pokemon-type-quiz.png' %}">
+            <p>Sure water beats fire, fire beats grass, and grass beats water. What's ghost do against bug? Try to fill the entire type chart with this quiz.</p>
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar">
+    <div class="block about">
+        <h3>About</h3>
+        <div class="logo"><img src="{% static 'images/meowth/'|add:meowth|add:'.jpg' %}"></div>
+        <p>I'm <a href="mailto:doctordos@gmail.com">Dr. Dos</a>, and sometimes I produce articles and other fun web pages.<br>I make sure it's preserved here and not lost to time.</p>
+    </div>
+</div>
+{% endblock %}

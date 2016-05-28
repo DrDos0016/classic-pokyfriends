@@ -1,0 +1,98 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+{% block opengraph %}
+{% endblock %}
+
+<title>{{title}}</title>
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+<link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+{% if post and not wip %}<link rel="canonical" href="http://pokyfriends.com/blog/{{post.id}}/{{post.title|slugify}}">{% endif %}
+
+<meta name="author" content="Dr. Dos">
+<meta name="description" content="A collection of things I've been involved in that I don't want to be lost to time.">
+<meta name="keywords" content="blog, personal">
+
+{% block analytics %}
+{% if ANALYTICS %}
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45185267-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+{% endif %}
+{% endblock %}
+</head>
+
+<body>
+
+<div id="content">
+    <div id="header" style="background:url('{% static 'images/shuffle/'|add:icon|add:'.png' %}');background-repeat:no-repeat;">
+        <h1><a href="{% url 'index' %}">Let's Be <span style="color:#D53C75">P</span><span style="color:#E2D236">O</span><span style="color:#086CAF">K</span><span style="color:#E46C4E">Y</span><span style="color:#086CAF">F</span><span style="color:#E2D236">R</span><span style="color:#E46C4E">I</span><span style="color:#D53C75">E</span><span style="color:#626971">N</span><span style="color:#086CAF">D</span><span style="color:#E2D236">S</span></a></h1>
+    </div>
+    
+    {% block main %}
+    {% endblock %}
+    
+    {% block sidebar %}
+    <div id="sidebar">
+        {% if "about" in blocks %}
+        <div class="block about">
+            <h3>About</h3>
+            <div class="logo"><img src="{% static 'images/shuffle/052.png' %}"></div>
+            <p>I'm <a href="mailto:doctordos@gmail.com">Dr. Dos</a>, and sometimes I produce articles and other fun web pages.<br>I make sure it's preserved here and not lost to time.</p>
+        </div>
+        {% endif %}
+        
+        {% if "latest" in blocks %}
+        <div class="block latest">
+            <h3>Latest Entries</h3>
+            <ul>
+            {% for post in latest %}
+            <li>{{post.link|safe}}</li>
+            {% endfor %}
+            </ul>
+            <div class="all"><a href="/blog/archive">View All</a></div>
+        </div>
+        {% endif %}
+        
+        {% if ADS and "v-ad" in blocks %}
+        <div class="block ad">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- Pokyfriends Blog responsive -->
+            <ins class="adsbygoogle"
+                 style="display:block;max-width:170px;"
+                 data-ad-client="ca-pub-4412759244252723"
+                 data-ad-slot="2115202160"
+                 data-ad-format="vertical"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        {% endif %}
+        
+        {% if "tags" in blocks %}
+        <div class="block tagged">
+            <h3>Random Tags</h3>
+            {% for tag in tagged %}
+            <a href="/blog/tagged/{{tag.slug}}">#{{tag.name}}</a>
+            {% endfor %}
+            <br>
+            <div class="all"><a href="/blog/tagged">View All</a></div>
+        </div>
+        {% endif %}
+    </div>
+    {% endblock %}
+</div>
+
+</body>
+</html>

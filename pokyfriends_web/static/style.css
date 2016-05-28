@@ -1,0 +1,355 @@
+html, body
+{
+    background:#819CA5;
+    margin:0;
+    font-family:sans-serif;
+    margin-left:10px;
+    margin-right:10px;
+}
+
+body
+{
+    overflow-y:scroll;
+}
+
+a, a:visited
+{
+    color:#00A;
+    text-decoration:none;
+}
+
+a:hover
+{
+    text-decoration:underline;
+}
+
+
+#header a
+{
+    color:#FFF;
+}
+#header a:hover
+{
+    text-decoration:none;
+}
+
+.col
+{
+    display:inline-block;
+    vertical-align:top;
+}
+
+#content
+{
+    max-width:1260px;
+    margin:auto;
+    margin-top:0;
+    display:flex;
+    flex-wrap:wrap;
+}
+
+#header
+{
+    min-height:128px;
+    width:100%;
+    background:#0F0;
+    flex-shrink:0;
+}
+
+#header h1
+{
+    font-size:72px;
+    border-bottom:0;
+    text-align:right;
+    text-shadow: -2px 0px #000, 0px 2px #000, 2px 0px #000, 0px -2px #000;
+    color:#EEE;
+    line-height:128px;
+    margin:0
+}
+
+#main
+{
+    flex-grow:1;
+    flex-shrink:1;
+    order:1;
+    flex-basis:400px;
+}
+
+.post img
+{
+    max-width:100%;
+}
+
+#sidebar
+{
+    width:250px;
+    /*max-width:250px;*/
+    flex-basis:250px;
+    flex-shrink:0;
+    margin-left:20px;
+    order:2;
+}
+
+#pages
+{
+    width:100%;
+    flex-shrink:0;
+    order:3;
+    margin-top:1em;
+}
+
+.block
+{
+    background:#FFF;
+    color:#000;
+    padding:1.5em;
+    border-radius:8px;
+    /*max-width:100%;*/
+    flex-wrap:wrap;
+}
+
+.flex-container
+{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+}
+
+.project
+{
+    flex:1;
+    min-height:200px;
+    max-width:20%;
+    text-align:center;
+}
+
+.project + .project
+{
+    margin-left:1em;
+}
+
+.project h1
+{
+    height:4em;
+}
+
+@media (max-width:1270px)
+{
+    .project h1, .project p
+    {
+        font-size:smaller;
+    }
+}
+
+.project p
+{
+    text-align:left;
+}
+
+.project a
+{
+    display:block;
+    width:100%;
+    height:100%;
+    color:#000;
+}
+
+.project a:hover
+{
+    text-decoration:none;
+}
+
+.project img
+{
+    max-width:100%;
+    max-height:50%;
+}
+
+.meta
+{
+    margin-bottom:1em;
+    color:#AAA;
+}
+
+.disclaimer
+{
+    font-style:italic;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    margin-top:0;
+    margin-bottom:0.25em;
+    width:100%;
+    border-bottom:1px dotted #AAA;
+}
+
+h2 a
+{
+    color:#00C;
+}
+
+.block
+{
+    margin-bottom:1em;
+}
+
+.tags
+{
+    margin-top:1em;
+    color:#AAA;
+    border-top:1px dotted #AAA;
+}
+
+.tag
+{
+    display:inline-block;
+    margin-right:1.25em;
+    padding-top:0.25em;
+}
+
+.about p
+{
+    text-align:center;
+}
+
+.logo
+{
+    width:150px;
+    height:150px;
+    border:1px solid #000;
+    border-radius:8px;
+    background:#EEE;
+    text-align:center;
+    margin:auto;
+}
+
+.logo img
+{
+    width:150px;
+    height:150px;
+    border-radius:8px;
+    overflow:hidden;
+}
+
+.all
+{
+    text-align:right;
+    width:100%;
+    border-bottom:1px dotted #000;
+}
+
+#pages .button
+{
+    max-width:200px;
+    width:40%;
+    display:inline-block;
+    text-align:center;
+}
+
+#sidebar ul
+{
+    margin-left:1.5em;
+    padding:0;
+    font-size:smaller;
+}
+
+.tagged a
+{
+    font-size:smaller;
+}
+
+.date, .meta
+{
+    font-family:monospace;
+    font-size:larger;
+    display:inline-block; 
+}
+
+@media(max-width: 799px)
+{
+    #main
+    {
+        width:100%;
+        flex-shrink:0;
+        order:1;
+        flex-basis:auto;
+    }
+    
+    #sidebar
+    {
+        width:100%;
+        flex-shrink:0;
+        margin-left:0;
+        margin-top:1em;
+        order:3;
+        flex-basis:auto;
+    }
+    
+    #pages
+    {
+        order:2;
+    }
+    
+    #pages .button
+    {
+        width:auto;
+    }
+}
+
+label
+{
+    display:inline-block;
+    width:50%;
+    height:2em;
+}
+
+label input, label textarea
+{
+    float:right;
+    clear:both;
+    width:20em;
+}
+
+textarea
+{
+    width:100%;
+    height:300px;
+}
+
+input[type="submit"]
+{
+    width:20em;
+}
+
+article
+{
+    text-align:center;
+    margin-top:0.5em;
+    marign-bottom:0.5em;
+}
+
+article p
+{
+    text-align:left;
+}
+
+nav.pages
+{
+    text-align:center;
+    margin-bottom:0.5em;
+}
+
+nav.pages a
+{
+    display:inline-block;
+    font-size:larger;
+    width:2.5em;
+    text-align:center;
+    border:1px solid #000;
+}
+
+nav.pages a.selected
+{
+    background:#CCC;
+}
