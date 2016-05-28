@@ -1,0 +1,8 @@
+*.pyc
+*.vhost
+*.log
+*.pnws
+manage.py
+
+pokyfriends/private_settings.py
+venv
