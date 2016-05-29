@@ -8,6 +8,9 @@ class Tag(models.Model):
     
     class Meta:
         app_label = 'blog'
+        
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     title           = models.CharField(max_length=100)
@@ -20,7 +23,6 @@ class Post(models.Model):
     
     class Meta:
         app_label = 'blog'
-    
-    # TODO: Remove this
-    def link(self):
-        return '<a href="/blog/'+str(self.id)+'/'+slugify(self.title)+'">'+self.title+'</a>'
+        
+    def __str__(self):
+        return self.title

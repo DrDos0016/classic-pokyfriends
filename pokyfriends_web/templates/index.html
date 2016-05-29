@@ -28,7 +28,7 @@
     </div>
     
     <div class="block project">
-        <a href="/">
+        <a href="{% url 'pokemon_type_chart_quiz' %}">
             <h1>Pokémon Type Chart Quiz</h1>
             <img src="{% static 'images/pokemon-type-quiz.png' %}">
             <p>Sure water beats fire, fire beats grass, and grass beats water. What's ghost do against bug? Try to fill the entire type chart with this quiz.</p>
@@ -40,7 +40,7 @@
 {% block sidebar %}
 <div id="sidebar">
     <div class="block about">
-        <h3>About</h3>
+        <h3>About the Author</h3>
         <div class="logo"><img src="{% static 'images/meowth/'|add:meowth|add:'.jpg' %}"></div>
         <p>I'm <a href="mailto:doctordos@gmail.com">Dr. Dos</a>, and sometimes I produce articles and other fun web pages.<br>I make sure it's preserved here and not lost to time.</p>
     </div>

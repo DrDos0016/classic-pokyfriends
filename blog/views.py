@@ -47,48 +47,6 @@ def navigate(request, id=None, dir="next"):
         return redirect("blog")
     return redirect("entry", post.id, slugify(post.title))
     
-"""
-def post(request):
-    data = {}
-    
-    if request.POST.get("content"):
-        if request.GET.get("id"):       
-            post = Post.objects.get(pk=int(request.GET["id"]))
-        else:
-            post = Post(timestamp=datetime.now())
-            
-        post.title = request.POST.get("title")
-        post.author = request.POST.get("author")
-        post.source = request.POST.get("source")
-        post.content = request.POST.get("content")
-        post.save()
-        
-        # Tags
-        tags = request.POST.get("tags")
-        tags = tags.split("#")
-        
-        post.tags.clear()
-        for tag in tags:
-            tag = tag.strip()
-            if tag:
-                t, created = Tag.objects.get_or_create(name=tag, slug=slugify(tag))
-                if created:
-                    t.save()
-                post.tags.add(t)
-        post.save()
-        
-        return redirect("/blog/"+str(post.id)+"/"+slugify(post.title))
-    
-    data["title"] = "Manage Post"
-    data["mode"] = "new"
-    data["wip"] = True
-    if request.GET.get("id"):       
-        data["post"] = Post.objects.get(pk=int(request.GET["id"]))
-        data["mode"] = "edit"
-        data["tags"] = ""
-    return render_to_response("blog_post.html", data, context_instance=RequestContext(request))
-"""
-    
 def tagged(request, page=1, slug=None):
     data = {}
     data["latest"] = Post.objects.only("id", "title").all().order_by("-id")[:10]

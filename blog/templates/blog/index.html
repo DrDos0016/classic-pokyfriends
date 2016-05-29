@@ -1,5 +1,6 @@
 {% extends "main.html" %}
 {% load staticfiles %}
+{% load as_template %}
 
 {% block opengraph %}
 <meta name="twitter:card" content="summary" />
@@ -46,7 +47,7 @@
     {% endif %}
     
     <article class="content">
-    {{post.content|safe}}
+    {{post.content|as_template}}
     </article>
     
     {% if ADS %}

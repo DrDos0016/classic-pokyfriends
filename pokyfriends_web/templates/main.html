@@ -7,15 +7,18 @@
 
 {% block opengraph %}
 {% endblock %}
+{% block meta %}
+<meta name="author" content="Dr. Dos">
+<meta name="description" content="A collection of things I've been involved in that I don't want to be lost to time.">
+<meta name="keywords" content="blog, personal">
+{% endblock %}
 
-<title>{{title}} - Pokyfriends</title>
+<title>{% if title %}{{title}} - {% endif %}Pokyfriends</title>
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
 {% if post and not wip %}<link rel="canonical" href="http://pokyfriends.com/blog/{{post.id}}/{{post.title|slugify}}">{% endif %}
 
-<meta name="author" content="Dr. Dos">
-<meta name="description" content="A collection of things I've been involved in that I don't want to be lost to time.">
-<meta name="keywords" content="blog, personal">
+{% block css %}{% endblock %}
 
 {% block analytics %}
 {% if ANALYTICS %}
@@ -47,7 +50,7 @@
     <div id="sidebar">
         {% if "about" in blocks %}
         <div class="block about">
-            <h3>About</h3>
+            <h3>About the Author</h3>
             <div class="logo"><img src="{% static 'images/shuffle/052.png' %}"></div>
             <p>I'm <a href="mailto:doctordos@gmail.com">Dr. Dos</a>, and sometimes I produce articles and other fun web pages.<br>I make sure it's preserved here and not lost to time.</p>
         </div>
@@ -71,5 +74,6 @@
     {% endblock %}
 </div>
 
+{% block scripts %}{% endblock %}
 </body>
 </html>

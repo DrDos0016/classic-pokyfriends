@@ -16,3 +16,5 @@ ENV         = "DEV"
 ADS         = True if ENV == "PROD" else False                  # Adsense
 TRACKING    = True if ENV == "PROD" else False                  # Analytics
 PROTOCOL    = "https://" if ENV == "PROD" else "http://"        # Http/Https
+
+ADS = True

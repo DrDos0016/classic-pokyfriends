@@ -33,6 +33,10 @@ a:hover
     text-decoration:none;
 }
 
+.l { text-align:left; }
+.c { text-align:center; }
+.r { text-align:right; }
+
 .col
 {
     display:inline-block;

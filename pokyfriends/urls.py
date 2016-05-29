@@ -22,4 +22,6 @@ urlpatterns = [
     url(r"^$", pokyfriends_web.views.index, name="index"),
     url(r"^admin/", admin.site.urls),
     url(r"^blog/", include("blog.urls")),
+    
+    url(r"^pokemon-type-chart-quiz$", pokyfriends_web.views.pokemon_type_chart_quiz, name="pokemon_type_chart_quiz"),
 ]

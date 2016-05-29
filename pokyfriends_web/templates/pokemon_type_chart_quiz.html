@@ -1,0 +1,526 @@
+{% extends "main.html" %}
+{% load staticfiles %}
+
+{% block css %}
+<link href='http://fonts.googleapis.com/css?family=Wendy+One' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="{% static 'psq.css' %}">
+{% endblock %}
+
+{% block analytics %}
+{% if ANALYTICS %}
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-45185267-5', 'auto');
+ga('send', 'pageview');
+</script>
+{% endif %}
+{% endblock %}
+
+{% block main %}
+<div id="main">
+    <div class="block">
+        <div id="question">
+            <div class="col type">
+                <h2>Attacker</h2>
+                <div id="offense"></div>
+            </div>
+            <div class="col type">
+                <h2>Defender</h2>
+                <div id="defense"></div>
+            </div>
+        </div>
+        <br>
+        <div id="choices">
+            <div class="kl">1</div><button class="choice col" data-value="2" id="super">It's super effective!</button>
+            <button class="choice col" data-value="1" id="standard">Standard Damage</button>
+            <div class="kr">2</div>
+            <br><br>
+            <div class="kl">3</div>
+            <button class="choice col" data-value="0.5" id="not">It's not very effective...</button>
+            <button class="choice col" data-value="0" id="immune">It doesn't affect &lt;Pokémon&gt;...</button>
+            <div class="kr">4</div>
+        </div>
+    </div>
+    
+    {% if ADS %}
+    <div class="block c">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Pokyfriends Blog responsive -->
+        <ins class="adsbygoogle"
+             style="display:block;height:90px;max-width:728px;"
+             data-ad-client="ca-pub-4412759244252723"
+             data-ad-slot="2115202160"
+             data-ad-format="auto"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    {% endif %}
+
+    <div id="psq-main" class="block">
+        <div id="instructions">
+        <h1>Pokémon Type Chart Quiz</h1>
+        
+        <p>Simply choose what level of damage an attack of the first type would have against a defending Pokémon of the second type!</p>
+        
+        <p>You can click on the buttons or use your keyboard's 1-4 keys to quickly make a selection.</p>
+        
+        <p>As you play a type chart will be filled out. If your guess is correct, it will be shown with a green background. If your guess is incorrect, it will be shown with a red background and the correct answer will be shown next to your guess.</p>
+        
+        <p>All data is from the 6th generation games.</p>
+        
+        </div>
+        <table id="guesses" class="typechart">
+            <tr><td>&nbsp;</td><td colspan="37">Defender</td></tr>
+            <tr>
+                <td rowspan="19">Attacker</td>
+                <td>&nbsp;</td>
+                <td colspan="2"><img src="{% static 'images/bug.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/dark.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/dragon.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/electric.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/fairy.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/fighting.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/fire.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/flying.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/ghost.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/grass.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/ground.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/ice.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/normal.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/poison.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/psychic.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/rock.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/steel.png' %}"></td>
+                <td colspan="2"><img src="{% static 'images/water.png' %}"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/bug.png' %}"></td>
+                <td class="bug-bug guess"></td><td class="bug-bug answer"></td>
+                <td class="bug-dark guess"></td><td class="bug-dark answer"></td>
+                <td class="bug-dragon guess"></td><td class="bug-dragon answer"></td>
+                <td class="bug-electric guess"></td><td class="bug-electric answer"></td>
+                <td class="bug-fairy guess"></td><td class="bug-fairy answer"></td>
+                <td class="bug-fighting guess"></td><td class="bug-fighting answer"></td>
+                <td class="bug-fire guess"></td><td class="bug-fire answer"></td>
+                <td class="bug-flying guess"></td><td class="bug-flying answer"></td>
+                <td class="bug-ghost guess"></td><td class="bug-ghost answer"></td>
+                <td class="bug-grass guess"></td><td class="bug-grass answer"></td>
+                <td class="bug-ground guess"></td><td class="bug-ground answer"></td>
+                <td class="bug-ice guess"></td><td class="bug-ice answer"></td>
+                <td class="bug-normal guess"></td><td class="bug-normal answer"></td>
+                <td class="bug-poison guess"></td><td class="bug-poison answer"></td>
+                <td class="bug-psychic guess"></td><td class="bug-psychic answer"></td>
+                <td class="bug-rock guess"></td><td class="bug-rock answer"></td>
+                <td class="bug-steel guess"></td><td class="bug-steel answer"></td>
+                <td class="bug-water guess"></td><td class="bug-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/dark.png' %}"></td>
+                <td class="dark-bug guess"></td><td class="dark-bug answer"></td>
+                <td class="dark-dark guess"></td><td class="dark-dark answer"></td>
+                <td class="dark-dragon guess"></td><td class="dark-dragon answer"></td>
+                <td class="dark-electric guess"></td><td class="dark-electric answer"></td>
+                <td class="dark-fairy guess"></td><td class="dark-fairy answer"></td>
+                <td class="dark-fighting guess"></td><td class="dark-fighting answer"></td>
+                <td class="dark-fire guess"></td><td class="dark-fire answer"></td>
+                <td class="dark-flying guess"></td><td class="dark-flying answer"></td>
+                <td class="dark-ghost guess"></td><td class="dark-ghost answer"></td>
+                <td class="dark-grass guess"></td><td class="dark-grass answer"></td>
+                <td class="dark-ground guess"></td><td class="dark-ground answer"></td>
+                <td class="dark-ice guess"></td><td class="dark-ice answer"></td>
+                <td class="dark-normal guess"></td><td class="dark-normal answer"></td>
+                <td class="dark-poison guess"></td><td class="dark-poison answer"></td>
+                <td class="dark-psychic guess"></td><td class="dark-psychic answer"></td>
+                <td class="dark-rock guess"></td><td class="dark-rock answer"></td>
+                <td class="dark-steel guess"></td><td class="dark-steel answer"></td>
+                <td class="dark-water guess"></td><td class="dark-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/dragon.png' %}"></td>
+                <td class="dragon-bug guess"></td><td class="dragon-bug answer"></td>
+                <td class="dragon-dark guess"></td><td class="dragon-dark answer"></td>
+                <td class="dragon-dragon guess"></td><td class="dragon-dragon answer"></td>
+                <td class="dragon-electric guess"></td><td class="dragon-electric answer"></td>
+                <td class="dragon-fairy guess"></td><td class="dragon-fairy answer"></td>
+                <td class="dragon-fighting guess"></td><td class="dragon-fighting answer"></td>
+                <td class="dragon-fire guess"></td><td class="dragon-fire answer"></td>
+                <td class="dragon-flying guess"></td><td class="dragon-flying answer"></td>
+                <td class="dragon-ghost guess"></td><td class="dragon-ghost answer"></td>
+                <td class="dragon-grass guess"></td><td class="dragon-grass answer"></td>
+                <td class="dragon-ground guess"></td><td class="dragon-ground answer"></td>
+                <td class="dragon-ice guess"></td><td class="dragon-ice answer"></td>
+                <td class="dragon-normal guess"></td><td class="dragon-normal answer"></td>
+                <td class="dragon-poison guess"></td><td class="dragon-poison answer"></td>
+                <td class="dragon-psychic guess"></td><td class="dragon-psychic answer"></td>
+                <td class="dragon-rock guess"></td><td class="dragon-rock answer"></td>
+                <td class="dragon-steel guess"></td><td class="dragon-steel answer"></td>
+                <td class="dragon-water guess"></td><td class="dragon-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/electric.png' %}"></td>
+                <td class="electric-bug guess"></td><td class="electric-bug answer"></td>
+                <td class="electric-dark guess"></td><td class="electric-dark answer"></td>
+                <td class="electric-dragon guess"></td><td class="electric-dragon answer"></td>
+                <td class="electric-electric guess"></td><td class="electric-electric answer"></td>
+                <td class="electric-fairy guess"></td><td class="electric-fairy answer"></td>
+                <td class="electric-fighting guess"></td><td class="electric-fighting answer"></td>
+                <td class="electric-fire guess"></td><td class="electric-fire answer"></td>
+                <td class="electric-flying guess"></td><td class="electric-flying answer"></td>
+                <td class="electric-ghost guess"></td><td class="electric-ghost answer"></td>
+                <td class="electric-grass guess"></td><td class="electric-grass answer"></td>
+                <td class="electric-ground guess"></td><td class="electric-ground answer"></td>
+                <td class="electric-ice guess"></td><td class="electric-ice answer"></td>
+                <td class="electric-normal guess"></td><td class="electric-normal answer"></td>
+                <td class="electric-poison guess"></td><td class="electric-poison answer"></td>
+                <td class="electric-psychic guess"></td><td class="electric-psychic answer"></td>
+                <td class="electric-rock guess"></td><td class="electric-rock answer"></td>
+                <td class="electric-steel guess"></td><td class="electric-steel answer"></td>
+                <td class="electric-water guess"></td><td class="electric-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/fairy.png' %}"></td>
+                <td class="fairy-bug guess"></td><td class="fairy-bug answer"></td>
+                <td class="fairy-dark guess"></td><td class="fairy-dark answer"></td>
+                <td class="fairy-dragon guess"></td><td class="fairy-dragon answer"></td>
+                <td class="fairy-electric guess"></td><td class="fairy-electric answer"></td>
+                <td class="fairy-fairy guess"></td><td class="fairy-fairy answer"></td>
+                <td class="fairy-fighting guess"></td><td class="fairy-fighting answer"></td>
+                <td class="fairy-fire guess"></td><td class="fairy-fire answer"></td>
+                <td class="fairy-flying guess"></td><td class="fairy-flying answer"></td>
+                <td class="fairy-ghost guess"></td><td class="fairy-ghost answer"></td>
+                <td class="fairy-grass guess"></td><td class="fairy-grass answer"></td>
+                <td class="fairy-ground guess"></td><td class="fairy-ground answer"></td>
+                <td class="fairy-ice guess"></td><td class="fairy-ice answer"></td>
+                <td class="fairy-normal guess"></td><td class="fairy-normal answer"></td>
+                <td class="fairy-poison guess"></td><td class="fairy-poison answer"></td>
+                <td class="fairy-psychic guess"></td><td class="fairy-psychic answer"></td>
+                <td class="fairy-rock guess"></td><td class="fairy-rock answer"></td>
+                <td class="fairy-steel guess"></td><td class="fairy-steel answer"></td>
+                <td class="fairy-water guess"></td><td class="fairy-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/fighting.png' %}"></td>
+                <td class="fighting-bug guess"></td><td class="fighting-bug answer"></td>
+                <td class="fighting-dark guess"></td><td class="fighting-dark answer"></td>
+                <td class="fighting-dragon guess"></td><td class="fighting-dragon answer"></td>
+                <td class="fighting-electric guess"></td><td class="fighting-electric answer"></td>
+                <td class="fighting-fairy guess"></td><td class="fighting-fairy answer"></td>
+                <td class="fighting-fighting guess"></td><td class="fighting-fighting answer"></td>
+                <td class="fighting-fire guess"></td><td class="fighting-fire answer"></td>
+                <td class="fighting-flying guess"></td><td class="fighting-flying answer"></td>
+                <td class="fighting-ghost guess"></td><td class="fighting-ghost answer"></td>
+                <td class="fighting-grass guess"></td><td class="fighting-grass answer"></td>
+                <td class="fighting-ground guess"></td><td class="fighting-ground answer"></td>
+                <td class="fighting-ice guess"></td><td class="fighting-ice answer"></td>
+                <td class="fighting-normal guess"></td><td class="fighting-normal answer"></td>
+                <td class="fighting-poison guess"></td><td class="fighting-poison answer"></td>
+                <td class="fighting-psychic guess"></td><td class="fighting-psychic answer"></td>
+                <td class="fighting-rock guess"></td><td class="fighting-rock answer"></td>
+                <td class="fighting-steel guess"></td><td class="fighting-steel answer"></td>
+                <td class="fighting-water guess"></td><td class="fighting-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/fire.png' %}"></td>
+                <td class="fire-bug guess"></td><td class="fire-bug answer"></td>
+                <td class="fire-dark guess"></td><td class="fire-dark answer"></td>
+                <td class="fire-dragon guess"></td><td class="fire-dragon answer"></td>
+                <td class="fire-electric guess"></td><td class="fire-electric answer"></td>
+                <td class="fire-fairy guess"></td><td class="fire-fairy answer"></td>
+                <td class="fire-fighting guess"></td><td class="fire-fighting answer"></td>
+                <td class="fire-fire guess"></td><td class="fire-fire answer"></td>
+                <td class="fire-flying guess"></td><td class="fire-flying answer"></td>
+                <td class="fire-ghost guess"></td><td class="fire-ghost answer"></td>
+                <td class="fire-grass guess"></td><td class="fire-grass answer"></td>
+                <td class="fire-ground guess"></td><td class="fire-ground answer"></td>
+                <td class="fire-ice guess"></td><td class="fire-ice answer"></td>
+                <td class="fire-normal guess"></td><td class="fire-normal answer"></td>
+                <td class="fire-poison guess"></td><td class="fire-poison answer"></td>
+                <td class="fire-psychic guess"></td><td class="fire-psychic answer"></td>
+                <td class="fire-rock guess"></td><td class="fire-rock answer"></td>
+                <td class="fire-steel guess"></td><td class="fire-steel answer"></td>
+                <td class="fire-water guess"></td><td class="fire-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/flying.png' %}"></td>
+                <td class="flying-bug guess"></td><td class="flying-bug answer"></td>
+                <td class="flying-dark guess"></td><td class="flying-dark answer"></td>
+                <td class="flying-dragon guess"></td><td class="flying-dragon answer"></td>
+                <td class="flying-electric guess"></td><td class="flying-electric answer"></td>
+                <td class="flying-fairy guess"></td><td class="flying-fairy answer"></td>
+                <td class="flying-fighting guess"></td><td class="flying-fighting answer"></td>
+                <td class="flying-fire guess"></td><td class="flying-fire answer"></td>
+                <td class="flying-flying guess"></td><td class="flying-flying answer"></td>
+                <td class="flying-ghost guess"></td><td class="flying-ghost answer"></td>
+                <td class="flying-grass guess"></td><td class="flying-grass answer"></td>
+                <td class="flying-ground guess"></td><td class="flying-ground answer"></td>
+                <td class="flying-ice guess"></td><td class="flying-ice answer"></td>
+                <td class="flying-normal guess"></td><td class="flying-normal answer"></td>
+                <td class="flying-poison guess"></td><td class="flying-poison answer"></td>
+                <td class="flying-psychic guess"></td><td class="flying-psychic answer"></td>
+                <td class="flying-rock guess"></td><td class="flying-rock answer"></td>
+                <td class="flying-steel guess"></td><td class="flying-steel answer"></td>
+                <td class="flying-water guess"></td><td class="flying-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/ghost.png' %}"></td>
+                <td class="ghost-bug guess"></td><td class="ghost-bug answer"></td>
+                <td class="ghost-dark guess"></td><td class="ghost-dark answer"></td>
+                <td class="ghost-dragon guess"></td><td class="ghost-dragon answer"></td>
+                <td class="ghost-electric guess"></td><td class="ghost-electric answer"></td>
+                <td class="ghost-fairy guess"></td><td class="ghost-fairy answer"></td>
+                <td class="ghost-fighting guess"></td><td class="ghost-fighting answer"></td>
+                <td class="ghost-fire guess"></td><td class="ghost-fire answer"></td>
+                <td class="ghost-flying guess"></td><td class="ghost-flying answer"></td>
+                <td class="ghost-ghost guess"></td><td class="ghost-ghost answer"></td>
+                <td class="ghost-grass guess"></td><td class="ghost-grass answer"></td>
+                <td class="ghost-ground guess"></td><td class="ghost-ground answer"></td>
+                <td class="ghost-ice guess"></td><td class="ghost-ice answer"></td>
+                <td class="ghost-normal guess"></td><td class="ghost-normal answer"></td>
+                <td class="ghost-poison guess"></td><td class="ghost-poison answer"></td>
+                <td class="ghost-psychic guess"></td><td class="ghost-psychic answer"></td>
+                <td class="ghost-rock guess"></td><td class="ghost-rock answer"></td>
+                <td class="ghost-steel guess"></td><td class="ghost-steel answer"></td>
+                <td class="ghost-water guess"></td><td class="ghost-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/grass.png' %}"></td>
+                <td class="grass-bug guess"></td><td class="grass-bug answer"></td>
+                <td class="grass-dark guess"></td><td class="grass-dark answer"></td>
+                <td class="grass-dragon guess"></td><td class="grass-dragon answer"></td>
+                <td class="grass-electric guess"></td><td class="grass-electric answer"></td>
+                <td class="grass-fairy guess"></td><td class="grass-fairy answer"></td>
+                <td class="grass-fighting guess"></td><td class="grass-fighting answer"></td>
+                <td class="grass-fire guess"></td><td class="grass-fire answer"></td>
+                <td class="grass-flying guess"></td><td class="grass-flying answer"></td>
+                <td class="grass-ghost guess"></td><td class="grass-ghost answer"></td>
+                <td class="grass-grass guess"></td><td class="grass-grass answer"></td>
+                <td class="grass-ground guess"></td><td class="grass-ground answer"></td>
+                <td class="grass-ice guess"></td><td class="grass-ice answer"></td>
+                <td class="grass-normal guess"></td><td class="grass-normal answer"></td>
+                <td class="grass-poison guess"></td><td class="grass-poison answer"></td>
+                <td class="grass-psychic guess"></td><td class="grass-psychic answer"></td>
+                <td class="grass-rock guess"></td><td class="grass-rock answer"></td>
+                <td class="grass-steel guess"></td><td class="grass-steel answer"></td>
+                <td class="grass-water guess"></td><td class="grass-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/ground.png' %}"></td>
+                <td class="ground-bug guess"></td><td class="ground-bug answer"></td>
+                <td class="ground-dark guess"></td><td class="ground-dark answer"></td>
+                <td class="ground-dragon guess"></td><td class="ground-dragon answer"></td>
+                <td class="ground-electric guess"></td><td class="ground-electric answer"></td>
+                <td class="ground-fairy guess"></td><td class="ground-fairy answer"></td>
+                <td class="ground-fighting guess"></td><td class="ground-fighting answer"></td>
+                <td class="ground-fire guess"></td><td class="ground-fire answer"></td>
+                <td class="ground-flying guess"></td><td class="ground-flying answer"></td>
+                <td class="ground-ghost guess"></td><td class="ground-ghost answer"></td>
+                <td class="ground-grass guess"></td><td class="ground-grass answer"></td>
+                <td class="ground-ground guess"></td><td class="ground-ground answer"></td>
+                <td class="ground-ice guess"></td><td class="ground-ice answer"></td>
+                <td class="ground-normal guess"></td><td class="ground-normal answer"></td>
+                <td class="ground-poison guess"></td><td class="ground-poison answer"></td>
+                <td class="ground-psychic guess"></td><td class="ground-psychic answer"></td>
+                <td class="ground-rock guess"></td><td class="ground-rock answer"></td>
+                <td class="ground-steel guess"></td><td class="ground-steel answer"></td>
+                <td class="ground-water guess"></td><td class="ground-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/ice.png' %}"></td>
+                <td class="ice-bug guess"></td><td class="ice-bug answer"></td>
+                <td class="ice-dark guess"></td><td class="ice-dark answer"></td>
+                <td class="ice-dragon guess"></td><td class="ice-dragon answer"></td>
+                <td class="ice-electric guess"></td><td class="ice-electric answer"></td>
+                <td class="ice-fairy guess"></td><td class="ice-fairy answer"></td>
+                <td class="ice-fighting guess"></td><td class="ice-fighting answer"></td>
+                <td class="ice-fire guess"></td><td class="ice-fire answer"></td>
+                <td class="ice-flying guess"></td><td class="ice-flying answer"></td>
+                <td class="ice-ghost guess"></td><td class="ice-ghost answer"></td>
+                <td class="ice-grass guess"></td><td class="ice-grass answer"></td>
+                <td class="ice-ground guess"></td><td class="ice-ground answer"></td>
+                <td class="ice-ice guess"></td><td class="ice-ice answer"></td>
+                <td class="ice-normal guess"></td><td class="ice-normal answer"></td>
+                <td class="ice-poison guess"></td><td class="ice-poison answer"></td>
+                <td class="ice-psychic guess"></td><td class="ice-psychic answer"></td>
+                <td class="ice-rock guess"></td><td class="ice-rock answer"></td>
+                <td class="ice-steel guess"></td><td class="ice-steel answer"></td>
+                <td class="ice-water guess"></td><td class="ice-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/normal.png' %}"></td>
+                <td class="normal-bug guess"></td><td class="normal-bug answer"></td>
+                <td class="normal-dark guess"></td><td class="normal-dark answer"></td>
+                <td class="normal-dragon guess"></td><td class="normal-dragon answer"></td>
+                <td class="normal-electric guess"></td><td class="normal-electric answer"></td>
+                <td class="normal-fairy guess"></td><td class="normal-fairy answer"></td>
+                <td class="normal-fighting guess"></td><td class="normal-fighting answer"></td>
+                <td class="normal-fire guess"></td><td class="normal-fire answer"></td>
+                <td class="normal-flying guess"></td><td class="normal-flying answer"></td>
+                <td class="normal-ghost guess"></td><td class="normal-ghost answer"></td>
+                <td class="normal-grass guess"></td><td class="normal-grass answer"></td>
+                <td class="normal-ground guess"></td><td class="normal-ground answer"></td>
+                <td class="normal-ice guess"></td><td class="normal-ice answer"></td>
+                <td class="normal-normal guess"></td><td class="normal-normal answer"></td>
+                <td class="normal-poison guess"></td><td class="normal-poison answer"></td>
+                <td class="normal-psychic guess"></td><td class="normal-psychic answer"></td>
+                <td class="normal-rock guess"></td><td class="normal-rock answer"></td>
+                <td class="normal-steel guess"></td><td class="normal-steel answer"></td>
+                <td class="normal-water guess"></td><td class="normal-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/poison.png' %}"></td>
+                <td class="poison-bug guess"></td><td class="poison-bug answer"></td>
+                <td class="poison-dark guess"></td><td class="poison-dark answer"></td>
+                <td class="poison-dragon guess"></td><td class="poison-dragon answer"></td>
+                <td class="poison-electric guess"></td><td class="poison-electric answer"></td>
+                <td class="poison-fairy guess"></td><td class="poison-fairy answer"></td>
+                <td class="poison-fighting guess"></td><td class="poison-fighting answer"></td>
+                <td class="poison-fire guess"></td><td class="poison-fire answer"></td>
+                <td class="poison-flying guess"></td><td class="poison-flying answer"></td>
+                <td class="poison-ghost guess"></td><td class="poison-ghost answer"></td>
+                <td class="poison-grass guess"></td><td class="poison-grass answer"></td>
+                <td class="poison-ground guess"></td><td class="poison-ground answer"></td>
+                <td class="poison-ice guess"></td><td class="poison-ice answer"></td>
+                <td class="poison-normal guess"></td><td class="poison-normal answer"></td>
+                <td class="poison-poison guess"></td><td class="poison-poison answer"></td>
+                <td class="poison-psychic guess"></td><td class="poison-psychic answer"></td>
+                <td class="poison-rock guess"></td><td class="poison-rock answer"></td>
+                <td class="poison-steel guess"></td><td class="poison-steel answer"></td>
+                <td class="poison-water guess"></td><td class="poison-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/psychic.png' %}"></td>
+                <td class="psychic-bug guess"></td><td class="psychic-bug answer"></td>
+                <td class="psychic-dark guess"></td><td class="psychic-dark answer"></td>
+                <td class="psychic-dragon guess"></td><td class="psychic-dragon answer"></td>
+                <td class="psychic-electric guess"></td><td class="psychic-electric answer"></td>
+                <td class="psychic-fairy guess"></td><td class="psychic-fairy answer"></td>
+                <td class="psychic-fighting guess"></td><td class="psychic-fighting answer"></td>
+                <td class="psychic-fire guess"></td><td class="psychic-fire answer"></td>
+                <td class="psychic-flying guess"></td><td class="psychic-flying answer"></td>
+                <td class="psychic-ghost guess"></td><td class="psychic-ghost answer"></td>
+                <td class="psychic-grass guess"></td><td class="psychic-grass answer"></td>
+                <td class="psychic-ground guess"></td><td class="psychic-ground answer"></td>
+                <td class="psychic-ice guess"></td><td class="psychic-ice answer"></td>
+                <td class="psychic-normal guess"></td><td class="psychic-normal answer"></td>
+                <td class="psychic-poison guess"></td><td class="psychic-poison answer"></td>
+                <td class="psychic-psychic guess"></td><td class="psychic-psychic answer"></td>
+                <td class="psychic-rock guess"></td><td class="psychic-rock answer"></td>
+                <td class="psychic-steel guess"></td><td class="psychic-steel answer"></td>
+                <td class="psychic-water guess"></td><td class="psychic-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/rock.png' %}"></td>
+                <td class="rock-bug guess"></td><td class="rock-bug answer"></td>
+                <td class="rock-dark guess"></td><td class="rock-dark answer"></td>
+                <td class="rock-dragon guess"></td><td class="rock-dragon answer"></td>
+                <td class="rock-electric guess"></td><td class="rock-electric answer"></td>
+                <td class="rock-fairy guess"></td><td class="rock-fairy answer"></td>
+                <td class="rock-fighting guess"></td><td class="rock-fighting answer"></td>
+                <td class="rock-fire guess"></td><td class="rock-fire answer"></td>
+                <td class="rock-flying guess"></td><td class="rock-flying answer"></td>
+                <td class="rock-ghost guess"></td><td class="rock-ghost answer"></td>
+                <td class="rock-grass guess"></td><td class="rock-grass answer"></td>
+                <td class="rock-ground guess"></td><td class="rock-ground answer"></td>
+                <td class="rock-ice guess"></td><td class="rock-ice answer"></td>
+                <td class="rock-normal guess"></td><td class="rock-normal answer"></td>
+                <td class="rock-poison guess"></td><td class="rock-poison answer"></td>
+                <td class="rock-psychic guess"></td><td class="rock-psychic answer"></td>
+                <td class="rock-rock guess"></td><td class="rock-rock answer"></td>
+                <td class="rock-steel guess"></td><td class="rock-steel answer"></td>
+                <td class="rock-water guess"></td><td class="rock-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/steel.png' %}"></td>
+                <td class="steel-bug guess"></td><td class="steel-bug answer"></td>
+                <td class="steel-dark guess"></td><td class="steel-dark answer"></td>
+                <td class="steel-dragon guess"></td><td class="steel-dragon answer"></td>
+                <td class="steel-electric guess"></td><td class="steel-electric answer"></td>
+                <td class="steel-fairy guess"></td><td class="steel-fairy answer"></td>
+                <td class="steel-fighting guess"></td><td class="steel-fighting answer"></td>
+                <td class="steel-fire guess"></td><td class="steel-fire answer"></td>
+                <td class="steel-flying guess"></td><td class="steel-flying answer"></td>
+                <td class="steel-ghost guess"></td><td class="steel-ghost answer"></td>
+                <td class="steel-grass guess"></td><td class="steel-grass answer"></td>
+                <td class="steel-ground guess"></td><td class="steel-ground answer"></td>
+                <td class="steel-ice guess"></td><td class="steel-ice answer"></td>
+                <td class="steel-normal guess"></td><td class="steel-normal answer"></td>
+                <td class="steel-poison guess"></td><td class="steel-poison answer"></td>
+                <td class="steel-psychic guess"></td><td class="steel-psychic answer"></td>
+                <td class="steel-rock guess"></td><td class="steel-rock answer"></td>
+                <td class="steel-steel guess"></td><td class="steel-steel answer"></td>
+                <td class="steel-water guess"></td><td class="steel-water answer"></td>
+            </tr>
+            <tr>
+                <td><img src="{% static 'images/water.png' %}"></td>
+                <td class="water-bug guess"></td><td class="water-bug answer"></td>
+                <td class="water-dark guess"></td><td class="water-dark answer"></td>
+                <td class="water-dragon guess"></td><td class="water-dragon answer"></td>
+                <td class="water-electric guess"></td><td class="water-electric answer"></td>
+                <td class="water-fairy guess"></td><td class="water-fairy answer"></td>
+                <td class="water-fighting guess"></td><td class="water-fighting answer"></td>
+                <td class="water-fire guess"></td><td class="water-fire answer"></td>
+                <td class="water-flying guess"></td><td class="water-flying answer"></td>
+                <td class="water-ghost guess"></td><td class="water-ghost answer"></td>
+                <td class="water-grass guess"></td><td class="water-grass answer"></td>
+                <td class="water-ground guess"></td><td class="water-ground answer"></td>
+                <td class="water-ice guess"></td><td class="water-ice answer"></td>
+                <td class="water-normal guess"></td><td class="water-normal answer"></td>
+                <td class="water-poison guess"></td><td class="water-poison answer"></td>
+                <td class="water-psychic guess"></td><td class="water-psychic answer"></td>
+                <td class="water-rock guess"></td><td class="water-rock answer"></td>
+                <td class="water-steel guess"></td><td class="water-steel answer"></td>
+                <td class="water-water guess"></td><td class="water-water answer"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="block" id="scoring">
+        <div class="correct col">
+            Correct<br>
+            <span id="correct">0</span>/<span class="total">0</span>
+        </div>
+        <div class="incorrect col">
+            Incorrect<br>
+            <span id="incorrect">0</span>/<span class="total">0</span>
+        </div>
+        <div class="score col">
+            Score<br>
+            <span id="score">100</span>%
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar">    
+    {% if ADS %}
+    <div class="block c">
+        <!-- Pokemon Type Chart Skyscrapers -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px;"
+             data-ad-client="ca-pub-4412759244252723"
+             data-ad-slot="9921251363"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    {% endif %}
+    
+    <div class="block c">
+        <h3 class="l">Credits</h3>
+        &bull; Created by Dr. Dos &bull;<br>
+        &bull; Images and pokédex data from veekun &bull;<br>
+        &bull; Pokémon, Pokémon character names and Nintendo 3DS are trademarks of Nintendo. &bull;<br>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="{% static 'js/pokemon_type_chart_quiz.js' %}"></script>
+{% endblock %}
