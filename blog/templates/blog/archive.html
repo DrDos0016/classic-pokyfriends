@@ -1,0 +1,17 @@
+{% extends "blog/index.html" %}
+{% load staticfiles %}
+
+{% block opengraph %}{% endblock %}
+
+{% block main %}
+<div id="main">
+<div class="block">
+    <h1>Archives</h1>
+    
+    {% for post in posts %}
+        <div class="date">{{post.timestamp|date:"M dS Y"}}</div> - <a href="{% url 'entry' post.id post.title|slugify %}">{{post.title}}</a><br>
+    {% endfor %}
+    
+</div>
+</div>
+{% endblock %}

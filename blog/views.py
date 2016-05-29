@@ -2,7 +2,7 @@ from pokyfriends_web.common import *
 
 # Create your views here.
 
-#TODO: Review
+#TODO: Actually Implement _using_ pages
 def archive(request, page=1):
     data = {}
     data["latest"] = Post.objects.only("id", "title").all().order_by("-id")[:10]
@@ -11,7 +11,7 @@ def archive(request, page=1):
     data["page"] = request.GET.get("page", page)
     data["title"] = "Blog Post Archive"
     data["posts"] = Post.objects.only("title", "timestamp").all().order_by("-id")[(page-1)*rpp:(page-1)*rpp+rpp]
-    return render_to_response("blog_archive.html", data)
+    return render(request, "blog/archive.html", data)
 
 def index(request, id=None):
     data = {}
@@ -35,7 +35,6 @@ def index(request, id=None):
         
     return render(request, "blog/index.html", data)
     
-#TODO: Review
 def navigate(request, id=None, dir="next"):
     if dir == "next":
         posts = Post.objects.only("id").filter(pk__gt=int(id)).order_by("id")
@@ -45,10 +44,10 @@ def navigate(request, id=None, dir="next"):
     if posts:
         post = posts[0]
     else:
-        return redirect("/blog")
-    return redirect("/blog/"+str(post.id)+"/"+slugify(post.title))
+        return redirect("blog")
+    return redirect("entry", post.id, slugify(post.title))
     
-#TODO: Review
+"""
 def post(request):
     data = {}
     
@@ -88,8 +87,8 @@ def post(request):
         data["mode"] = "edit"
         data["tags"] = ""
     return render_to_response("blog_post.html", data, context_instance=RequestContext(request))
+"""
     
-#TODO: Review
 def tagged(request, page=1, slug=None):
     data = {}
     data["latest"] = Post.objects.only("id", "title").all().order_by("-id")[:10]
@@ -103,4 +102,4 @@ def tagged(request, page=1, slug=None):
     else:
         data["tag_list"] = Tag.objects.all().order_by("name")
     
-    return render_to_response("blog_tags.html", data)
+    return render(request, "blog/tags.html", data)

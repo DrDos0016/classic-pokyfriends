@@ -6,23 +6,28 @@
 <meta name="twitter:site" content="@doscoon" />
 <meta name="twitter:title" content="{{title}}" />
 <meta name="twitter:description" content="{{post.summary}}" />
-<meta name="twitter:image" content="http://pokyfriends.com/blog/assets/posts/{{post.id}}/preview.png" />
+<meta name="twitter:image" content="{{PROTOCOL}}{{request.get_host}}{% static 'blog/posts/' %}{{post.id}}/preview.png'" />
 {% endblock %}
 
 {% block main %}
 <div id="main">
 <div class="block post">
-    <h2>{{post.link|safe}}</h2>
+    <h2><a href="{% url 'entry' post.id post.title|slugify %}">{{post.title}}</a></h2>
     <div class="meta">
         <div class="date">{{post.timestamp}}</div>
-        {% if post.source %}<div class="source">Originally located at: <a href="{{post.source}}" target="_blank">{{post.source}}</a></div>{% endif %}
+        {% if post.source %}<div class="source">Original location: <a href="{{post.source}}" target="_blank">{{post.source}}</a></div>{% endif %}
     </div>
+    {% comment %}
+    <div class="share">
+    Twitter | Tumblr | Facebook | Reddit
+    </div>
+    {% endcomment %}
     
     {% if has_pages %}
     <nav class="pages">
         Pages:<br>
         {% for p in page_count %}
-        {% if forloop.counter != 1 %} &bull; {% endif %}<a href="/blog/{{post.id}}/{{post.title|slugify}}?p={{forloop.counter}}"{% if forloop.counter == page %} class="selected"{% endif %}>{{p}}</a>
+        {% if forloop.counter != 1 %} &bull; {% endif %}<a href="{% url 'entry' post.id post.title|slugify %}?p={{forloop.counter}}"{% if forloop.counter == page %} class="selected"{% endif %}>{{p}}</a>
         {% endfor %}
     </nav>
     {% endif %}
@@ -61,20 +66,20 @@
     <nav class="pages">
         Pages:<br>
         {% for p in page_count %}
-        {% if forloop.counter != 1 %} &bull; {% endif %}<a href="/blog/{{post.id}}/{{post.title|slugify}}?p={{forloop.counter}}"{% if forloop.counter == page %} class="selected"{% endif %}>{{p}}</a>
+        {% if forloop.counter != 1 %} &bull; {% endif %}<a href="{% url 'entry' post.id post.title|slugify %}?p={{forloop.counter}}"{% if forloop.counter == page %} class="selected"{% endif %}>{{p}}</a>
         {% endfor %}
     </nav>
     {% endif %}
     
-    <div class="tags">{% for tag in post.tags.all %}<div class="tag"><a href="/blog/tagged/{{tag.slug}}">#{{tag.name}}</a></div>{% endfor %}</div>
+    <div class="tags">{% for tag in post.tags.all %}<div class="tag"><a href="{% url 'tagged' tag.slug %}">#{{tag.name}}</a></div>{% endfor %}</div>
 </div>
 
 <div id="pages">
-    {% if post.id != 1 %}<a href="/blog/prev/{{post.id}}"><div class="block button" style="float:left">
+    {% if post.id != 1 %}<a href="{% url 'prev' post.id %}"><div class="block button" style="float:left">
     Previous Post
     </div></a>{% endif %}
     
-    {% if post.id != latest.0.id %}<a href="/blog/next/{{post.id}}"><div class="block button" style="float:right">
+    {% if post.id != latest.0.id %}<a href="{% url 'next' post.id %}"><div class="block button" style="float:right">
     Next Post
     </div></a>{% endif %}
 </div>
@@ -93,10 +98,10 @@
         <h3>Latest Entries</h3>
         <ul>
         {% for post in latest %}
-        <li>{{post.link|safe}}</li>
+        <li><a href="{% url 'entry' post.id post.title|slugify %}">{{post.title}}</a></li>
         {% endfor %}
         </ul>
-        <div class="all"><a href="/blog/archive">View All</a></div>
+        <div class="all"><a href="{% url 'archive' %}">View All</a></div>
     </div>
 
     {% if ADS %}
@@ -117,10 +122,10 @@
     <div class="block tagged">
         <h3>Random Tags</h3>
         {% for tag in tagged %}
-        <a href="/blog/tagged/{{tag.slug}}">#{{tag.name}}</a>
+            <a href="{% url 'tagged' tag.slug %}">#{{tag.name}}</a>
         {% endfor %}
         <br>
-        <div class="all"><a href="/blog/tagged">View All</a></div>
+        <div class="all"><a href="{% url 'tag_list' %}">View All</a></div>
     </div>
 </div>
 {% endblock %}

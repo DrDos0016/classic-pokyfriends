@@ -21,5 +21,6 @@ class Post(models.Model):
     class Meta:
         app_label = 'blog'
     
+    # TODO: Remove this
     def link(self):
         return '<a href="/blog/'+str(self.id)+'/'+slugify(self.title)+'">'+self.title+'</a>'

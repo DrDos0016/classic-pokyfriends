@@ -7,4 +7,7 @@ manage.py
 pokyfriends/private_settings.py
 pokyfriends_web/static/images/meowth
 pokyfriends_web/static/images/shuffle
+
+blog/static/blog/posts
+
 venv

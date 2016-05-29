@@ -1,5 +1,5 @@
 from random import randint
-from pokyfriends_web.common import ADS
+from pokyfriends_web.common import ADS, PROTOCOL
 
 def required(request):
     data = {}
@@ -7,6 +7,7 @@ def required(request):
     meowth = request.GET.get("meowth", randint(1,11))
     data["icon"] = ("00" + str(icon))[-3:]
     data["meowth"] = str(meowth)
+    data["PROTOCOL"] = PROTOCOL
     
     data["ADS"] = ADS
     return data

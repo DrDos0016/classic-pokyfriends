@@ -8,7 +8,7 @@
 {% block opengraph %}
 {% endblock %}
 
-<title>{{title}}</title>
+<title>{{title}} - Pokyfriends</title>
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
 {% if post and not wip %}<link rel="canonical" href="http://pokyfriends.com/blog/{{post.id}}/{{post.title|slugify}}">{% endif %}
@@ -53,18 +53,6 @@
         </div>
         {% endif %}
         
-        {% if "latest" in blocks %}
-        <div class="block latest">
-            <h3>Latest Entries</h3>
-            <ul>
-            {% for post in latest %}
-            <li>{{post.link|safe}}</li>
-            {% endfor %}
-            </ul>
-            <div class="all"><a href="/blog/archive">View All</a></div>
-        </div>
-        {% endif %}
-        
         {% if ADS and "v-ad" in blocks %}
         <div class="block ad">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -77,17 +65,6 @@
             <script>
             (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
-        </div>
-        {% endif %}
-        
-        {% if "tags" in blocks %}
-        <div class="block tagged">
-            <h3>Random Tags</h3>
-            {% for tag in tagged %}
-            <a href="/blog/tagged/{{tag.slug}}">#{{tag.name}}</a>
-            {% endfor %}
-            <br>
-            <div class="all"><a href="/blog/tagged">View All</a></div>
         </div>
         {% endif %}
     </div>
