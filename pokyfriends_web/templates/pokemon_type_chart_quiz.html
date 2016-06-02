@@ -45,23 +45,18 @@ ga('send', 'pageview');
             <div class="kr">4</div>
         </div>
     </div>
-    
-    {% if ADS %}
-    <div class="block c">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Pokyfriends Blog responsive -->
-        <ins class="adsbygoogle"
-             style="display:block;height:90px;max-width:728px;"
-             data-ad-client="ca-pub-4412759244252723"
-             data-ad-slot="2115202160"
-             data-ad-format="auto"></ins>
-        <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-    {% endif %}
 
     <div id="psq-main" class="block">
+        <div class="c" style="width:100%">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- Pokyfriends Blog responsive -->
+            <ins class="adsbygoogle"
+                 style="display:block;"
+                 data-ad-client="ca-pub-4412759244252723"
+                 data-ad-slot="2115202160"
+                 data-ad-format="auto"></ins>
+        </div>
+        
         <div id="instructions">
         <h1>Pokémon Type Chart Quiz</h1>
         
@@ -505,9 +500,6 @@ ga('send', 'pageview');
              style="display:inline-block;width:160px;height:600px;"
              data-ad-client="ca-pub-4412759244252723"
              data-ad-slot="9921251363"></ins>
-        <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
     </div>
     {% endif %}
     
@@ -523,4 +515,10 @@ ga('send', 'pageview');
 {% block scripts %}
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="{% static 'js/pokemon_type_chart_quiz.js' %}"></script>
+<script>
+$(document).ready(function (){
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    (adsbygoogle = window.adsbygoogle || []).push({});
+});
+</script>
 {% endblock %}

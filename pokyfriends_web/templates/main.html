@@ -47,30 +47,6 @@
     {% endblock %}
     
     {% block sidebar %}
-    <div id="sidebar">
-        {% if "about" in blocks %}
-        <div class="block about">
-            <h3>About the Author</h3>
-            <div class="logo"><img src="{% static 'images/shuffle/052.png' %}"></div>
-            <p>I'm <a href="mailto:doctordos@gmail.com">Dr. Dos</a>, and sometimes I produce articles and other fun web pages.<br>I make sure it's preserved here and not lost to time.</p>
-        </div>
-        {% endif %}
-        
-        {% if ADS and "v-ad" in blocks %}
-        <div class="block ad">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- Pokyfriends Blog responsive -->
-            <ins class="adsbygoogle"
-                 style="display:block;max-width:170px;"
-                 data-ad-client="ca-pub-4412759244252723"
-                 data-ad-slot="2115202160"
-                 data-ad-format="vertical"></ins>
-            <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-        {% endif %}
-    </div>
     {% endblock %}
 </div>
 

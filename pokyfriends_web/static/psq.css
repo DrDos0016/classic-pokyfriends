@@ -112,6 +112,7 @@ p
 {
     border-collapse:collapse;
     display:none;
+    margin:auto;
 }
 
 .typechart td
@@ -142,6 +143,11 @@ p
     margin:auto;
     text-align:center;
     margin:1%;
+}
+
+#scoring.block
+{
+    padding:0;
 }
 
 #scoring .correct
