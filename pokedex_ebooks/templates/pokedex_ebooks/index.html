@@ -1,0 +1,77 @@
+{% extends "main.html" %}
+{% load staticfiles %}
+
+{% block opengraph %}
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@doscoon" />
+<meta name="twitter:title" content="{{title}}" />
+<meta name="twitter:description" content="{{post.summary}}" />
+<meta name="twitter:image" content="{{PROTOCOL}}{{request.get_host}}{% static 'blog/posts/' %}{{post.id}}/preview.png'" />
+{% endblock %}
+
+{% block css %}
+<style>
+.controls
+{
+    margin:auto;
+    text-align:center;
+}
+
+.controls .col
+{
+    width:20%;
+    text-align:left;
+}
+
+.controls label
+{
+    font-weight:bold;
+}
+
+input[type="submit"]
+{
+    width:auto;
+}
+</style>
+{% endblock %}
+
+{% block main %}
+<div id="main" class="block">
+{{markov}}
+<hr>
+
+<div class="controls">
+    <form>
+    <div class="col" id="length">
+        <label>Entry length</label><br>
+        <input type="radio" name="size" value="140" {% if request.GET.size == '140' %} checked {% endif %}{% if not request.GET.size %} checked {% endif %}> Short <br>
+        <input type="radio" name="size" value="300" {% if request.GET.size == '300' %} checked {% endif %}> Medium <br>
+        <input type="radio" name="size" value="500" {% if request.GET.size == '500' %} checked {% endif %}> Long <br>
+    </div>
+    <div class="col" id="ambiguity">
+        <label>Ambiguity</label><br>
+        <input type="radio" name="ambiguous" value="1" {% if request.GET.ambiguous == '1' %} checked {% endif %}> On
+        <input type="radio" name="ambiguous" value="0" {% if request.GET.ambiguous != '1' %} checked {% endif %}> Off
+    </div>
+    <div class="col" id="starts">
+        <label>Starts with</label><br>
+        <input name="starts_with" value="{{request.GET.starts_with|default:''}}">
+    </div>
+    <div class="col" id="reroll">
+        <input type="submit" value="New Pokédex Entry"><br>
+        {{seed}}
+    </div>
+    </form>
+</div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar">
+    <div class="block about">
+        <h3>About</h3>
+        <div class="logo"><img src="{% static 'images/meowth/'|add:meowth|add:'.jpg' %}"></div>
+        <p>I'm <a href="mailto:doctordos@gmail.com">Dr. Dos</a>, and sometimes I produce articles and other fun web pages.<br>I make sure it's preserved here and not lost to time.</p>
+    </div>
+</div>
+{% endblock %}

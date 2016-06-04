@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "pokyfriends_web",
-    "blog"
+    "blog",
+    "pokedex_ebooks",
 ]
 
 MIDDLEWARE_CLASSES = [
