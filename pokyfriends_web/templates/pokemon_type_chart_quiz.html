@@ -516,9 +516,11 @@ ga('send', 'pageview');
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="{% static 'js/pokemon_type_chart_quiz.js' %}"></script>
 <script>
+{% if ADS %}
 $(document).ready(function (){
     (adsbygoogle = window.adsbygoogle || []).push({});
     (adsbygoogle = window.adsbygoogle || []).push({});
 });
+{% endif %}
 </script>
 {% endblock %}

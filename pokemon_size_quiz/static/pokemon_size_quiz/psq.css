@@ -1,0 +1,182 @@
+﻿#pokemon_name
+{
+    font-family: 'Wendy One', sans-serif;
+    font-size:36pt;
+    color:#FFD700;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;  
+    letter-spacing:.04em;
+    margin-bottom:3px;
+    text-transform:capitalize;
+    text-align:center;
+}
+
+#quiz_area
+{
+    display:flex;
+}
+
+#quiz_area > div + div
+{
+    margin-left:0.5em;
+}
+
+#quiz
+{
+    border:1px solid #000;
+    flex:2;
+    flex-basis:260px;
+    max-width:300px;
+    text-align:center;
+}
+
+#keypad
+{
+    display:none;
+}
+
+@media handheld and (max-width: 799px) 
+{
+    #quiz
+    {
+        width:100%;
+        max-width:100%;
+        background:red;
+        flex-basis:100%;
+    }
+    
+    #keypad
+    {
+        display:block;
+    }
+}
+
+#stats
+{
+    flex:1;
+}
+
+#notes
+{
+    flex:1;
+}
+
+.list
+{
+    background-color:#FFF;
+    border-radius:8px;
+    padding:8px;
+    white-space:nowrap;
+    display:none;
+}
+
+.list p
+{
+    white-space:normal;
+}
+
+.list img
+{
+    border:1px dashed #000;
+    display:inline-block;
+    width:130px;
+    height:120px;
+}
+
+input[type=text]
+{
+    border:1px dashed #000;
+    font-family: 'Wendy One', sans-serif;
+    font-size:24pt;
+    color:#FFD700;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;  
+    letter-spacing:.04em;
+    width:4em;
+}
+
+input[type=button], input[type=submit]
+{
+    border:1px solid #000;
+    background:#70B04A;
+    font-family: 'Wendy One', sans-serif;
+    font-size:24pt;
+    color:#FFD700;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;  
+    letter-spacing:.04em;
+    min-width:4em;
+    max-width:80%;
+}
+
+#history
+{
+    text-align:center;
+    font-family:monospace;
+    overflow-x:scroll;
+    width:100%;
+}
+
+#history.compare
+{
+    width:75%;
+}
+
+.hist-frame
+{
+    margin:4px;
+    display:inline-block;
+}
+
+#pokemon_image
+{
+    width:260px;
+    height:240px;
+}
+
+.label
+{
+    font-weight:bold;
+}
+
+.fr
+{
+    float:right;
+}
+
+.data
+{
+    text-align:right;
+}
+
+#options label
+{
+    font-family:monospace;
+    float:none;
+}
+
+.choice
+{
+    width:100%;
+}
+
+.choice input
+{
+    width:auto;
+    float:left;
+}
+
+
+.ad
+{
+    text-align:center;
+}

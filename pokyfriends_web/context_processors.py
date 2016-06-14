@@ -10,4 +10,6 @@ def required(request):
     data["PROTOCOL"] = PROTOCOL
     
     data["ADS"] = ADS
+    if not ADS:
+        data["ADS"] = request.GET.get("ads")
     return data

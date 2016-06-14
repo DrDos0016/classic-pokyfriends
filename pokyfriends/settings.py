@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "pokyfriends_web",
     "blog",
     "pokedex_ebooks",
+    "pokemon_size_quiz",
 ]
 
 MIDDLEWARE_CLASSES = [

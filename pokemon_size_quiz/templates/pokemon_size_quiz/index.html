@@ -1,0 +1,136 @@
+{% extends "main.html" %}
+{% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'pokemon_size_quiz/psq.css' %}">
+<link href='http://fonts.googleapis.com/css?family=Wendy+One' rel='stylesheet' type='text/css'>
+{% endblock %}
+
+{% block main %}
+<div id="main">
+    <input id="challenge_order" value="{{order}}" type="hidden">
+    {% if ADS %}
+    <div class="block ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Pokyfriends Blog responsive -->
+        <ins class="adsbygoogle" style="display:block;" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
+    </div>
+    {% endif %}
+    
+    <div id="quiz_area" class="block">
+        <div class="left" id="quiz">
+            <img src="{% static 'pokemon_size_quiz/sugimori/substitute.png' %}" id="pokemon_image" alt="Pokemon">
+            
+            <div id="pokemon_name"></div>
+                
+            <div class="" id="guess-wrapper">
+                <input id="guess" type="text" maxlength="8">
+                <input id="confirm" type="button" value="Guess">
+            </div>
+            <div id="keypad">
+                <button>7</button><button>8</button><button>9</button><button class="bs">BS</button><br>
+                <button>4</button><button>5</button><button>6</button><button>in.</button><br>
+                <button>1</button><button>2</button><button>3</button><button>ft.</button><br>
+                <button class="wide">0</button><button>.</button><button class="ok">OK</button>
+            </div>
+        </div>
+        
+        <div id="stats">
+            <h2>Statistics</h2>
+        
+                <div class="label">Within 1 ft. :</div> <div class="data"><span id="within_12">0</span>/<span class="total">151</span></div><br>
+                <div class="label">Within 6 in. :</div> <div class="data"><span id="within_6">0</span>/<span class="total">151</span></div><br>
+                <div class="label">Within 1 in. :</div> <div class="data"><span id="within_1">0</span>/<span class="total">151</span></div><br>
+            
+                <div class="label">Progress :</div> <div class="data"><span id="progress">0</span>/<span class="total">151</span></div><br>
+                <div class="label">Accuracy :</div> <div class="data"><span id="accuracy_percent">0</span>%</div><br>
+        </div>
+        
+        <div id="notes">
+            <h2>Help</h2>
+            <ul>
+                <li>Size refers to length of some pokemon such as Ekans. Use your judgement for which would be more meaningful.</li>
+                <li>Guesses can be submitted by pressing enter instead of clicking on Guess.</li>
+                <li>All of these guesses are treated the same 1'6", 1'6, 1.5', 1.5, 18"</li>
+                <li>Only one digit after a decimal point is necessary, but who's counting</li>
+                <li>A million apologies to the rest of the world and their metric system</li>
+                <li>No Sugimori art, no Pokémon #721</li>
+            </ul>
+            {% if debug %}
+            <textarea id="debug">
+            </textarea>
+            {% endif %}
+        </div>
+    </div>
+    
+    {% if ADS %}
+    <div class="block ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Pokyfriends Blog responsive -->
+        <ins class="adsbygoogle" style="display:block;" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
+    </div>
+    {% endif %}
+    
+    <div class="block list" id="hist-list">
+        <div id="history">
+        </div>
+    </div>
+    
+    <div id="submitting" class="block">
+        <img src="{% static 'pokemon_size_quiz/porygon.png' %}" alt="porygon"> <span class="pokefont">Quiz Completed!</span> <img src="{% static 'pokemon_size_quiz/porygon.png' %}" alt="porygon">
+        <form method="POST" action="/pokemon-size-quiz/submit" id="data_form">
+        {% csrf_token %}
+        <input type="hidden" id="challenge" name="challenge" value="{{challenge}}">
+        <input type="hidden" name="data" value="">
+        <label class="pokefont">Enter Your name:</label><br>
+        <input type="text" name="name" value="" maxlength="12"><br><br>
+        <input type="submit" value="Submit">
+        </form>
+    </div>
+    
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar">
+    {% if challenge != "" %}
+    <div id="options" class="block">
+    <p>You're taking challenge <b>{{challenge}}</b> vs. <b>{{name}}</b><br><br>
+    If you'd prefer to take your own quiz of a random set of pokémon with nobody to compete against, you can take a regular <a href="/pokemon-size-quiz/">quiz</a> instead.
+    </p>
+    </div>
+    {% else %}
+    <div id="options" class="block">
+        <h3>Quiz Size</h3>
+        {% if debug %}<label class="choice"><input type="radio" name="size" value="5"> Debug (5)</label>{% endif %}
+        <label class="choice"><input type="radio" name="size" value="20" checked> Quick <div class="fr"> 20 Pokémon</div></label>
+        <label class="choice"><input type="radio" name="size" value="40"> Standard <div class="fr"> 40 Pokémon</div></label>
+        <label class="choice"><input type="radio" name="size" value="100"> Challenging <div class="fr">100 Pokémon</div></label>
+        <label class="choice"><input type="radio" name="size" value="pokedex"> Full Pokédex <div class="fr"><span id="full_size">720</span> Pokémon</div></label>
+        <h3>Pokédex Sets</h3>
+        <label class="choice"><input type="checkbox" name="pokedex" value="Kanto" checked> Kanto <div class="fr"># 001-151</div></label>
+        <label class="choice"><input type="checkbox" name="pokedex" value="Johto" checked> Johto <div class="fr"># 152-251</div></label>
+        <label class="choice"><input type="checkbox" name="pokedex" value="Hoenn" checked> Hoenn <div class="fr"># 252-386</div></label>
+        <label class="choice"><input type="checkbox" name="pokedex" value="Sinnoh" checked> Sinnoh <div class="fr"># 387-493</div></label>
+        <label class="choice"><input type="checkbox" name="pokedex" value="Unova" checked> Unova <div class="fr"># 494-649</div></label>
+        <label class="choice"><input type="checkbox" name="pokedex" value="Kalos" checked> Kalos <div class="fr"># 650-720</div></label>
+        <!-- No Volcanion or whatever -->
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> 
+<script src="{% static 'pokemon_size_quiz/data.js' %}"></script>
+<script src="{% static 'pokemon_size_quiz/quiz.js' %}"></script>
+{% if ADS %}
+<script>
+$(document).ready(function (){
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    (adsbygoogle = window.adsbygoogle || []).push({});
+});
+</script>
+{% endif %}
+
+{% endblock %}

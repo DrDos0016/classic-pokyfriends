@@ -23,6 +23,8 @@ urlpatterns = [
     url(r"^admin/", admin.site.urls),
     url(r"^blog/", include("blog.urls")),
     url(r"^pokedex-ebooks/", include("pokedex_ebooks.urls")),
+    url(r"^pokemon-size-quiz/", include("pokemon_size_quiz.urls")),
+    #url(r"^train-box-release/", include("train_box_release.urls")),
     
     url(r"^pokemon-type-chart-quiz$", pokyfriends_web.views.pokemon_type_chart_quiz, name="pokemon_type_chart_quiz"),
 ]

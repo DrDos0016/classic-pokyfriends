@@ -12,7 +12,7 @@ def index(request):
     
     length      = min(int(request.GET.get("size", 140)), 500)
     ambiguous   = True if request.GET.get("ambiguous") == "1" else False
-    starts_with = request.GET.get("starts_with", None)
+    starts_with = request.GET.get("starts_with", "")
     seed        = str(request.GET.get("seed", default_seed))
     random.seed(seed)
     
