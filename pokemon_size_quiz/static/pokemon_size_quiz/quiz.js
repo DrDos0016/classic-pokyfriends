@@ -1,9 +1,10 @@
 ﻿// These values are array indicies and thus are one smaller than the pokedex number range
 var region_start = {"Kanto":0, "Johto":151, "Hoenn":251, "Sinnoh":386, "Unova":493, "Kalos":649, "rand20":0, "rand40":0, "rand100":0, "debug":0};
-var region_end = {"Kanto":151, "Johto":251, "Hoenn":386, "Sinnoh":493, "Unova":649, "Kalos":720, "rand20":720, "rand40":720, "rand100":720, "debug":151};
+var region_end = {"Kanto":151, "Johto":251, "Hoenn":386, "Sinnoh":493, "Unova":649, "Kalos":721, "rand20":721, "rand40":721, "rand100":721, "debug":151};
 
-var do_shuffle = true;
+var do_shuffle = false;
 var pokedex = "Kanto";
+var mode = "imperial";
 var size = 20;
 var possible = [];
 var position = 0;
@@ -84,23 +85,38 @@ function update_stats(input)
     accuracy_percent = (old_percent * count + percent) / (count + 1);
     $('#accuracy_percent').html(parseInt(accuracy_percent));
     
+    // Metric changes
+    if (mode == "metric")
+    {
+        $("#guess").css("width", "2em");
+        $("#metric").css("display", "inline-block");
+    }
+    
     // Display result
     var raw_diff = Math.round((answer - input) * 100)/100;
     var result = "Perfect!";
     var bg = "#A3FFA3";
-    if (raw_diff < 0)
+    if (raw_diff < 0 && percent != 100)
     {
         result = ft_in(raw_diff) + " too tall";
         bg = "#FFFFA3";
     }
-    if (raw_diff > 0)
+    if (raw_diff > 0 && percent != 100)
     {
         result = ft_in(raw_diff) + " too short";
         bg = "#A3A3FF";
     }
     
-    $('#history').append('<div class="hist-frame" style="background-color: '+bg+'"><span class="pokefont">'+ft_in(answer)+'</span><br><div class="hist-img"><img src="/static/pokemon_size_quiz/sugimori/'+(order[position - 1])+'.png"></div><div class="hist-res"></div><div class="hist-acc pokefont"></div></div>');
-    $('.hist-res').last().html(result);
+    if (mode == "imperial")
+    {
+        $('#history').append('<div class="hist-frame" style="background-color: '+bg+'"><span class="pokefont">'+ft_in(answer)+'</span><br><div class="hist-img"><img src="/static/pokemon_size_quiz/sugimori/'+(order[position - 1])+'.png"></div><div class="hist-res"></div><div class="hist-acc pokefont"></div></div>');
+        $('.hist-res').last().html(result);
+    }
+    else
+    {
+        $('#history').append('<div class="hist-frame" style="background-color: '+bg+'"><span class="pokefont">'+in_m(answer)+' m</span><br><div class="hist-img"><img src="/static/pokemon_size_quiz/sugimori/'+(order[position - 1])+'.png"></div><div class="hist-res"></div><div class="hist-acc pokefont"></div></div>');
+        $('.hist-res').last().html(result);
+    }
     $('.hist-acc').last().html(percent + "%");
     $('.list').show();
     $('#history').scrollLeft($('#history')[0].scrollWidth);
@@ -135,6 +151,12 @@ function get_guess()
     {
         guess = parseFloat(guess.replace(/[^0-9.]/g, ''));
     }
+    else if (guess.indexOf("m") != -1 || mode == "metric")
+    {
+        guess = parseFloat(guess.replace(/[^0-9.]/g, '')) * 39.4;
+        guess = guess.toFixed(1);
+        mode = "metric";
+    }
     else
     {
         measurement = guess.split("'");
@@ -156,6 +178,13 @@ function ft_in(i)
     var inches = i % 12;
     inches = Math.round(inches * 100)/100;
     return Math.abs(feet) + "'" + Math.abs(inches) + '"';
+}
+
+function in_m(i)
+{
+    var output = parseFloat(i) / 39.4;
+    output = output.toFixed(1);
+    return output
 }
 
 //+ Jonas Raoni Soares Silva
@@ -195,7 +224,7 @@ function new_game()
         else if ($(this).val() == "Unova")
             full_size += 156;
         else if ($(this).val() == "Kalos")
-            full_size += 71; // 72 w/ Volcanion
+            full_size += 72;
     });
     
     // Force Kanto if nothing is checked
@@ -237,7 +266,7 @@ function new_game()
         }
         else if ($(this).val() == "Kalos")
         {
-            for (var x = 650; x <= 720; x++) // 721 w/ Volcanion
+            for (var x = 650; x <= 721; x++)
                 possible.push(x);
         }
     });

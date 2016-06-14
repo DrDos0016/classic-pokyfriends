@@ -24,8 +24,7 @@
             <div id="pokemon_name"></div>
                 
             <div class="" id="guess-wrapper">
-                <input id="guess" type="text" maxlength="8">
-                <input id="confirm" type="button" value="Guess">
+                <input id="guess" type="text" maxlength="8" class="col"><div id="metric" class="col wendy">m</div><input id="confirm" type="button" value="Guess" class="col">
             </div>
             <div id="keypad">
                 <button>7</button><button>8</button><button>9</button><button class="bs">BS</button><br>
@@ -50,11 +49,10 @@
             <h2>Help</h2>
             <ul>
                 <li>Size refers to length of some pokemon such as Ekans. Use your judgement for which would be more meaningful.</li>
-                <li>Guesses can be submitted by pressing enter instead of clicking on Guess.</li>
                 <li>All of these guesses are treated the same 1'6", 1'6, 1.5', 1.5, 18"</li>
-                <li>Only one digit after a decimal point is necessary, but who's counting</li>
-                <li>A million apologies to the rest of the world and their metric system</li>
-                <li>No Sugimori art, no Pokémon #721</li>
+                <li>Add an "m" to enter a guess in meters (ex: 1.3m). After that, all guesses will default to metric automatically.
+                <li>Guesses can be submitted by pressing enter instead of clicking on Guess.</li>
+                <li>Only one digit after a decimal point is necessary.</li>
             </ul>
             {% if debug %}
             <textarea id="debug">
@@ -106,14 +104,14 @@
         <label class="choice"><input type="radio" name="size" value="20" checked> Quick <div class="fr"> 20 Pokémon</div></label>
         <label class="choice"><input type="radio" name="size" value="40"> Standard <div class="fr"> 40 Pokémon</div></label>
         <label class="choice"><input type="radio" name="size" value="100"> Challenging <div class="fr">100 Pokémon</div></label>
-        <label class="choice"><input type="radio" name="size" value="pokedex"> Full Pokédex <div class="fr"><span id="full_size">720</span> Pokémon</div></label>
+        <label class="choice"><input type="radio" name="size" value="pokedex"> Full Dex <div class="fr"><span id="full_size">721</span> Pokémon</div></label>
         <h3>Pokédex Sets</h3>
         <label class="choice"><input type="checkbox" name="pokedex" value="Kanto" checked> Kanto <div class="fr"># 001-151</div></label>
         <label class="choice"><input type="checkbox" name="pokedex" value="Johto" checked> Johto <div class="fr"># 152-251</div></label>
         <label class="choice"><input type="checkbox" name="pokedex" value="Hoenn" checked> Hoenn <div class="fr"># 252-386</div></label>
         <label class="choice"><input type="checkbox" name="pokedex" value="Sinnoh" checked> Sinnoh <div class="fr"># 387-493</div></label>
         <label class="choice"><input type="checkbox" name="pokedex" value="Unova" checked> Unova <div class="fr"># 494-649</div></label>
-        <label class="choice"><input type="checkbox" name="pokedex" value="Kalos" checked> Kalos <div class="fr"># 650-720</div></label>
+        <label class="choice"><input type="checkbox" name="pokedex" value="Kalos" checked> Kalos <div class="fr"># 650-721</div></label>
         <!-- No Volcanion or whatever -->
     </div>
     {% endif %}

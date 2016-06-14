@@ -1,7 +1,7 @@
 ﻿#pokemon_name
 {
     font-family: 'Wendy One', sans-serif;
-    font-size:36pt;
+    font-size:32pt;
     color:#FFD700;
     text-shadow:
     -1px -1px 0 #000,
@@ -179,4 +179,21 @@ input[type=button], input[type=submit]
 .ad
 {
     text-align:center;
+}
+
+#metric
+{
+    display:none;
+    font-family: 'Wendy One', sans-serif;
+    font-size:24pt;
+    color:#FFD700;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;  
+    letter-spacing:.04em;
+    text-align:center;
+    width:1em;
+    margin:10px 2px 0 2px;
 }
