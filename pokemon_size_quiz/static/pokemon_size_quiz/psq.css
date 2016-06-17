@@ -1,4 +1,9 @@
-﻿#pokemon_name
+﻿h2
+{
+    font-family: 'Wendy One', sans-serif;
+}
+
+#pokemon_name
 {
     font-family: 'Wendy One', sans-serif;
     font-size:32pt;
@@ -196,4 +201,61 @@ input[type=button], input[type=submit]
     text-align:center;
     width:1em;
     margin:10px 2px 0 2px;
+}
+
+.pokefont
+{
+    font-family: 'Wendy One', sans-serif;
+    font-size:24pt;
+    color:#FFD700;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;  
+    letter-spacing:.04em;
+}
+
+#final_stats
+{
+    font-family:monospace;
+    font-size:12pt;
+}
+
+#final_stats .pokefont
+{
+    font-size:72pt;
+}
+
+#final_stats .left
+{
+    width:24%;
+    text-align:center;
+}
+
+input[name=link]
+{
+    background-color:#ccc;
+    border:2px solid #888;
+    padding:2px;
+    width:800px;
+    text-align:center;
+}
+
+#p1off, #p2off
+{
+    width:40%;
+    margin:auto;
+    margin-top:5px;
+    text-align:center;
+}
+
+a.another
+{
+    color:#00FFD7;
+}
+
+a.another:hover
+{
+    text-decoration:none;
 }

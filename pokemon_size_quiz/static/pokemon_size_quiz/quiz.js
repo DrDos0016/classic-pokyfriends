@@ -98,24 +98,34 @@ function update_stats(input)
     var bg = "#A3FFA3";
     if (raw_diff < 0 && percent != 100)
     {
-        result = ft_in(raw_diff) + " too tall";
+        result = "too tall";
         bg = "#FFFFA3";
     }
     if (raw_diff > 0 && percent != 100)
     {
-        result = ft_in(raw_diff) + " too short";
+        result = "too short";
         bg = "#A3A3FF";
     }
+    
+    if (result != "Perfect!")
+    {
+        if (mode == "imperial")
+            bottom = ft_in(raw_diff) + " " + result;
+        else
+            bottom = in_m(raw_diff) + " m " + result;
+    }
+    else
+        bottom = result;
     
     if (mode == "imperial")
     {
         $('#history').append('<div class="hist-frame" style="background-color: '+bg+'"><span class="pokefont">'+ft_in(answer)+'</span><br><div class="hist-img"><img src="/static/pokemon_size_quiz/sugimori/'+(order[position - 1])+'.png"></div><div class="hist-res"></div><div class="hist-acc pokefont"></div></div>');
-        $('.hist-res').last().html(result);
+        $('.hist-res').last().html(bottom);
     }
     else
     {
         $('#history').append('<div class="hist-frame" style="background-color: '+bg+'"><span class="pokefont">'+in_m(answer)+' m</span><br><div class="hist-img"><img src="/static/pokemon_size_quiz/sugimori/'+(order[position - 1])+'.png"></div><div class="hist-res"></div><div class="hist-acc pokefont"></div></div>');
-        $('.hist-res').last().html(result);
+        $('.hist-res').last().html(bottom);
     }
     $('.hist-acc').last().html(percent + "%");
     $('.list').show();
@@ -156,6 +166,7 @@ function get_guess()
         guess = parseFloat(guess.replace(/[^0-9.]/g, '')) * 39.4;
         guess = guess.toFixed(1);
         mode = "metric";
+        $("input[name=mode]").val("metric");
     }
     else
     {
@@ -184,7 +195,7 @@ function in_m(i)
 {
     var output = parseFloat(i) / 39.4;
     output = output.toFixed(1);
-    return output
+    return Math.abs(output);
 }
 
 //+ Jonas Raoni Soares Silva
