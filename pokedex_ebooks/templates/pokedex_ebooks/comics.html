@@ -9,47 +9,6 @@
 <meta name="twitter:image" content="{{PROTOCOL}}{{request.get_host}}{% static 'blog/posts/' %}{{post.id}}/preview.png'" />
 {% endblock %}
 
-{% block css %}
-<style>
-.controls
-{
-    margin:auto;
-    text-align:center;
-}
-
-.controls .col
-{
-    width:20%;
-    text-align:left;
-}
-
-.controls label
-{
-    font-weight:bold;
-}
-
-input[type="submit"]
-{
-    width:auto;
-}
-
-.entry
-{
-    width:50%;
-    margin:auto;
-    font-size:20pt;
-    border:2px solid #000;
-    border-radius:8px;
-    padding:0.25em;
-}
-
-.entry p
-{
-    margin:0;
-}
-</style>
-{% endblock %}
-
 {% block main %}
 <div id="main">
 
@@ -62,33 +21,21 @@ input[type="submit"]
     {% endif %}
 
     <div class="block">
-        <div class="entry"><p>{{markov}}</p></div>
-        <hr>
-
-        <div class="controls">
-            <form>
-            <div class="col" id="length">
-                <label>Entry length</label><br>
-                <input type="radio" name="size" value="140" {% if request.GET.size == '140' %} checked {% endif %}{% if not request.GET.size %} checked {% endif %}> Short <br>
-                <input type="radio" name="size" value="300" {% if request.GET.size == '300' %} checked {% endif %}> Medium <br>
-                <input type="radio" name="size" value="500" {% if request.GET.size == '500' %} checked {% endif %}> Long <br>
-            </div>
-            <div class="col" id="ambiguity">
-                <label>Ambiguity</label><br>
-                <input type="radio" name="ambiguous" value="1" {% if request.GET.ambiguous == '1' %} checked {% endif %}> On<br>
-                <input type="radio" name="ambiguous" value="0" {% if request.GET.ambiguous != '1' %} checked {% endif %}> Off
-            </div>
-            <div class="col" id="starts">
-                <label>Starts with</label><br>
-                <input name="starts_with" value="{{request.GET.starts_with|default:''}}">
-            </div>
-            <div class="col" id="reroll">
-                <input type="submit" value="New Pokédex Entry"><br>
-                
-                <a href="{% url 'pokedex-ebooks' %}?size={{request.GET.size|default:140}}&ambiguous={{request.GET.ambiguous|default:1}}&starts_with={{request.GET.starts_with}}&seed={{seed}}">Entry Permalink</a>
-            </div>
-            </form>
+        <p>These comics were illustrated by <a href="http://theowlburrow.tumblr.com/" target="_blank">Katie</a>.</p>
+        
+        <div class="c">
+            <img src="{% static 'pokedex_ebooks/garchompfinal.jpg' %}"><br>
+            <img src="{% static 'pokedex_ebooks/minunfinal.jpg' %}"><br>
+            <img src="{% static 'pokedex_ebooks/snorfinal.jpg' %}"><br>
+            <img src="{% static 'pokedex_ebooks/meowthfinal.jpg' %}"><br>
+            <img src="{% static 'pokedex_ebooks/purloinfinal.jpg' %}"><br>
+            <img src="{% static 'pokedex_ebooks/shucklefinal.jpg' %}"><br>
+            <img src="{% static 'pokedex_ebooks/torchicfinal.jpg' %}"><br>
+            
+            <a href="{% url 'pokedex-ebooks' %}">Return to Pokédex Ebooks</a>
         </div>
+        
+        
     </div>
     
     {% if ADS %}

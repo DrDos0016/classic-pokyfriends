@@ -6,6 +6,10 @@ POKEMON_NAMES = ["Abomasnow", "Abra", "Absol", "Accelgor", "Aegislash", "Aerodac
 REPLACEMENTS = {"its":"'s", "it":"", "it's":"'s", "they're":" are", "they":"", "their":"'s"}
 
 # Create your views here.
+def comics(request):
+    data = {"title":"Pokédex Ebooks Comics"}
+    return render(request, "pokedex_ebooks/comics.html", data)
+
 def index(request):
     data = {"title":"Pokédex Ebooks"}
     default_seed = hex(int(time.time()))[2:]
