@@ -14,12 +14,14 @@
 {% endblock %}
 
 <title>{% if title %}{{title}} - {% endif %}Pokyfriends</title>
+<link href='http://fonts.googleapis.com/css?family=Wendy+One' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
 {% if post and not wip %}<link rel="canonical" href="http://pokyfriends.com/blog/{{post.id}}/{{post.title|slugify}}">{% endif %}
 
 {% block css %}{% endblock %}
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> 
 {% block analytics %}
 {% if ANALYTICS %}
 <script>

@@ -62,13 +62,14 @@ a:hover
 
 #header h1
 {
+    font-family:"Wendy One", sans-serif;
     font-size:72px;
     border-bottom:0;
     text-align:right;
     text-shadow: -2px 0px #000, 0px 2px #000, 2px 0px #000, 0px -2px #000;
     color:#EEE;
     line-height:128px;
-    margin:0
+    margin:0;
 }
 
 #main
