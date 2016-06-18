@@ -7,7 +7,7 @@ from .models import Guess
 def compare(request, code, code2):
     if code == "" or code2 == "":
         return redirect("pokemon-size-quiz")
-    data = {"title":"Pokémon Size Quiz - Compare"}
+    data = {"title":"Compare - Pokémon Size Quiz"}
     
     data["quiz_code"] = code
     data["quiz_code2"] = code2
@@ -48,7 +48,7 @@ def index(request, code=""):
     return render(request, "pokemon_size_quiz/index.html", data)
 
 def results(request, code):
-    data = {"title":"Pokémon Size Quiz - Results"}
+    data = {"title":"Results - Pokémon Size Quiz"}
     data["quiz_code"] = code
     data["guesses"] = Guess.objects.filter(quiz_code=code).order_by("id")
     if request.GET.get("metric") or data["guesses"][0].mode == "metric":
