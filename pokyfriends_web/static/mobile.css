@@ -1,0 +1,28 @@
+@media (max-width:1024px) 
+{
+    header h1
+    {
+        font-size:36px;
+        line-height:normal;
+    }
+    
+    .flex-container
+    {
+        justify-content:center;
+    }
+    
+    
+    .project
+    {
+        width:auto;
+        min-width:80%;
+        max-width:auto;
+        margin:auto auto 1em auto;
+        flex:0;
+    }
+    
+    .project + .project
+    {
+        margin:auto auto 1em auto;
+    }
+}

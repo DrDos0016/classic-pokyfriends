@@ -10,11 +10,13 @@ from django.template.defaultfilters import slugify
 from pokyfriends_web.models import *
 from blog.models import *
 
+import os
+
 ROOT        = BASE_DIR
-ENV         = "DEV"
+ENV         = "DEV" if os.path.isfile("/var/projects/DEV") else "PROD"
 
 ADS         = True if ENV == "PROD" else False                  # Adsense
 TRACKING    = True if ENV == "PROD" else False                  # Analytics
 PROTOCOL    = "https://" if ENV == "PROD" else "http://"        # Http/Https
 
-ADS = True
+ADS = True # Debug

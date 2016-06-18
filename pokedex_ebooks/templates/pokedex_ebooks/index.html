@@ -13,7 +13,7 @@
 
 .controls .col
 {
-    width:20%;
+    min-width:20%;
     text-align:left;
 }
 
@@ -41,6 +41,32 @@ input[type="submit"]
 {
     margin:0;
 }
+
+@media (max-width:2024px) 
+{
+    .controls .col div
+    {
+        min-height:3em;
+    }
+    
+    .controls input[type=radio]
+    {
+        height:3em;
+        width:3em;
+    }
+    
+    .controls input
+    {
+        height:3em;
+        font-size:larger;
+    }
+    
+    .entry
+    {
+        width:90%;
+        font-size:medium;
+    }
+}
 </style>
 {% endblock %}
 
@@ -61,18 +87,18 @@ input[type="submit"]
             <form>
             <div class="col" id="length">
                 <label>Entry length</label><br>
-                <input type="radio" name="size" value="140" {% if request.GET.size == '140' %} checked {% endif %}{% if not request.GET.size %} checked {% endif %}> Short <br>
-                <input type="radio" name="size" value="300" {% if request.GET.size == '300' %} checked {% endif %}> Medium <br>
-                <input type="radio" name="size" value="500" {% if request.GET.size == '500' %} checked {% endif %}> Long <br>
+                <div><input type="radio" name="size" value="140" {% if request.GET.size == '140' %} checked {% endif %}{% if not request.GET.size %} checked {% endif %}> Short </div>
+                <div><input type="radio" name="size" value="300" {% if request.GET.size == '300' %} checked {% endif %}> Medium </div>
+                <div><input type="radio" name="size" value="500" {% if request.GET.size == '500' %} checked {% endif %}> Long </div>
             </div>
             <div class="col" id="ambiguity">
                 <label>Ambiguity</label><br>
-                <input type="radio" name="ambiguous" value="1" {% if request.GET.ambiguous == '1' %} checked {% endif %}> On<br>
-                <input type="radio" name="ambiguous" value="0" {% if request.GET.ambiguous != '1' %} checked {% endif %}> Off
+                <div><input type="radio" name="ambiguous" value="1" {% if request.GET.ambiguous == '1' %} checked {% endif %}> On</div>
+                <div><input type="radio" name="ambiguous" value="0" {% if request.GET.ambiguous != '1' %} checked {% endif %}> Off</div>
             </div>
             <div class="col" id="starts">
                 <label>Starts with</label><br>
-                <input name="starts_with" value="{{request.GET.starts_with|default:''}}">
+                <input type="text" name="starts_with" value="{{request.GET.starts_with|default:''}}">
             </div>
             <div class="col" id="reroll">
                 <input type="submit" value="New Pokédex Entry"><br>

@@ -43,22 +43,6 @@
     display:none;
 }
 
-@media handheld and (max-width: 799px) 
-{
-    #quiz
-    {
-        width:100%;
-        max-width:100%;
-        background:red;
-        flex-basis:100%;
-    }
-    
-    #keypad
-    {
-        display:block;
-    }
-}
-
 #stats
 {
     flex:1;
@@ -238,7 +222,7 @@ input[name=link]
     background-color:#ccc;
     border:2px solid #888;
     padding:2px;
-    width:800px;
+    width:80%;
     text-align:center;
     font-size:16pt;
 }
@@ -255,4 +239,35 @@ input[name=link]
 {
     color:#00FFD7;
     text-decoration:none;
+}
+
+@media (max-width: 799px) 
+{
+    #quiz
+    {
+        width:100%;
+        max-width:100%;
+        flex-basis:100%;
+    }
+    
+    #keypad
+    {
+        display:block;
+    }
+    
+    #keypad button
+    {
+        width:20%;
+        height:4em;
+    }
+    
+    #keypad button.wide
+    {
+        width:40%;
+    }
+    
+    #final_stats .pokefont
+    {
+        font-size:18pt;
+    }
 }
