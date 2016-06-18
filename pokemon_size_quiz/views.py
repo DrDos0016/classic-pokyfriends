@@ -5,7 +5,28 @@ from .models import Guess
 # Create your views here.
 
 def compare(request, code, code2):
-    return HttpResponse("X")
+    if code == "" or code2 == "":
+        return redirect("pokemon-size-quiz")
+    data = {"title":"Pokémon Size Quiz - Compare"}
+    
+    data["quiz_code"] = code
+    data["quiz_code2"] = code2
+    p1guesses = Guess.objects.filter(quiz_code=code).order_by("id")
+    p2guesses = Guess.objects.filter(quiz_code=code2).order_by("id")
+    
+    data["guesses"] = []
+    
+    if len(p1guesses) != len(p2guesses):
+        return redirect("pokemon-size-quiz")
+    
+    for x in range(0, len(p1guesses)):
+        if p1guesses[x].pokemon != p2guesses[x].pokemon:
+            return redirect("pokemon-size-quiz")
+        data["guesses"].append({"p1guess":p1guesses[x].guess, "p2guess":p2guesses[x].guess, "pokemon":str(p1guesses[x].pokemon)})
+
+    data["p1name"] = p1guesses[0].name
+    data["p2name"] = p2guesses[0].name
+    return render(request, "pokemon_size_quiz/compare.html", data)
 
 def index(request, code=""):
     data = {"title":"Pokémon Size Quiz"}

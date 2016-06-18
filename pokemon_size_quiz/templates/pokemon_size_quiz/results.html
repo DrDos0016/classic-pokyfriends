@@ -43,6 +43,7 @@
         
         <div id="final_stats">
             <h2>Statistics</h2>
+            {% spaceless %}
             <div class="left col">
                 <span id="within_12" class="pokefont">-</span><br>
                 <span class="data">Within<br>1 ft.</span>
@@ -67,29 +68,28 @@
                 <br>
                 <a href="/pokemon-size-quiz" class="another pokefont">Take Another Quiz</a>
             </div>
+            {% endspaceless %}
         </div>
     </div>
     
     <div class="block" id="share">
-        <div class="heading" style="text-align:left">Challenge a Friend</div>
+        <h2>Challenge a Friend</h2>
         <div>
-            <p>Simply copy the link below with with a friend and they can take the same quiz as you! When they finish a link comparing your game with theirs will be made available so you can easily compare how well both of you did.</p>
+            <p>Send the link below to a friend and they can take the same quiz as you! When they finish a link comparing your results with theirs will be made available so you can find out how well both of you did.</p>
             
-            <input name="link" value="http://pokyfriends.com/pokemon-size-quiz/challenge/{{quiz_code}}" class="pokefont" readonly><br>
-            
-            <a href="/pokemon-size-quiz/challenge/{{quiz_code}}">Direct Quiz Link</a>
-            
-            <p>Or you can directly post your challenge to Twitter/Tumblr</p>
-            
-            <a target="_blank" id="twitter_link" href="#" data-lang="en"><img src="/pokemon-size-quiz/assets/twitter.png"></a>
-            <a target="_blank" id="tumblr_link" href="#"><img src="/pokemon-size-quiz/assets/tumblr.png"></a>
+            <div class="c">
+                <input name="link" value="{{PROTOCOL}}{{request.get_host}}{% url 'psq_challenge' quiz_code %}" class="pokefont" readonly><br>
+                <a href="{% url 'psq_challenge' quiz_code %}" target="_blank">Challenge {{quiz_code}} </a><br>
+                <p>Directly post your challenge to Twitter/Tumblr:</p>
+                <a target="_blank" id="twitter_link" href="#" data-lang="en"><img src="{% static 'images/circle_twitter.png' %}"></a>
+                <a target="_blank" id="tumblr_link" href="#"><img src="{% static 'images/circle_tumblr.png' %}"></a>
+            </div>
         </div>
     </div>
     
     {% if ADS %}
     <div class="block ad">
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Pokyfriends Blog responsive -->
         <ins class="adsbygoogle" style="display:block;" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
     </div>
     {% endif %}    
@@ -98,35 +98,14 @@
 
 {% block sidebar %}
 <div id="sidebar">
-    {% if challenge != "" %}
-    <div id="options" class="block">
-    <p>You're taking challenge <b>{{challenge}}</b> vs. <b>{{name}}</b><br><br>
-    If you'd prefer to take your own quiz of a random set of pokémon with nobody to compete against, you can take a regular <a href="/pokemon-size-quiz/">quiz</a> instead.
-    </p>
-    </div>
-    {% else %}
-    <div id="options" class="block">
-        <h3>Quiz Size</h3>
-        {% if debug %}<label class="choice"><input type="radio" name="size" value="5"> Debug (5)</label>{% endif %}
-        <label class="choice"><input type="radio" name="size" value="20" checked> Quick <div class="fr"> 20 Pokémon</div></label>
-        <label class="choice"><input type="radio" name="size" value="40"> Standard <div class="fr"> 40 Pokémon</div></label>
-        <label class="choice"><input type="radio" name="size" value="100"> Challenging <div class="fr">100 Pokémon</div></label>
-        <label class="choice"><input type="radio" name="size" value="pokedex"> Full Dex <div class="fr"><span id="full_size">721</span> Pokémon</div></label>
-        <h3>Pokédex Sets</h3>
-        <label class="choice"><input type="checkbox" name="pokedex" value="Kanto" checked> Kanto <div class="fr"># 001-151</div></label>
-        <label class="choice"><input type="checkbox" name="pokedex" value="Johto" checked> Johto <div class="fr"># 152-251</div></label>
-        <label class="choice"><input type="checkbox" name="pokedex" value="Hoenn" checked> Hoenn <div class="fr"># 252-386</div></label>
-        <label class="choice"><input type="checkbox" name="pokedex" value="Sinnoh" checked> Sinnoh <div class="fr"># 387-493</div></label>
-        <label class="choice"><input type="checkbox" name="pokedex" value="Unova" checked> Unova <div class="fr"># 494-649</div></label>
-        <label class="choice"><input type="checkbox" name="pokedex" value="Kalos" checked> Kalos <div class="fr"># 650-721</div></label>
-    </div>
-    {% endif %}
+    <div class="block">???</div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
 var mode = "{{mode}}";
+var quiz_code = "{{quiz_code}}";
 </script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> 
 <script src="{% static 'pokemon_size_quiz/data.js' %}"></script>

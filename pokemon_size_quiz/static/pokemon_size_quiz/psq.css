@@ -240,6 +240,7 @@ input[name=link]
     padding:2px;
     width:800px;
     text-align:center;
+    font-size:16pt;
 }
 
 #p1off, #p2off

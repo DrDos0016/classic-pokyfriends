@@ -68,9 +68,8 @@ $(document).ready(function(){
     var avg_off = ft_in(Math.round((total_off / count) * 100)/100);
     $('#accuracy_percent').html(accuracy + "%");
     $('#avg_off').html(avg_off);
-    $('#twitter_link').attr('href', encodeURI('https://twitter.com/share?text=I scored '+accuracy+'% on the Pokemon size quiz! Can you beat my score?&url=http://pokyfriends.com/pokemon-size-quiz/challenge/{{quiz_code}}'));
-    $('#tumblr_link').attr('href', encodeURI('http://www.tumblr.com/share/link?url=pokyfriends.com/pokemon-size-quiz/challenge/{{quiz_code}}&name=Pokemon Size Quiz&description=I scores '+accuracy+'% on the Pokemon size quiz! Can you beat my score?&tags=Quiz,Pokemon,Pokemon Size Quiz'));
-    //$('.total').html(count);
+    $('#twitter_link').attr('href', encodeURI('https://twitter.com/share?text=I scored '+accuracy+'% on the Pokemon size quiz! Can you beat my score?&url=http://pokyfriends.com/pokemon-size-quiz/challenge/'+quiz_code));
+    $('#tumblr_link').attr('href', encodeURI('http://www.tumblr.com/share/link?url=pokyfriends.com/pokemon-size-quiz/challenge/'+quiz_code+'&name=Pokemon Size Quiz&description=I scored '+accuracy+'% on the Pokemon size quiz! Can you beat my score?&tags=Quiz,Pokemon,Pokemon Size Quiz'));
     $('#within_12').html(within12);
     $('#within_6').html(within6);
     $('#within_1').html(within1);

@@ -2,7 +2,7 @@
 var region_start = {"Kanto":0, "Johto":151, "Hoenn":251, "Sinnoh":386, "Unova":493, "Kalos":649, "rand20":0, "rand40":0, "rand100":0, "debug":0};
 var region_end = {"Kanto":151, "Johto":251, "Hoenn":386, "Sinnoh":493, "Unova":649, "Kalos":721, "rand20":721, "rand40":721, "rand100":721, "debug":151};
 
-var do_shuffle = false;
+var do_shuffle = true;
 var pokedex = "Kanto";
 var mode = "imperial";
 var size = 20;
@@ -161,20 +161,19 @@ function get_guess()
     {
         guess = parseFloat(guess.replace(/[^0-9.]/g, ''));
     }
+    /* TODO: Accurate Metric Support
     else if (guess.indexOf("m") != -1 || mode == "metric")
     {
         guess = parseFloat(guess.replace(/[^0-9.]/g, '')) * 39.4;
         guess = guess.toFixed(1);
         mode = "metric";
         $("input[name=mode]").val("metric");
-    }
+    }*/
     else
     {
         measurement = guess.split("'");
         var feet = (parseFloat(measurement[0]) + 0) + "";
         var inches = (parseFloat(measurement[1]) + 0) + "";
-    
-        //alert("Feet: " + feet + " / Inches: " + inches);
     
         feet = 1.0 * feet.replace(/[^0-9.]/g, '');
         inches = 1.0 * inches.replace(/[^0-9.]/g, '');
