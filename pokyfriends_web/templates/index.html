@@ -15,7 +15,7 @@
         <a href="{% url 'pokedex-ebooks' %}">
             <h1>Pokédex Ebooks</h1>
             <img src="{% static 'images/pokedex-ebooks.jpg' %}">
-            <p>Random Pokédex entry generator using a Markov generator.</p>
+            <p>Random Pokédex entry generator using Markov chains.</p>
         </a>
     </div>
     
@@ -23,7 +23,7 @@
         <a href="{% url 'pokemon-size-quiz' %}">
             <h1>Pokémon Size Quiz</h1>
             <img src="{% static 'images/size-quiz.png' %}">
-            <p>Quiz yourself and challenge your friends to impossibly guess the heights of Pokémon.</p>
+            <p>Quiz yourself, and then challenge your friends to guess the size of various Pokémon.</p>
         </a>
     </div>
     
@@ -31,7 +31,7 @@
         <a href="{% url 'pokemon_type_chart_quiz' %}">
             <h1>Pokémon Type Chart Quiz</h1>
             <img src="{% static 'images/pokemon-type-quiz.png' %}">
-            <p>Sure water beats fire, fire beats grass, and grass beats water. What's ghost do against bug? Try to fill the entire type chart with this quiz.</p>
+            <p>How effective are ghost type attacks against bug types? Try to fill the entire type chart with this quiz.</p>
         </a>
     </div>
 </div>
@@ -42,7 +42,7 @@
     <div class="block about">
         <h3>About the Author</h3>
         <div class="logo"><img src="{% static 'images/meowth/'|add:meowth|add:'.jpg' %}"></div>
-        <p class="l">I'm <a href="mailto:doctordos@gmail.com">Dr. Dos</a>, and I create things. Hopefully the sort of things you enjoy!</p>
+        <p class="l">I'm <a href="mailto:doctordos@gmail.com">Dr. Dos</a>, and I create things. Hopefully things that you'll enjoy!</p>
     </div>
 </div>
 {% endblock %}

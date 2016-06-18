@@ -4,46 +4,37 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-{% block opengraph %}
-{% endblock %}
 {% block meta %}
 <meta name="author" content="Dr. Dos">
-<meta name="description" content="A collection of things I've been involved in that I don't want to be lost to time.">
-<meta name="keywords" content="blog, personal">
+<meta name="description" content="Dr. Dos's personal website. A collection of projects, webpages, writing, and other creative endeavors featured within.">
+<meta name="keywords" content="Dr. Dos, personal, blog">
 {% endblock %}
-
+{% block opengraph %}{% endblock %}
 <title>{% if title %}{{title}} - {% endif %}Pokyfriends</title>
 <link href='http://fonts.googleapis.com/css?family=Wendy+One' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-{% if post and not wip %}<link rel="canonical" href="http://pokyfriends.com/blog/{{post.id}}/{{post.title|slugify}}">{% endif %}
-
+{% block canon %}{% endblock %}
 {% block css %}{% endblock %}
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> 
-{% block analytics %}
-{% if ANALYTICS %}
+{% block analytics %}{% if ANALYTICS %}
 <script>
+  <!-- Pokyfriends Google Analytics -->
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-45185267-4', 'auto');
   ga('send', 'pageview');
-
 </script>
-{% endif %}
-{% endblock %}
+{% endif %}{% endblock %}
 </head>
 
 <body>
-
 <div id="content">
-    <div id="header" style="background:url('{% static 'images/shuffle/'|add:icon|add:'.png' %}');background-repeat:no-repeat;">
+    <header style="background:url('{% static 'images/shuffle/'|add:icon|add:'.png' %}');background-repeat:no-repeat;">
         <h1><a href="{% url 'index' %}">Let's Be <span style="color:#D53C75">P</span><span style="color:#E2D236">O</span><span style="color:#086CAF">K</span><span style="color:#E46C4E">Y</span><span style="color:#086CAF">F</span><span style="color:#E2D236">R</span><span style="color:#E46C4E">I</span><span style="color:#D53C75">E</span><span style="color:#626971">N</span><span style="color:#086CAF">D</span><span style="color:#E2D236">S</span></a></h1>
-    </div>
+    </header>
     
     {% block main %}
     {% endblock %}
@@ -51,7 +42,16 @@
     {% block sidebar %}
     {% endblock %}
 </div>
-
 {% block scripts %}{% endblock %}
+{% if ADS %}
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+$(document).ready(function (){
+    $(".ad").each(function (){
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    });
+});
+</script>
+{% endif %}
 </body>
 </html>

@@ -1,13 +1,7 @@
 {% extends "main.html" %}
 {% load staticfiles %}
 
-{% block opengraph %}
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@doscoon" />
-<meta name="twitter:title" content="{{title}}" />
-<meta name="twitter:description" content="{{post.summary}}" />
-<meta name="twitter:image" content="{{PROTOCOL}}{{request.get_host}}{% static 'blog/posts/' %}{{post.id}}/preview.png'" />
-{% endblock %}
+{% block opengraph %}{% endblock %}
 
 {% block css %}
 <style>
@@ -55,9 +49,7 @@ input[type="submit"]
 
     {% if ADS %}
     <div class="block ad">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Pokyfriends Blog responsive -->
-        <ins class="adsbygoogle" style="display:block;" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
+        <!-- Pokyfriends - Responsive Ad --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
     </div>
     {% endif %}
 
@@ -93,9 +85,7 @@ input[type="submit"]
     
     {% if ADS %}
     <div class="block ad">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Pokyfriends Blog responsive -->
-        <ins class="adsbygoogle" style="display:block;" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
+        <!-- Pokyfriends - Responsive Ad --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
     </div>
     {% endif %}
 
@@ -115,15 +105,4 @@ input[type="submit"]
         <p><a href="{% url 'pe_comics' %}">Pokédex Ebooks Comics</a>
     </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-    {% if ADS %}
-    <script>
-    $(document).ready(function (){
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    });
-    </script>
-    {% endif %}
 {% endblock %}

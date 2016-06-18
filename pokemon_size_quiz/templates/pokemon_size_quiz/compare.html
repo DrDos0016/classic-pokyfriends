@@ -23,52 +23,83 @@
     {% endif %}
     
     <div class="block list" id="hist-list">
-        <h2>Results for {{guesses.0.name}}</h2>
+        <h2>Results for <span class="name" style="background-color:#FFA3A3">{{p1name}}</span> vs. <span class="name" style="background-color:#A3A3FF">{{p2name}}</span></h2>
         <div id="history" style="width:200px;">
             {% for guess in guesses %}
                 <div class="hist-frame">
                     <span class="pokefont" name="guess" data-pokemon="{{guess.pokemon}}">{{guess.guess}}</span><br>
-                    <div class="hist-img"><img src="{% static 'pokemon_size_quiz/sugimori/'|add:guess.get_pokemon|add:'.png' %}"></div>
-                    <div class="hist-acc pokefont" name="acc-{{guess.pokemon}}">X</div>
-                    <div style="background-color:#FFF">
-                        <br>
-                        <div class="hist-res" name="diff-{{guess.pokemon}}">X</div>
-                        <br>
+                    <div class="hist-img"><img src="{% static 'pokemon_size_quiz/sugimori/'|add:guess.pokemon|add:'.png' %}"></div>
+                    <div id="p1a{{forloop.counter}}">
+                        <div class="pokefont" name="guess1" data-pokemon="{{guess.pokemon}}">{{guess.p1guess}}</div>
+                        <div class="hist-res" name="diff1-{{guess.pokemon}}">X</div>
                     </div>
+                    
+                    <div id="p2a{{forloop.counter}}">
+                        <div class="pokefont" name="guess2" data-pokemon="{{guess.pokemon}}">{{guess.p2guess}}</div>
+                        <div class="hist-res" name="diff2-{{guess.pokemon}}">X</div>
+                    </div>
+                    
+                    <br>
+                    <div class="pokefont" name="answer" data-pokemon="{{guess.pokemon}}">-</div>
+                    <div class="hist-res">Actual Size</div>
                 </div>
             {% endfor %}
+            
         </div>
         
         <br>
         
-        <div id="final_stats">
-            <h2>Statistics</h2>
+        <div id="final_stats" class="c">
+            <h2 class="l">Statistics for {{p1name}}</h2>
             {% spaceless %}
-            <div class="left col">
+            <div class="left col" id="p11f">
                 <span id="within_12" class="pokefont">-</span><br>
                 <span class="data">Within<br>1 ft.</span>
             </div>
-            <div class="left col">
+            <div class="left col" id="p16i">
                 <span id="within_6" class="pokefont">-</span><br>
                 <span class="data">Within<br>6 in.</span>
             </div>
-            <div class="left col">
+            <div class="left col" id="p11i">
                 <span id="within_1" class="pokefont">-</span><br>
                 <span class="data">Within<br>1 in.</span>
             </div>
-            <div class="left col">
+            <div class="left col" id="p1acc">
                 <span id="accuracy_percent" class="pokefont">-%</span><br>
                 <span class="data">Overall<br>Accuracy</span>
             </div>
             <br>
-            <div style="text-align:center">
+            <div id="p1off">
                 <span id="avg_off" class="pokefont">-</span><br>
                 <span class="data">Average<br>Off By</span>
-                <br>
-                <br>
-                <a href="/pokemon-size-quiz" class="another pokefont">Take Another Quiz</a>
             </div>
             {% endspaceless %}
+            <h2 class="l">Statistics for {{p2name}}</h2>
+            {% spaceless %}
+            <div class="left col" id="p21f">
+                <span id="2within_12" class="pokefont">-</span><br>
+                <span class="data">Within<br>1 ft.</span>
+            </div>
+            <div class="left col" id="p26i">
+                <span id="2within_6 col" class="pokefont">-</span><br>
+                <span class="data">Within<br>6 in.</span>
+            </div>
+            <div class="left col" id="p21i">
+                <span id="2within_1" class="pokefont">-</span><br>
+                <span class="data">Within<br>1 in.</span>
+            </div>
+            <div class="left col" id="p2acc">
+                <span id="2accuracy_percent" class="pokefont">-%</span><br>
+                <span class="data">Overall<br>Accuracy</span>
+            </div>
+            <br>
+            <div id="p2off">
+                <span id="2avg_off" class="pokefont">-</span><br>
+                <span class="data">Average<br>Off By</span>
+                <br>
+            </div>
+            {% endspaceless %}
+            <div class="c"><a href="{% url 'pokemon-size-quiz' %}" class="another pokefont">Take Another Quiz</a></div>
         </div>
     </div>
     
@@ -78,8 +109,8 @@
             <p>Send the link below to a friend and they can take the same quiz as you! When they finish a link comparing your results with theirs will be made available so you can find out how well both of you did.</p>
             
             <div class="c">
-                <input name="link" value="{{PROTOCOL}}{{request.get_host}}{% url 'psq_challenge' quiz_code %}" class="pokefont" readonly><br>
-                <a href="{% url 'psq_challenge' quiz_code %}" target="_blank">Challenge {{quiz_code}} </a><br>
+                <input name="link" value="{{PROTOCOL}}{{request.get_host}}{% url 'psq_challenge' quiz_code2 %}" class="pokefont" readonly><br>
+                <a href="{% url 'psq_challenge' quiz_code2 %}" target="_blank">Challenge {{quiz_code2}} </a><br>
                 <p>Directly post your challenge to Twitter/Tumblr:</p>
                 <a target="_blank" id="twitter_link" href="#" data-lang="en"><img src="{% static 'images/circle_twitter.png' %}"></a>
                 <a target="_blank" id="tumblr_link" href="#"><img src="{% static 'images/circle_tumblr.png' %}"></a>
@@ -108,10 +139,11 @@
 <script>
 var mode = "{{mode}}";
 var quiz_code = "{{quiz_code}}";
+var quiz_code2 = "{{quiz_code2}}";
 </script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> 
 <script src="{% static 'pokemon_size_quiz/data.js' %}"></script>
-<script src="{% static 'pokemon_size_quiz/results.js' %}"></script>
+<script src="{% static 'pokemon_size_quiz/compare.js' %}"></script>
 {% if ADS %}
 <script>
 $(document).ready(function (){

@@ -251,12 +251,8 @@ input[name=link]
     text-align:center;
 }
 
-a.another
+.block a.another
 {
     color:#00FFD7;
-}
-
-a.another:hover
-{
     text-decoration:none;
 }
