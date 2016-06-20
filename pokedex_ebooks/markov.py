@@ -1,4 +1,5 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 MARKOV = {
     ('and', 'slashes'): ['away', 'away'], ('out', 'electricity'): ['with'], ('their', 'herd'): ['in'], ('every', 'kind'): ['of'], ('escape.', 'Its'): ['80'], 
     ('its', 'star-shaped'): ['body'], ('nightmarish', 'slumbers.'): ['To', 'It'], ('year.', 'The'): ['discarded', 'discarded'], ('three', 'minutes'): ['of', 'of'], 
