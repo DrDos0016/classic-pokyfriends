@@ -2,6 +2,7 @@
 *.vhost
 *.log
 *.pnws
+*.vhost
 manage.py
 
 pokyfriends/private_settings.py
