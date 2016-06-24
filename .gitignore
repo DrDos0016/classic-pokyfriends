@@ -5,12 +5,14 @@
 *.vhost
 manage.py
 
+blog/static/blog/posts
+
+pokedex_ebooks/cron.py
+
+pokemon_size_quiz/static/pokemon_size_quiz/sugimori
+
 pokyfriends/private_settings.py
 pokyfriends_web/static/images/meowth
 pokyfriends_web/static/images/shuffle
-
-blog/static/blog/posts
-
-pokemon_size_quiz/static/pokemon_size_quiz/sugimori
 
 venv
