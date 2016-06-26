@@ -4,6 +4,7 @@
 *.pnws
 *.vhost
 manage.py
+private_settings.py
 
 blog/static/blog/posts
 

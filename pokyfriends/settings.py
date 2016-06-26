@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if os.path.isfile("/var/projects/DEV") else False
 
 ALLOWED_HOSTS = ["django.pi", "pokyfriends.com", "test.pokyfriends.com"]
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "blog",
     "pokedex_ebooks",
     "pokemon_size_quiz",
+    "worlds_of_zzt",
 ]
 
 MIDDLEWARE_CLASSES = [
