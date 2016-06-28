@@ -1,0 +1,253 @@
+{% extends "tbr_main.html" %}
+{% load staticfiles %}
+
+{% block opengraph %}
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@doscoon" />
+<meta name="twitter:title" content="{{title}}" />
+<meta name="twitter:description" content="X" />
+<meta name="twitter:image" content="{{PROTOCOL}}{{request.get_host}}" />
+{% endblock %}
+
+{% block css %}
+<style>
+.wrapper
+{
+    width:100%;
+    text-align:center;
+}
+
+.pokemon
+{
+    width:200px;
+    margin:0.25em;
+    font-family:monospace;
+    font-weight:bold;
+    font-size:14pt;
+    color:#FFF;
+    text-shadow: 2px 2px 0px #0A0A0A;
+}
+
+.pokemon .img
+{
+    background-color:#807870;
+    border-radius:50%;
+    width:200px;
+    height:200px;
+}
+
+.pokemon button
+{
+    width:100%;
+}
+
+.pokemon input[type="radio"]
+{
+    display:none;
+}
+
+.pokemon label
+{
+    height:1.25em;
+    padding:0.25em;
+    margin:0.1em;
+    border-radius:0.5em;
+    cursor:pointer;
+    color:#FFF;
+    text-shadow: 2px 2px 0px #0A0A0A;
+}
+
+label[name=train].selected, label[name=train]:hover  { background-color:#F05030; }
+label[name=box].selected, label[name=box]:hover { background-color:#6890F0; }
+label[name=release].selected, label[name=release]:hover { background-color:#78C850; }
+label[name=train] { background-color:#807870; }
+label[name=box] { background-color:#807870; }
+label[name=release] { background-color:#807870; }
+
+.controls
+{
+    width:100%;
+    margin-top:1.5em;
+    text-align:center;
+}
+
+.controls input[type="button"]
+{
+    padding:0.25em;
+    border-radius:0.5em;
+    cursor:pointer;
+    font-family:monospace;
+    font-weight:bold;
+    font-size:14pt;
+    color:#FFF;
+    text-shadow: 2px 2px 0px #0A0A0A;
+    width:100%;
+    max-width:600px;
+    background-color:#807870;
+    border:0;
+}
+
+.controls input[type="button"]:hover
+{
+    background-color:#98D8D8;
+}
+
+#results
+{
+    display:none;
+}
+
+#recent
+{
+    border:1px dashed #000;
+    height:200px;
+    overflow-y:auto;
+}
+
+#recent a
+{
+    display:block;
+    width:100%;
+    text-align:center;
+}
+
+#recent a:hover
+{
+    background:#CCC;
+}
+
+#recent a + a
+{
+    border-top:1px dotted #000;
+}
+
+#recent a img
+{
+    margin-left:10px;
+    margin-right:10px;
+}
+</style>
+
+{% endblock %}
+
+{% block main %}
+<div id="main" class="block">
+    <div id="primary">
+        <div class="wrapper">
+        {% for p in pokemon %}
+            <div class="col pokemon" data-count="{{forloop.counter}}">
+                <div class="img">
+                    <div class="number">#{{p.number}}</div>
+                    <div><img src="{% static 'train_box_release/pokedex-media/pokemon/main-sprites/x-y/'|add:p.number|add:'.png' %}" alt="{{p.number}}"></div>
+                    <div class="name">{{p.name}}</div>
+                </div>
+                <br>
+                <label name="train"><input type="radio" name="poke{{forloop.counter}}" value="train"> Train</label>
+                <label name="box"><input type="radio" name="poke{{forloop.counter}}" value="box"> Box</label>
+                <label name="release"><input type="radio" name="poke{{forloop.counter}}" value="release"> Release</label>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="controls">
+            <input type="button" value="Confirm" id="confirm">
+            {% csrf_token %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+var poke1 = {{pokemon.0.number}};
+var poke2 = {{pokemon.1.number}};
+var poke3 = {{pokemon.2.number}};
+$(document).ready(function (){
+    $("#confirm").prop("disabled", false);
+    
+    $("#quickpick").change(function (){
+        if ($(this).val() == "NONE")
+            return false;
+            
+        window.location = "/train-box-release/"+$(this).val();
+    });
+    
+    $("label").click(function (e){
+        var name = $(this).attr("name");
+
+        $(this).parent().children("label").each(function (){
+            $(this).removeClass("selected");
+        });
+        
+        $("input[value="+name+"]").each(function (){
+            if ($(this).prop("checked") && $(this).val() == name)
+            {
+                console.log("Unchecking", name);
+                $(this).prop("checked", false);
+                $(this).parent().removeClass("selected");
+                $(this).parent().parent().find(".img").css("background-color", "#807870");
+            }
+        })
+        
+        $(this).find("input[value="+name+"]").prop("checked", true);
+        $(this).addClass("selected");
+        $(this).parent().find(".img").css("background-color", $(this).css("background-color"));
+        e.preventDefault();
+    });
+    
+    $("#confirm").click(function (){
+        var choices = [];
+        choices.push($("input[name=poke1]:checked").val());
+        choices.push($("input[name=poke2]:checked").val());
+        choices.push($("input[name=poke3]:checked").val());
+        choices.sort();
+        
+        if (JSON.stringify(choices) != JSON.stringify(["box", "release", "train"]))
+            return false;
+            
+        // Good to submit
+        console.log("Good to submit!");
+        $("input[name=poke1]:not(:checked)").parent().hide();
+        $("input[name=poke2]:not(:checked)").parent().hide();
+        $("input[name=poke3]:not(:checked)").parent().hide();
+        
+        $(this).val("Submitting...");
+        $(this).css("background-color", "#98D8D8");
+        $(this).attr("disabled", "disabled");
+        
+        send_data();
+    });
+    
+    function send_data()
+    {
+        $("#primary").fadeOut(1000);
+        $.ajax({
+            "url":"/train-box-release/ajax/submit",
+            "method":"POST",
+            "data":{
+                "csrfmiddlewaretoken":$("input[name=csrfmiddlewaretoken]").val(),
+                "choice1":$("input[name=poke1]:checked").val(),
+                "choice2":$("input[name=poke2]:checked").val(),
+                "choice3":$("input[name=poke3]:checked").val(),
+                "poke1":poke1,
+                "poke2":poke2,
+                "poke3":poke3
+                }
+        }).done(function (data){
+            if (data == "SUCCESS")
+            {
+                window.location = "/train-box-release/"+poke1+"/"+poke2+"/"+poke3+"/results?c1="+$("input[name=poke1]:checked").val()+"&c2="+$("input[name=poke2]:checked").val()+"&c3="+$("input[name=poke3]:checked").val();
+            }
+            else
+            {
+                alert("ERROR: AJAX call returned failure.");
+                window.location.reload();
+            }
+        }).fail(function (data){
+            alert("ERROR: AJAX call failed.");
+            window.location.reload();
+        });   
+    }
+});
+</script>
+{% endblock %}

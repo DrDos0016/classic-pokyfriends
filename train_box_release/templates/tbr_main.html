@@ -1,0 +1,55 @@
+{% extends "main.html" %}
+{% load staticfiles %}
+{% block meta %}
+<meta name="author" content="Dr. Dos">
+{% endblock %}
+
+{% block main %}
+{% endblock %}
+    
+{% block sidebar %}
+<div id="sidebar">
+    <div class="block options">
+        <h3>Quick Picks</h3>
+        <div style="text-align:center">
+            <select id="quickpick">
+                <option value="NONE">Choose a Trio...</option>
+                <optgroup label="Starters">
+                    <option value="1/4/7">Kanto Starters</option>
+                    <option value="152/155/158">Johto Starters</option>
+                    <option value="252/255/258">Hoenn Starters</option>
+                    <option value="387/390/393">Sinnoh Starters</option>
+                    <option value="495/498/501">Unova Starters</option>
+                    <option value="650/653/656">Kalos Starters</option>
+                </optgroup>
+                <optgroup label="Legendaries">
+                    <option value="144/145/146">Legendary Birds</option>
+                    <option value="243/244/245">Legendary Beasts</option>
+                    <option value="377/378/379">Legendary Titans</option>
+                    <option value="382/383/384">Weather Trio</option>
+                    <option value="480/481/482">Lake Guardians</option>
+                    <option value="483/484/487">Creation Trio</option>
+                    <option value="638/639/640">Swords of Justice</option>
+                    <option value="641/642/645">Forces of Nature</option>
+                    <option value="643/644/646">Tao Trio</option>
+                    <option value="716/717/718">Mortality Trio</option>
+                </optgroup>
+                <optgroup label="Etc.">
+                    <option value="134/135/136">Classic Eeveelutions</option>
+                    <option value="138/140/142">Kanto Fossils</option>
+                    <option value="511/513/515">Elemental Monkeys</option>
+                </optgroup>
+            </select>
+            <br>
+            <a href="{% url 'tbr_index' %}">Random</a> &bull; <a href="{% url 'tbr_custom' %}">Custom</a>
+        </div>
+        
+        <h3>Recent T-B-R Trios</h3>
+        <div id="recent">
+            {% for r in recent %}
+                {% ifchanged %}<a href="/train-box-release/{{r.trio}}">{{r.images|safe}}</a>{% endifchanged %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,5 +1,5 @@
 from random import randint
-from pokyfriends_web.common import ADS, PROTOCOL
+from pokyfriends_web.common import ADS, PROTOCOL, ANALYTICS
 
 def required(request):
     data = {}
@@ -10,6 +10,7 @@ def required(request):
     data["PROTOCOL"] = PROTOCOL
     
     data["ADS"] = ADS
+    data["ANALYTICS"] = ANALYTICS
     if not ADS:
         data["ADS"] = request.GET.get("ads")
     return data

@@ -6,7 +6,7 @@
     <div class="block project">
         <a href="{% url 'blog' %}">
             <h1>Pokyfriends Blog</h1>
-            <img src="{% static 'images/pokyfriends.jpg' %}">
+            <img src="{% static 'images/pokyfriends.jpg' %}" alt="Pokyfriends Blog">
             <p>A blog to preserve things I've written, and hopefully write some new things.</p>
         </a>
     </div>
@@ -14,7 +14,7 @@
     <div class="block project">
         <a href="{% url 'pokedex-ebooks' %}">
             <h1>Pokédex Ebooks</h1>
-            <img src="{% static 'images/pokedex-ebooks.jpg' %}">
+            <img src="{% static 'images/pokedex-ebooks.jpg' %}" alt="Pokédex Ebooks">
             <p>Random Pokédex entry generator using Markov chains.</p>
         </a>
     </div>
@@ -22,7 +22,7 @@
     <div class="block project">
         <a href="{% url 'pokemon-size-quiz' %}">
             <h1>Pokémon Size Quiz</h1>
-            <img src="{% static 'images/size-quiz.png' %}">
+            <img src="{% static 'images/size-quiz.png' %}" alt="Pokémon Size Quiz">
             <p>Quiz yourself, and then challenge your friends to guess the size of various Pokémon.</p>
         </a>
     </div>
@@ -30,10 +30,24 @@
     <div class="block project">
         <a href="{% url 'pokemon_type_chart_quiz' %}">
             <h1>Pokémon Type Chart Quiz</h1>
-            <img src="{% static 'images/pokemon-type-quiz.png' %}">
+            <img src="{% static 'images/pokemon-type-quiz.png' %}" alt="Pokémon Type Chart Quiz">
             <p>How effective are ghost type attacks against bug types? Try to fill the entire type chart with this quiz.</p>
         </a>
     </div>
+    
+    <div class="block project">
+        <a href="{% url 'woz_index' %}">
+            <h1>Worlds of ZZT</h1>
+            <img src="{% static 'worlds_of_zzt/worlds_of_zzt.png' %}" alt="Worlds of ZZT">
+            <p>A bot designed to post random ZZT screenshots on Twitter/Tumblr.</p>
+        </a>
+    </div>
+    
+    <div class="block project invis"></div>
+    
+    <div class="block project invis"></div>
+    
+    <div class="block project invis"></div>
 </div>
 {% endblock %}
 

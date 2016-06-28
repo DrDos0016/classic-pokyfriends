@@ -15,5 +15,5 @@ ROOT        = BASE_DIR
 ENV         = "DEV" if os.path.isfile("/var/projects/DEV") else "PROD"
 
 ADS         = True if ENV == "PROD" else False                  # Adsense
-TRACKING    = True if ENV == "PROD" else False                  # Analytics
+ANALYTICS   = True if ENV == "PROD" else False                  # Analytics
 PROTOCOL    = "https://" if ENV == "PROD" else "http://"        # Http/Https

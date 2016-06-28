@@ -33,6 +33,11 @@ body
     vertical-align:top;
 }
 
+.invis
+{
+    visibility:hidden;
+}
+
 .ad
 {
     text-align:center;
@@ -126,11 +131,7 @@ header h1 a
     min-height:200px;
     max-width:20%;
     text-align:center;
-}
-
-.project + .project
-{
-    margin-left:1em;
+    margin:0 0.5em 0 0.5em;
 }
 
 .project h1

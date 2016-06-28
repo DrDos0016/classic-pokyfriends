@@ -1,0 +1,221 @@
+{% extends "tbr_main.html" %}
+{% load staticfiles %}
+
+{% block opengraph %}
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@doscoon" />
+<meta name="twitter:title" content="{{title}}" />
+<meta name="twitter:description" content="X" />
+<meta name="twitter:image" content="{{PROTOCOL}}{{request.get_host}}" />
+{% endblock %}
+
+{% block css %}
+<style>
+.wrapper
+{
+    width:100%;
+    text-align:center;
+}
+
+.pokemon, .choice
+{
+    width:200px;
+    margin:0.25em;
+    font-family:monospace;
+    font-weight:bold;
+    font-size:14pt;
+    color:#FFF;
+    text-shadow: 2px 2px 0px #0A0A0A;
+    text-align:center;
+}
+
+.pokemon .img
+{
+    background-color:#807870;
+    border-radius:50%;
+    width:200px;
+    height:200px;
+}
+
+.pokemon button
+{
+    width:100%;
+}
+
+.pokemon input[type="radio"]
+{
+    display:none;
+}
+
+.pokemon label, .choice
+{
+    height:1.25em;
+    padding:0.25em;
+    margin:0.1em;
+    border-radius:0.5em;
+    cursor:pointer;
+    color:#FFF;
+    text-shadow: 2px 2px 0px #0A0A0A;
+    text-align:center;
+}
+
+label[name=train].selected, label[name=train]:hover  { background-color:#F05030; }
+label[name=box].selected, label[name=box]:hover { background-color:#6890F0; }
+label[name=release].selected, label[name=release]:hover { background-color:#78C850; }
+label[name=train] { background-color:#807870; }
+label[name=box] { background-color:#807870; }
+label[name=release] { background-color:#807870; }
+
+.controls
+{
+    width:100%;
+    margin-top:1.5em;
+    text-align:center;
+}
+
+.controls input[type="button"]
+{
+    padding:0.25em;
+    border-radius:0.5em;
+    cursor:pointer;
+    font-family:monospace;
+    font-weight:bold;
+    font-size:14pt;
+    color:#FFF;
+    text-shadow: 2px 2px 0px #0A0A0A;
+    width:100%;
+    max-width:600px;
+    background-color:#807870;
+    border:0;
+}
+
+.controls input[type="button"]:hover
+{
+    background-color:#98D8D8;
+}
+
+#results
+{
+    display:none;
+}
+
+#recent
+{
+    border:1px dashed #000;
+    height:200px;
+    overflow-y:auto;
+}
+
+#recent a
+{
+    display:block;
+    width:100%;
+    text-align:center;
+}
+
+#recent a:hover
+{
+    background:#CCC;
+}
+
+#recent a + a
+{
+    border-top:1px dotted #000;
+}
+
+#recent a img
+{
+    margin-left:10px;
+    margin-right:10px;
+}
+
+.pokemon .img.train, .train  { background-color:#F05030; }
+.pokemon .img.box, .box { background-color:#6890F0; }
+.pokemon .img.release, .release { background-color:#78C850; }
+
+.bar
+{
+    display:block;
+    height:1.25em;
+    width:200px;
+    font-family:monospace;
+    font-weight:bold;
+    font-size:14pt;
+    color:#FFF;
+    text-shadow: 2px 2px 0px #0A0A0A;
+    background-color:#807870;
+}
+
+.bar + .bar
+{
+    margin-top:10px;
+}
+
+.bar div
+{
+    display:inline-block;
+    height:1.25em;
+}
+
+#main table
+{
+    border-collapse:collapse;
+    margin:auto;
+}
+</style>
+
+{% endblock %}
+
+{% block main %}
+<div id="main" class="block">
+    <table>
+    {% for p in pokemon %}
+        <tr>
+            <td>&nbsp;</td>
+            {% if p.choice %}<td><h2>Your choice</h2></td>{% endif %}
+            <td><h2>Trio Stats</h2></td>
+            <td><h2>Overall Stats</h2></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="col pokemon" data-count="{{forloop.counter}}">
+                    <div class="img {{p.choice}}">
+                        <div class="number">#{{p.number}}</div>
+                        <div><img src="{% static 'train_box_release/pokedex-media/pokemon/main-sprites/x-y/'|add:p.number|add:'.png' %}" alt="{{p.number}}"></div>
+                        <div class="name">{{p.name}}</div>
+                    </div>
+                </div>
+            </td>
+            {% if p.choice %}
+            <td>
+                <div class="choice {{p.choice}}">{{p.choice|title}}</div>
+            </td>
+            {% endif %}
+            <td>
+                <div class="bar" title="{{p.trio_stats.train|default:0}} people said Train for this trio"><div class="train" style="width:{% widthratio p.trio_stats.train|default:0 p.trio_stats.total 200 %}px">{% widthratio p.trio_stats.train|default:0 p.trio_stats.total 100 %}%</div></div>
+                <div class="bar" title="{{p.trio_stats.box|default:0}} people said Box for this trio"><div class="box" style="width:{% widthratio p.trio_stats.box|default:0 p.trio_stats.total 200 %}px">{% widthratio p.trio_stats.box|default:0 p.trio_stats.total 100 %}%</div></div>
+                <div class="bar" title="{{p.trio_stats.release|default:0}} people said Release for this trio"><div class="release" style="width:{% widthratio p.trio_stats.release|default:0 p.trio_stats.total 200 %}px">{% widthratio p.trio_stats.release|default:0 p.trio_stats.total 100 %}%</div></div>
+            </td>
+            <td>
+                <div class="bar" title="{{p.overall_stats.train|default:0}} people said Train for this Pokémon"><div class="train" style="width:{% widthratio p.overall_stats.train|default:0 p.overall_stats.total 200 %}px">{% widthratio p.overall_stats.train|default:0 p.overall_stats.total 100 %}%</div></div>
+                <div class="bar" title="{{p.overall_stats.box|default:0}} people said Box for this Pokémon"><div class="box" style="width:{% widthratio p.overall_stats.box|default:0 p.overall_stats.total 200 %}px">{% widthratio p.overall_stats.box|default:0 p.overall_stats.total 100 %}%</div></div>
+                <div class="bar" title="{{p.overall_stats.release|default:0}} people said Release for this Pokémon"><div class="release" style="width:{% widthratio p.overall_stats.release|default:0 p.overall_stats.total 200 %}px">{% widthratio p.overall_stats.release|default:0 p.overall_stats.total 100 %}%</div></div>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+$(document).ready(function (){
+    $("#quickpick").change(function (){
+        if ($(this).val() == "NONE")
+            return false;
+            
+        window.location = "/train-box-release/"+$(this).val();
+    });
+});</script>
+{% endblock %}
