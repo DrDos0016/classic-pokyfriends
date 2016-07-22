@@ -181,7 +181,7 @@ label[name=release] { background-color:#807870; }
                 <div class="col pokemon" data-count="{{forloop.counter}}">
                     <div class="img {{p.choice}}">
                         <div class="number">#{{p.number}}</div>
-                        <div><img src="{% static 'train_box_release/pokedex-media/pokemon/main-sprites/x-y/'|add:p.number|add:'.png' %}" alt="{{p.number}}"></div>
+                        <div><img src="{% static 'train_box_release/x-y/'|add:p.number|add:'.png' %}" alt="{{p.number}}"></div>
                         <div class="name">{{p.name}}</div>
                     </div>
                 </div>

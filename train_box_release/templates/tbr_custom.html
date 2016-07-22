@@ -138,7 +138,7 @@ label[name=release] { background-color:#807870; }
             <div class="col pokemon" data-count="{{forloop.counter}}">
                 <div class="img">
                     <div class="number" data-num="{{forloop.counter}}">#{{p.number}}</div>
-                    <div><img src="{% static 'train_box_release/pokedex-media/pokemon/main-sprites/x-y/'|add:p.number|add:'.png' %}" alt="{{p.number}}" data-num="{{forloop.counter}}"></div>
+                    <div><img src="{% static 'train_box_release/x-y/'|add:p.number|add:'.png' %}" alt="{{p.number}}" data-num="{{forloop.counter}}"></div>
                     <div class="name" data-num="{{forloop.counter}}">{{p.name}}</div>
                 </div>
                 <br>
@@ -172,7 +172,7 @@ $(document).ready(function (){
     
     $("#primary select").change(function (){
         $(".number[data-num="+$(this).data("num")+"]").text("#"+$(this).val());
-        $("img[data-num="+$(this).data("num")+"]").attr("src", "/assets/images/sprites/x-y/"+$(this).val()+".png");
+        $("img[data-num="+$(this).data("num")+"]").attr("src", "/static/train_box_release/x-y/"+$(this).val()+".png");
         $(".name[data-num="+$(this).data("num")+"]").text($("select[name=p"+$(this).data("num")+"] option:selected").text());
     });
     

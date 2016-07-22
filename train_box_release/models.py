@@ -13,5 +13,5 @@ class Answer(models.Model):
         triplet = self.trio.split("/")
         output = ""
         for x in xrange(0,3):
-            output += '<img src="/static/train_box_release/pokedex-media/pokemon/icons/'+triplet[x]+'.png" alt="'+triplet[x]+'">'
+            output += '<img src="/static/train_box_release/icons/'+triplet[x]+'.png" alt="'+triplet[x]+'">'
         return output
