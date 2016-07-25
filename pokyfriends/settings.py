@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "pokedex_ebooks",
     "pokemon_size_quiz",
     "train_box_release",
+    "stitchr",
     "worlds_of_zzt",
 ]
 

@@ -1,0 +1,178 @@
+body
+{
+    background:#202020;
+    color:#32AFC8;
+    display:flex;
+    flex-direction:column;
+    margin:0;
+    height:100vh;
+    font-family:sans-serif;
+}
+
+#header
+{
+    width:100%;
+    border-bottom:1px solid #808080;
+    height:100px;
+    max-height:100px;
+    flex:0 0 100px;
+    display:flex;
+    justify-content:center;
+    background-image:url("/static/stitchr/logo.png");
+    background-repeat:no-repeat;
+    background-position:center left;
+}
+
+#content
+{
+    display:flex;
+    flex:1 0 auto;
+    justify-content:center;
+    margin:10px;
+    overflow:hidden;
+}
+
+#canvas
+{
+    background-image:url("/static/stitchr/logo-tilt.png");
+    background-color:#202020;
+    background-repeat:repeat;
+    background-position:center;
+    margin:auto;
+}
+
+.option
+{
+    display:inline-block;
+    height:80px;
+    padding:2px;
+    text-align:center;
+    width:100px;
+    background:#202020;
+    border: 1px solid #808080;
+    border-radius:8px;
+    margin:5px;
+}
+
+.option:hover, .option.selected
+{
+    background:#404040;
+    color:#3FDFFF;
+    cursor:pointer;
+}
+
+.option .icon
+{
+    text-align:center;
+    width:50%;
+    height:30px;
+    /*border:1px solid #808080;*/
+    margin:4px auto auto auto;
+    line-height:30px;
+    font-size:24px;
+}
+
+#photoset.option .icon
+{
+    font-size:medium;
+}
+
+.overlay
+{
+    display:none;
+    position:absolute;
+    top:0;
+    left:0;
+    height:100vh;
+    width:100%;
+    justify-content:center;
+}
+
+.menu
+{
+    min-width:200px;
+    align-self:center;
+    background:#202020;
+    border-radius:8px;
+    border:1px solid #808080;
+    padding:8px;
+}
+
+label
+{
+    display:block;
+    width:100%;
+}
+
+label:hover
+{
+    color:#3FDFFF;
+}
+
+input[type=text]
+{
+    background:#202020;
+    color:#32AFC8;
+    border:1px solid #808080;
+}
+
+input[type=button], button
+{
+    border:1px solid #808080;
+}
+
+#layout_overlay input, input.small
+{
+    width:1.5em;
+    text-align:center;
+}
+
+#order_area
+{
+    margin:auto;
+    max-width:90%;
+    max-height:300px;
+    overflow-y:auto;
+}
+
+#order_area .image
+{
+    display:inline-block;
+    width:90px;
+    height:90px;
+    border:1px dashed #FFF;
+    margin:4px;
+    vertical-align:middle;
+}
+
+#order_area .image.selected
+{
+    border:1px solid #FFF;
+}
+
+#order_area .image img
+{
+    width:90px;
+    height:90px;
+}
+
+#bg_color .icon
+{
+    background:#F0F0F0;
+}
+
+#border .icon
+{
+    background:#000000;
+}
+
+.ad
+{
+    text-align:center;
+    max-width:728px;
+    max-height:90px;
+    background:#303030;
+    flex:0 0 728px;
+    justify-content:center;
+    margin:auto;
+}

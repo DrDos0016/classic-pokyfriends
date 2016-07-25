@@ -1,0 +1,140 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+<title>Stitchr</title>
+<link rel="stylesheet" type="text/css" href="{% static 'stitchr/spectrum.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'stitchr/style.css' %}">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+<script src="{% static 'stitchr/spectrum.js' %}"></script> 
+</head>
+
+<body>
+{% csrf_token %}
+<div id="header">
+    <div class="option" id="photoset">
+        <span>Load<br>Photoset</span>
+        <div class="icon">
+            <span id="loaded_images">0</span>/<span id="total_images">0</span>
+        </div>
+    </div>
+    <div class="option" id="bg_color">
+        <span>Background<br>Color</span>
+        <div class="icon">
+        </div>
+    </div>
+    <div class="option" id="layout">
+        <span>Image<br>Layout</span>
+        <div class="icon">
+            ⇊
+        </div>
+    </div>
+    <div class="option" id="border">
+        <span>Image<br>Border</span>
+        <div class="icon">
+        </div>
+    </div>
+    <div class="option" id="margin">
+        <span>Image<br>Margin</span>
+        <div class="icon">4</div>
+    </div>
+    <div class="option" id="order">
+        <span>Rearrange<br>Images</span>
+        <div class="icon">&#8633;</div>
+    </div>
+    <div class="option" id="donate">
+        <span>Donate!</span><br><br>
+        <div class="icon">$</div>
+    </div>
+</div>
+<div class="c ad" style="width:728px;height:90px;">
+        <!-- Pokyfriends - Responsive Ad --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
+    </div>  
+<div id="content">
+    <canvas width="500" height="500" id="canvas"></canvas>
+</div>
+<div class="overlay" id="photoset_overlay">
+    <div class="menu">
+        <b>Enter Photoset URL</b><br><br>
+        <div style="text-align:center"><input id="url" type="text" name="url" style="width:95%;margin:auto;" value="http://fuckyeahmeowth.tumblr.com/post/147812441537/cacnea-pok%C3%A9mon-original-series-main-character"></div>
+        <br>
+        http://theta-thoughts.tumblr.com/post/147781572276/garyhugs-boids<br>
+        http://bright-witch.tumblr.com/post/147826993046/thank-you-so-much-for-all-the-support-everyone-i<br>
+        http://foreverlostinliterature.tumblr.com/post/147831239874<br>
+        https://fawnfreckles.tumblr.com/post/147828082837/look-at-this-delicious-cake-i-made<br>
+        <div style="text-align:right"><button class="ok" id="load_photoset" data-no-render="1">OK</button></div>
+    </div>
+</div>
+<div class="overlay" id="bg_color_overlay">
+    <div class="menu">
+        <b>Select Color</b><br><br>
+        <input id="bg_input" value="#F0F0F0"><br>
+    </div>
+</div>
+<div class="overlay" id="layout_overlay">
+    <div class="menu">
+        <b>Select Layout</b><br><br>
+        <label><input name="layout" value="vert" type="radio" checked> Vertical</label>
+        <label><input name="layout" value="horiz" type="radio"> Horizontal</label>
+        <label><input name="layout" value="grid" type="radio"> Grid</label><br>
+        <label><input name="grid_width" value="2" maxlength="1"> Grid Width</label>
+        <div style="text-align:right"><button class="ok">OK</button></div>
+    </div>
+</div>
+<div class="overlay" id="border_overlay">
+    <div class="menu">
+        <b>Select Border</b><br><br>
+        <input name="border_size" value="1" maxlength="2" class="small"> Border Size<br>
+        <br>
+        <b>Select Color</b><br><br>
+        <input id="border_color_input" value="#000000"><br>
+    </div>
+</div>
+<div class="overlay" id="margin_overlay">
+    <div class="menu">
+        <b>Select Margin</b><br><br>
+        <input name="margin_size" value="4" maxlength="2" class="small"> Margin Size<br>
+        <div style="text-align:right"><button class="ok">OK</button></div>
+    </div>
+</div>
+<div class="overlay" id="order_overlay">
+    <div class="menu" style="max-width:500px">
+        <b>Adjust Order</b><br><br>
+        
+        Click on an image, then use the right/left keys to move it forwards/backwards.
+        <div id="order_area"></div>
+        <div style="text-align:right"><button class="ok">OK</button></div>
+    </div>
+</div>
+<div class="overlay" id="donate_overlay">
+    <div class="menu" style="max-width:500px">
+        <b>Donate!</b><br><br>
+        
+        <p>Stitchr was created by a currently out of work developer. If you found this tool useful, a donation would be greatly appreciated!</p>
+        <div style="text-align:center">
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="ZXFBNC7QTU6L2" />
+            <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate" />
+            <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+            </form>
+        </div>
+
+        <div style="text-align:right"><button class="ok" data-no-render="1">OK</button></div>
+    </div>
+</div>
+<script src="{% static 'stitchr/stitchr.js' %}"></script>
+<script>
+$(window).bind("load", function() {
+    $(".ad").each(function (){
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    });
+});
+</script>
+</body>
+
+</html>
