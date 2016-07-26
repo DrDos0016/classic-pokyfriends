@@ -5,12 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <head>
-<title>Stitchr</title>
+<title>Stitchr - Pokyfriends</title>
 <link rel="stylesheet" type="text/css" href="{% static 'stitchr/spectrum.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'stitchr/style.css' %}">
+<link rel="shortcut icon" href="/static/favicon.ico">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
 <script src="{% static 'stitchr/spectrum.js' %}"></script> 
+{% block analytics %}{% if ANALYTICS %}
+<script>
+  <!-- Pokyfriends Google Analytics -->
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-45185267-4', 'auto');
+  ga('send', 'pageview');
+</script>
+{% endif %}{% endblock %}
 </head>
 
 <body>
@@ -60,12 +72,17 @@
 <div class="overlay" id="photoset_overlay">
     <div class="menu">
         <b>Enter Photoset URL</b><br><br>
-        <div style="text-align:center"><input id="url" type="text" name="url" style="width:95%;margin:auto;" value="" placeholder="ex: http://user.tumblr.com/post/123456789000/"></div>
+        <div style="width:95%;margin:auto;">
+            <input id="url" type="text" name="url" style="width:25em" value="" placeholder="ex: http://user.tumblr.com/post/123456789000/">
+            <button id="load_photoset" data-no-render="1">Load Photoset</button>
+            <div class="text-output" id="photoset-output"></div>
+        </div>
         <br>
         <b>Upload Image</b><br><br>
         <div style="width:95%;margin:auto;">
-            <input id="local" type="file" name="local" style="" value="" accept="image/*">
+            <input id="local" type="file" name="local" value="" accept="image/*" style="width:25em">
             <button id="add-local">Add Image</button>
+            <div class="text-output" id="local-output"></div>
         </div>
         <br>
         <b>Important Notes</b><br>
@@ -76,7 +93,7 @@
             <li>You can also drag and drop local images to manually create a stitchr photoset.</li>
         </ul>
         
-        <div style="text-align:right"><button class="ok" id="load_photoset" data-no-render="1">OK</button></div>
+        <div style="text-align:right"><button class="ok" data-no-render="1">OK</button></div>
     </div>
 </div>
 <div class="overlay" id="bg_color_overlay">
@@ -124,7 +141,7 @@
     <div class="menu" style="max-width:500px">
         <b>Donate!</b><br><br>
         
-        <p>Stitchr was created by a currently out of work developer. If you found this tool useful, a donation would be greatly appreciated!</p>
+        <p>Stitchr was created by Dr. Dos. (A currently out of work developer!) If you found this tool useful, a donation would be greatly appreciated!</p>
         <div style="text-align:center">
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
             <input type="hidden" name="cmd" value="_s-xclick" />

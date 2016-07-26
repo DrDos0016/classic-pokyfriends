@@ -57,15 +57,21 @@ $(document).ready(function ()
             $("#order_area").html("");
             $("#loaded_images").html("0");
             $("#total_images").html("0");
-            
+            $("#photoset-output").html("Loading...");
             $.ajax({
                 url: "/stitchr/ajax/load_url",
                 method: "POST",
                 data: {"csrfmiddlewaretoken":$("input[name=csrfmiddlewaretoken]").val(), "url":$("#url").val()},
                 dataType: "JSON",
             }).fail(function(data) {
-                alert("Photoset acquisititon failed. Doublecheck your url, or manually upload the images.")
+                $("#photoset-output").html("Photoset acquisititon failed. Doublecheck your url, or manually upload the images.");
             }).done(function(data) {
+                if (! data.hasOwnProperty("images"))
+                {
+                    $("#photoset-output").html("Photoset acquisititon failed. Doublecheck your url, or manually upload the images.");
+                    return false;
+                }
+                $("#photoset-output").html("Processing...");
                 $("#total_images").html(data["images"].length);
                 for (var x=0; x < data["images"].length; x++)
                 {
@@ -190,6 +196,7 @@ $(document).ready(function ()
     $("#photoset_overlay").on("drop", function(event){
         event.preventDefault();  
         event.stopPropagation();
+        $(this).removeClass("dragging");
         for (var idx=0; idx < event.originalEvent.dataTransfer.files.length; idx++)
         {
             upload_file(event.originalEvent.dataTransfer.files[idx]);
@@ -216,6 +223,8 @@ function render_canvas()
     border_size = parseInt($("input[name=border_size]").val());
     border_color = $("#border_color_input").val();
     margin = parseInt($("input[name=margin_size]").val());
+    $("#photoset-output").html("");
+    $("#local-output").html("");
     //console.log("BG", background, "Layout", layout, "GW", grid_width, "Border", border_size, border_color, "Margin", margin);
     
     if (grid_width < 1 || grid_width > 9)
@@ -486,6 +495,8 @@ function upload_file(file)
 {
     url = window.URL || window.webkitURL;
     src = url.createObjectURL(file);
+    
+    $("#local-output").html("Processing...");
     
     var img = new Image();
     img.src = src;
