@@ -64,10 +64,8 @@ $(document).ready(function ()
                 data: {"csrfmiddlewaretoken":$("input[name=csrfmiddlewaretoken]").val(), "url":$("#url").val()},
                 dataType: "JSON",
             }).fail(function(data) {
-                console.log("ERROR")
-                console.log(data);
+                alert("Photoset acquisititon failed. Doublecheck your url, or manually upload the images.")
             }).done(function(data) {
-                console.log(data);
                 $("#total_images").html(data["images"].length);
                 for (var x=0; x < data["images"].length; x++)
                 {
@@ -172,6 +170,36 @@ $(document).ready(function ()
         $("#margin .icon").html($("input[name=margin_size]").val());
     });
     
+    $("#add-local").click(function (){
+        var file = $("input[name=local]").get(0).files[0];
+        upload_file(file);
+    });
+    
+    $("#photoset_overlay").on("dragover", function(event) {
+        event.preventDefault();  
+        event.stopPropagation();
+        $(this).addClass("dragging");
+    });
+
+    $("#photoset_overlay").on("dragleave", function(event) {
+        event.preventDefault();  
+        event.stopPropagation();
+        $(this).removeClass("dragging");
+    });
+    
+    $("#photoset_overlay").on("drop", function(event){
+        event.preventDefault();  
+        event.stopPropagation();
+        for (var idx=0; idx < event.originalEvent.dataTransfer.files.length; idx++)
+        {
+            upload_file(event.originalEvent.dataTransfer.files[idx]);
+        }
+    });
+    
+    $("body").on("dragover", function (event) {
+        $("#photoset").click();
+    });
+    
     $("input[name=layout]").change();
     $("#bg_input").change();
     $("#border_color_input").change();
@@ -189,6 +217,10 @@ function render_canvas()
     border_color = $("#border_color_input").val();
     margin = parseInt($("input[name=margin_size]").val());
     //console.log("BG", background, "Layout", layout, "GW", grid_width, "Border", border_size, border_color, "Margin", margin);
+    
+    if (grid_width < 1 || grid_width > 9)
+        grid_width = 3;
+    
     
     // Prepare canvas sizing
     var ctx = document.getElementById('canvas').getContext('2d');
@@ -236,7 +268,6 @@ function render_canvas()
             }
             rows.push(row);
         }
-        console.log(rows);
         
         // Figure out which row is the widest, and how tall the sequence is
         final_width = 0;
@@ -249,7 +280,6 @@ function render_canvas()
             
             for (var offset=0; offset < (rows[idx].length); offset++)
             {
-                console.log("Scanning idx/offset", idx, offset);
                 i_width = rows[idx][offset].width;
                 i_height = rows[idx][offset].height;
                 
@@ -259,7 +289,6 @@ function render_canvas()
             
             final_height += row_height; // Grows per row
             final_width = Math.max(row_width, final_width)
-            console.log("FINAL HEIGHT...", final_height);
         }
     }
 
@@ -270,17 +299,84 @@ function render_canvas()
     $("#canvas").attr("height", c_height);
     $("#canvas").css({"width":c_width, "height":c_height});
     
+    // Determine offsets to center images
+    var offsets = [];
+    var offset_x = 0;
+    var offset_y = 0;
+    var row_heights = [];
+    var row_widths = [];
+    
+    if (layout == "vert" || layout == "horiz")
+    {
+        for (var idx=0; idx < images.length; idx++)
+        {
+            total_width = images[idx].width + 2*border_size + 2*margin;
+            total_height = images[idx].height + 2*border_size + 2*margin;
+            
+            if (layout == "vert")
+            {
+                offset_x = (c_width - total_width) / 2;
+                offset_y = 0;
+            }
+            else if (layout == "horiz")
+            {
+                offset_x = 0;
+                offset_y = (c_height - total_height) / 2;
+            }
+            offsets.push([offset_x, offset_y]);
+        }
+    }
+    else
+    {
+        // Figure out how tall the row for each image is
+        for (var idx=0; idx < images.length; idx++)
+        {
+            total_width = images[idx].width + 2*border_size + 2*margin;
+            total_height = images[idx].height + 2*border_size + 2*margin;
+            
+            if (idx % grid_width == 0)
+            {
+                max_in_row = 0;
+                row_width = 0;
+                for (var i=0; i < grid_width; i++)
+                {
+                    if (idx+i < images.length)
+                    {
+                        max_in_row = Math.max(max_in_row, images[idx+i].height + 2*border_size + 2*margin);
+                        row_width += images[idx+i].width + 2*border_size + 2*margin;
+                    }
+                }
+            }
+            row_widths.push(row_width);
+            row_heights.push(max_in_row);
+        }
+
+        // First row starting X-coord
+        x = (c_width - row_widths[0]) / 2;
+        
+        // Vertically center based on this height
+        for (var idx=0; idx < images.length; idx++)
+        {
+            total_width = images[idx].width + 2*border_size + 2*margin;
+            total_height = images[idx].height + 2*border_size + 2*margin;
+            
+            offset_x = 0;
+            offset_y = (row_heights[idx] - total_height) / 2;
+            offsets.push([offset_x, offset_y]);
+        }
+    }
+    
     // Apply background
     ctx.fillStyle = background;
     ctx.fillRect(0, 0, c_width, c_height);
     
     var x = 0;
     var y = 0;
-    var tallest = 0;
+    var tallest = images[0].height;
     
     for (var idx=0; idx < images.length; idx++)
     {
-        if (layout != "grid")
+        if (layout == "vert" || layout == "horiz")
         {
             // Adjust for magin
             if (margin > 0)
@@ -293,10 +389,14 @@ function render_canvas()
             if (border_size > 0)
             {
                 ctx.fillStyle = border_color;
-                ctx.fillRect(x, y, (2*border_size + images[idx].width), (2*border_size + images[idx].height));
+                ctx.fillRect((x+offsets[idx][0]), (y+offsets[idx][1]), (2*border_size + images[idx].width), (2*border_size + images[idx].height));
                 x += border_size;
                 y += border_size;
             }
+            
+            // Draw Image (and make the under area transparent to fix border issues)
+            ctx.clearRect(x+offsets[idx][0],y+offsets[idx][1], images[idx].width, images[idx].height);
+            ctx.drawImage(images[idx], x+offsets[idx][0], y+offsets[idx][1]);
         }
         else
         {
@@ -304,7 +404,7 @@ function render_canvas()
             if (margin > 0)
             {
                 x += margin;
-                if (idx == 0 || (idx) % grid_width == 0) // New row means vertical margin
+                if (idx % grid_width == 0) // New row means vertical margin
                     y += margin;
             }
             
@@ -312,16 +412,26 @@ function render_canvas()
             if (border_size > 0)
             {
                 ctx.fillStyle = border_color;
-                ctx.fillRect(x, y, (2*border_size + images[idx].width), (2*border_size + images[idx].height));
+                ctx.fillRect((x+offsets[idx][0]), (y+offsets[idx][1]), (2*border_size + images[idx].width), (2*border_size + images[idx].height));
                 x += border_size;
-                if (idx == 0 || ((idx) % grid_width == 0)) // New row means vertical border
+                
+                if ((idx + 1) % grid_width == 0) // New row means vertical border
                     y += border_size;
             }
+            
+            // Draw Image (and make the under area transparent to fix border issues)
+            //alert("Drawing at: " + x + "/" + y);
+            if ((idx + 1) % grid_width == 0)
+            {            
+                ctx.clearRect(x+offsets[idx][0],y+offsets[idx][1], images[idx].width, images[idx].height);
+                ctx.drawImage(images[idx], x+offsets[idx][0], y+offsets[idx][1]);
+            }
+            else
+            {
+                ctx.clearRect(x+offsets[idx][0],y+border_size+offsets[idx][1], images[idx].width, images[idx].height);
+                ctx.drawImage(images[idx], x+offsets[idx][0], y+border_size+offsets[idx][1]);
+            }
         }
-        
-        // Draw Image
-        //alert("Drawing at: " + x + "/" + y);
-        ctx.drawImage(images[idx], x, y);
         
         // Adjust X/Y for next image based on layout
         if (layout == "vert")
@@ -336,19 +446,19 @@ function render_canvas()
         }
         else if (layout == "grid")
         {
-            if ((idx + 1) % grid_width == 0)
+            if ((idx + 1) % grid_width == 0 && (idx + 1 < images.length)) // New row
             {
                 y += tallest + border_size + margin; // Height of tallest image in row + border + margin
-                x = 0;
-                tallest = Math.max(0, images[idx].height);
+                x = (c_width - row_widths[idx + 1]) / 2;
+                tallest = Math.max(0, images[idx + 1].height); // Was not +1 before!!
             }
-            else
+            else if (idx + 1 < images.length)// Existing row
             {
                 x = x + images[idx].width + border_size + margin;
-                tallest = Math.max(tallest, images[idx].height);
+                tallest = Math.max(tallest, images[idx + 1].height);
             }
         }
-    }   
+    }
     
     // Create DL link
     var date = Math.round(new Date().getTime() / 1000);
@@ -370,4 +480,25 @@ function render_order()
         $("#order_area .image").removeClass("selected");
         $(this).addClass("selected");
     })
+}
+
+function upload_file(file)
+{
+    url = window.URL || window.webkitURL;
+    src = url.createObjectURL(file);
+    
+    var img = new Image();
+    img.src = src;
+    img.addEventListener("load", function() {
+        image_list.push(file.name);
+        images.push(img);
+        
+        $("#loaded_images").html((parseInt($("#loaded_images").text()) + 1));
+        $("#total_images").html(image_list.length);
+        if (parseInt($("#loaded_images").text()) == parseInt($("#total_images").text()))
+        {
+            render_order();
+            render_canvas();
+        }        
+    }, false);
 }

@@ -140,14 +140,15 @@ input[type=button], button
     display:inline-block;
     width:90px;
     height:90px;
-    border:1px dashed #FFF;
+    border:2px dashed #FFF;
+    padding:2px;
     margin:4px;
     vertical-align:middle;
 }
 
 #order_area .image.selected
 {
-    border:1px solid #FFF;
+    border:2px solid #FFF;
 }
 
 #order_area .image img
@@ -175,4 +176,9 @@ input[type=button], button
     flex:0 0 728px;
     justify-content:center;
     margin:auto;
+}
+
+.dragging
+{
+    background:rgba(50, 175, 200, 0.5);
 }

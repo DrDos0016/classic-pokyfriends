@@ -17,7 +17,7 @@
 {% csrf_token %}
 <div id="header">
     <div class="option" id="photoset">
-        <span>Load<br>Photoset</span>
+        <span>Load<br>Images</span>
         <div class="icon">
             <span id="loaded_images">0</span>/<span id="total_images">0</span>
         </div>
@@ -52,20 +52,30 @@
     </div>
 </div>
 <div class="c ad" style="width:728px;height:90px;">
-        <!-- Pokyfriends - Responsive Ad --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
-    </div>  
+    <!-- Pokyfriends - Responsive Ad --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
+</div>  
 <div id="content">
     <canvas width="500" height="500" id="canvas"></canvas>
 </div>
 <div class="overlay" id="photoset_overlay">
     <div class="menu">
         <b>Enter Photoset URL</b><br><br>
-        <div style="text-align:center"><input id="url" type="text" name="url" style="width:95%;margin:auto;" value="http://fuckyeahmeowth.tumblr.com/post/147812441537/cacnea-pok%C3%A9mon-original-series-main-character"></div>
+        <div style="text-align:center"><input id="url" type="text" name="url" style="width:95%;margin:auto;" value="" placeholder="ex: http://user.tumblr.com/post/123456789000/"></div>
         <br>
-        http://theta-thoughts.tumblr.com/post/147781572276/garyhugs-boids<br>
-        http://bright-witch.tumblr.com/post/147826993046/thank-you-so-much-for-all-the-support-everyone-i<br>
-        http://foreverlostinliterature.tumblr.com/post/147831239874<br>
-        https://fawnfreckles.tumblr.com/post/147828082837/look-at-this-delicious-cake-i-made<br>
+        <b>Upload Image</b><br><br>
+        <div style="width:95%;margin:auto;">
+            <input id="local" type="file" name="local" style="" value="" accept="image/*">
+            <button id="add-local">Add Image</button>
+        </div>
+        <br>
+        <b>Important Notes</b><br>
+        <ul>
+            <li>The image may appear distorted, this is to ensure the entire image is visible at all times. When you save the image, it won't be distorted.</li>
+            <li>By virtue of canvases not being animated, animated gifs will not work properly with Stitchr. Sorry!</li>
+            <li>Transparent images will maintain their transparency properly.</li>
+            <li>You can also drag and drop local images to manually create a stitchr photoset.</li>
+        </ul>
+        
         <div style="text-align:right"><button class="ok" id="load_photoset" data-no-render="1">OK</button></div>
     </div>
 </div>

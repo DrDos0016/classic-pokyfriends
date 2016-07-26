@@ -12,8 +12,10 @@ def index(request):
     return render(request, "stitchr/index.html", data)
     
 def load_url(request):
-    url = request.POST.get("url")
+    url = request.POST.get("url", "").strip()
     html = urllib.urlopen(url).read()
+    images = []
+    
     soup = BeautifulSoup(html, 'html.parser')
     
     url2 = None
@@ -25,17 +27,21 @@ def load_url(request):
         html = urllib.urlopen(url2).read()
         soup = BeautifulSoup(html, 'html.parser')    
         
-        images = []
         for tag in soup.find_all("a"):
             if tag.has_attr("data-photoset-index") and tag.has_attr("href"):
                 images.append(tag["href"])
     else:
-        #for tag in soup.find_all(class_="photo-slideshow"):
-        return HttpResponse('{"status":"FAILURE", "msg":"No photoset information was found"}')
-    
-    
+        for tag in soup.find_all(class_="photo-slideshow"):
+            for t in tag.find_all("a"):
+                if t.has_attr("rel") and t.has_attr("href"):
+                    images.append(t["href"])
+            print tag
+            print "-"*40
+        #return HttpResponse('{"status":"FAILURE", "msg":"No photoset information was found"}')
         
-    output = {"status":"SUCCESS", "images":images} # DEBUG
     
-    
-    return HttpResponse(json.dumps(output))
+    if len(images) != 0:
+        output = {"status":"SUCCESS", "images":images}
+        return HttpResponse(json.dumps(output))
+    else:
+        return HttpResponse('{"status":"FAILURE", "msg":"No photoset information was found"}')
