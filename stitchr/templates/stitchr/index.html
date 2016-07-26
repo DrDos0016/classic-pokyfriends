@@ -150,15 +150,21 @@
             <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
             </form>
         </div>
+        
+        <br>
+        <a href="https://pokyfriends.com">Let's Be Pokyfriends</a>
 
         <div style="text-align:right"><button class="ok" data-no-render="1">OK</button></div>
     </div>
 </div>
 <script src="{% static 'stitchr/stitchr.js' %}"></script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
 $(window).bind("load", function() {
     $(".ad").each(function (){
+        console.log("AD");
         (adsbygoogle = window.adsbygoogle || []).push({});
+        console.log("AD2");
     });
 });
 </script>
