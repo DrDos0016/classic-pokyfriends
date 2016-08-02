@@ -36,6 +36,12 @@
     height:200px;
 }
 
+.pokemon .img img
+{
+    width:120px;
+    height:120px;
+}
+
 .pokemon button
 {
     width:100%;
@@ -71,7 +77,7 @@ label[name=release] { background-color:#807870; }
     text-align:center;
 }
 
-.controls input[type="button"]
+.controls input[type="button"], a.continue
 {
     padding:0.25em;
     border-radius:0.5em;
@@ -87,9 +93,15 @@ label[name=release] { background-color:#807870; }
     border:0;
 }
 
-.controls input[type="button"]:hover
+.controls input[type="button"]:hover, a.continue:hover
 {
     background-color:#98D8D8;
+    text-decoration:none;
+}
+
+a.continue
+{
+    display:inline-block;
 }
 
 #results
@@ -151,6 +163,7 @@ label[name=release] { background-color:#807870; }
         <div class="controls">
             <input type="button" value="Confirm" id="confirm">
             {% csrf_token %}
+            <input name="streak" type="hidden" value="{{request.GET.streak|default:0}}">
         </div>
     </div>
 </div>
@@ -231,12 +244,15 @@ $(document).ready(function (){
                 "choice3":$("input[name=poke3]:checked").val(),
                 "poke1":poke1,
                 "poke2":poke2,
-                "poke3":poke3
+                "poke3":poke3,
                 }
         }).done(function (data){
             if (data == "SUCCESS")
             {
-                window.location = "/train-box-release/"+poke1+"/"+poke2+"/"+poke3+"/results?c1="+$("input[name=poke1]:checked").val()+"&c2="+$("input[name=poke2]:checked").val()+"&c3="+$("input[name=poke3]:checked").val();
+                var redir = "/train-box-release/"+poke1+"/"+poke2+"/"+poke3+"/results?c1="+$("input[name=poke1]:checked").val()+"&c2="+$("input[name=poke2]:checked").val()+"&c3="+$("input[name=poke3]:checked").val();
+                if ($("input[name=streak]").val() > 0 && $("input[name=poke1]:checked").val() == "train")
+                    redir += "&streak="+(parseInt($("input[name=streak]").val())+1);
+                window.location = redir;
             }
             else
             {

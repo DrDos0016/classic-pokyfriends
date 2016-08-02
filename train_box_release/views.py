@@ -42,8 +42,15 @@ def index(request, poke1=None, poke2=None, poke3=None):
     # Pick 3 Pokemon
     pokemon = []
     used = []
+    if (poke1 != None and poke2 == None and poke3 == None): # Continue a streak
+        pokemon.append({"number":str(poke1), "name":NUM_TO_NAME[int(poke1)]})
+        while len(pokemon) <3:
+            choice = randint(1,721)
+            if choice not in used:
+                pokemon.append({"number":str(choice), "name":NUM_TO_NAME[choice]})
+                used.append(choice)
     
-    if (poke1 == None or poke2 == None or poke3 == None) or (poke1 == poke2) or (poke2 == poke3) or (poke1 == poke3):
+    elif (poke1 == None or poke2 == None or poke3 == None) or (poke1 == poke2) or (poke2 == poke3) or (poke1 == poke3): # Fresh roll
         while len(pokemon) <3:
             choice = randint(1,721)
             if choice not in used:
@@ -64,6 +71,7 @@ def results(request, poke1, poke2, poke3):
     temp = [poke1, poke2, poke3]
     temp.sort()
     trio = "/".join(temp)
+    data["streak"] = request.GET.get("streak", 1)
     
     # Get recent trios
     data["recent"] = Answer.objects.all().order_by("-id")[:30]
@@ -73,6 +81,16 @@ def results(request, poke1, poke2, poke3):
     pokemon.append({"number":poke2, "name":NUM_TO_NAME[int(poke2)], "choice":request.GET.get("c2"), "trio_stats":{"train":0, "box":0, "release":0, "total":0}, "overall_stats":{"train":0, "box":0, "release":0, "total":0}})
     pokemon.append({"number":poke3, "name":NUM_TO_NAME[int(poke3)], "choice":request.GET.get("c3"), "trio_stats":{"train":0, "box":0, "release":0, "total":0}, "overall_stats":{"train":0, "box":0, "release":0, "total":0}})
     data["pokemon"] = pokemon
+    
+    if request.GET.get("c1") == "train":
+        data["name"] = pokemon[0]["name"]
+        data["number"] = pokemon[0]["number"]
+    elif request.GET.get("c2") == "train":
+        data["name"] = pokemon[1]["name"]
+        data["number"] = pokemon[1]["number"]
+    elif request.GET.get("c3") == "train":
+        data["name"] = pokemon[2]["name"]
+        data["number"] = pokemon[2]["number"]
     
     # Get trio stats
     data["trio_stats"] = Answer.objects.filter(trio=trio).values("option", "pokemon").annotate(count=Count("trio"))

@@ -37,6 +37,12 @@
     height:200px;
 }
 
+.pokemon .img img
+{
+    width:120px;
+    height:120px;
+}
+
 .pokemon button
 {
     width:100%;
@@ -73,7 +79,7 @@ label[name=release] { background-color:#807870; }
     text-align:center;
 }
 
-.controls input[type="button"]
+.controls input[type="button"], a.continue
 {
     padding:0.25em;
     border-radius:0.5em;
@@ -87,11 +93,19 @@ label[name=release] { background-color:#807870; }
     max-width:600px;
     background-color:#807870;
     border:0;
+    color:#FFF;
+    text-decoration:none;
 }
 
-.controls input[type="button"]:hover
+.controls input[type="button"]:hover, a.continue:hover
 {
     background-color:#98D8D8;
+    text-decoration:none;
+}
+
+a.continue
+{
+    display:inline-block;
 }
 
 #results
@@ -204,6 +218,10 @@ label[name=release] { background-color:#807870; }
         </tr>
     {% endfor %}
     </table>
+    
+    <div class="controls">
+        <a href="{% url 'tbr_streak' number %}?streak={{streak|default:1}}" class="continue" style="color:#FFF">Continue with {{name}} (Streak: {{streak|default:1}})</a>
+    </div>
 </div>
 {% endblock %}
 
