@@ -143,8 +143,14 @@ a.continue
 {% endblock %}
 
 {% block main %}
-<div id="main" class="block">
-    <div id="primary">
+<div id="main">
+    {% if ADS %}
+    <div class="block ad">
+        <!-- Pokyfriends - Responsive Ad --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
+    </div>
+    {% endif %}
+
+    <div id="primary" class="block">
         <div class="wrapper">
         {% for p in pokemon %}
             <div class="col pokemon" data-count="{{forloop.counter}}">
@@ -166,6 +172,13 @@ a.continue
             <input name="streak" type="hidden" value="{{request.GET.streak|default:0}}">
         </div>
     </div>
+    
+    {% if ADS %}
+    <div class="block ad">
+        <!-- Pokyfriends - Responsive Ad --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
+    </div>
+    {% endif %}
+    
 </div>
 {% endblock %}
 

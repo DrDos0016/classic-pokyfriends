@@ -137,7 +137,14 @@ label[name=release] { background-color:#807870; }
 {% endblock %}
 
 {% block main %}
-<div id="main" class="block">
+<div id="main">
+    {% if ADS %}
+    <div class="block ad">
+        <!-- Pokyfriends - Responsive Ad --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
+    </div>
+    {% endif %}
+
+    <div class="block">
     <div id="primary">
         <div class="wrapper">
         {% for p in pokemon %}
@@ -150,7 +157,7 @@ label[name=release] { background-color:#807870; }
                 <br>
                 <select name="p{{forloop.counter}}" data-num="{{forloop.counter}}">
                 {% for k,v in list.items %}
-                    <option value="{{k}}">{{v}}</option>
+                    <option value="{{k}}"{% if v == p.name %} selected{% endif %}>{{v}}</option>
                 {% endfor %}
                 </select>
             </div>
@@ -160,6 +167,13 @@ label[name=release] { background-color:#807870; }
             <input type="button" value="Go to Trio" id="go">
         </div>
     </div>
+    </div>
+    
+    {% if ADS %}
+    <div class="block ad">
+        <!-- Pokyfriends - Responsive Ad --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
 

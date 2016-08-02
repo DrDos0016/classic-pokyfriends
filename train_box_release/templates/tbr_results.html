@@ -181,7 +181,14 @@ a.continue
 {% endblock %}
 
 {% block main %}
-<div id="main" class="block">
+<div id="main">
+    {% if ADS %}
+    <div class="block ad">
+        <!-- Pokyfriends - Responsive Ad --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
+    </div>
+    {% endif %}
+
+    <div class="block">
     <table>
     {% for p in pokemon %}
         <tr>
@@ -222,6 +229,13 @@ a.continue
     <div class="controls">
         <a href="{% url 'tbr_streak' number %}?streak={{streak|default:1}}" class="continue" style="color:#FFF">Continue with {{name}} (Streak: {{streak|default:1}})</a>
     </div>
+    </div>
+    
+    {% if ADS %}
+    <div class="block ad">
+        <!-- Pokyfriends - Responsive Ad --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
 
