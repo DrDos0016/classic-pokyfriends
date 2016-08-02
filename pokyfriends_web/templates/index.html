@@ -43,11 +43,25 @@
         </a>
     </div>
     
-    <div class="block project invis"></div>
+    <div class="block project">
+        <a href="{% url 'tbr_index' %}">
+            <h1>Train Box Release</h1>
+            <img src="{% static 'images/train_box_release.png' %}" alt="Train Box Release">
+            <p>Given three Pokémon, which would you train, which would you box, and which would you release?</p>
+        </a>
+    </div>
+    
+    <div class="block project">
+        <a href="{% url 'st_index' %}">
+            <h1>Stitchr</h1>
+            <img src="{% static 'stitchr/logo-tilt.png' %}" alt="Stitchr">
+            <p>A tool to stitch together a series of images into a single image. Support local files as well as importing Tumblr Photosets.</p>
+        </a>
+    </div>
     
     <div class="block project invis"></div>
     
-    <div class="block project invis"></div>
+    {% comment %}<div class="block project invis"></div>{% endcomment %}
 </div>
 {% endblock %}
 
