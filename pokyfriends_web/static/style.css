@@ -210,6 +210,12 @@ h2 a
     padding-top:0.25em;
 }
 
+#disqus_thread
+{
+    margin-top:1em;
+    border-top:1px dotted #AAA;
+}
+
 .about p
 {
     text-align:center;
