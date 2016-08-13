@@ -16,4 +16,11 @@ pokyfriends/private_settings.py
 pokyfriends_web/static/images/meowth
 pokyfriends_web/static/images/shuffle
 
+train_box_release/static/train_box_release/x-y
+train_box_release/static/train_box_release/icons
+
+worlds_of_zzt/static/worlds_of_zzt/LessPerfectDOSVGA.ttf
+worlds_of_zzt/static/worlds_of_zzt/poll
+
+
 venv

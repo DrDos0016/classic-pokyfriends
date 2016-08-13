@@ -1,4 +1,4 @@
-{% extends "main.html" %}
+{% extends "worlds_of_zzt/woz_main.html" %}
 {% load staticfiles %}
 
 {% block opengraph %}{% endblock %}
@@ -38,21 +38,5 @@
     </div>
     {% endif %}
 
-</div>
-{% endblock %}
-
-{% block sidebar %}
-<div id="sidebar">
-    <div class="block about">
-        <h3>Worlds of ZZT</h3>
-        <div class="logo"><img src="{% static 'worlds_of_zzt/avatar-150.png' %}"></div>
-        <p>
-            <a href="https://twitter.com/worldsofzzt" class="twitter-follow-button" data-show-count="false">Follow @worldsofzzt</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-        <br>
-        Tweets every third hour!
-        </p>
-        <p><a href="http://worldsofzzt.tumblr.com">Worlds of ZZT on Tumblr</a></p>
-        <p><a href="{% url 'woz_faq' %}">Worlds of ZZT FAQ</a>
-    </div>
 </div>
 {% endblock %}

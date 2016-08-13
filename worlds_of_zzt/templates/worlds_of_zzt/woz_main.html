@@ -1,0 +1,123 @@
+{% extends "main.html" %}
+{% load staticfiles %}
+
+{% block opengraph %}{% endblock %}
+
+{% block css %}
+<style>
+.status
+{
+    font-style:italic;
+    font-weight:bold;
+}
+
+.poll
+{
+    margin:auto;
+    text-align:center;
+}
+
+.option
+{
+    text-align:center;
+    background:red;
+    width:240px;
+    display:inline-block;
+    vertical-align:top;
+    padding:0.25em;
+    background:#0000AA;
+    color:#FFFFFF;
+    margin-bottom:0.25em;
+    min-height:385px;
+}
+
+.option .title
+{
+    font-weight:bold;
+}
+
+.option img
+{
+    max-width:240px;
+    cursor:zoom-in;
+}
+
+.option p
+{
+    text-align:left;
+    max-width:90%;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+#form
+{
+    margin:auto;
+    text-align:center;
+    font-weight:bold;
+    color:#FFF;
+}
+
+#form label
+{
+    text-align:left;
+    padding:0.25em;
+    min-height:32px;
+    line-height:32px;
+}
+
+#form input[type=submit]
+{
+    float:none;
+    width:100%;
+}
+
+@font-face 
+{
+	font-family: "cp437";
+	src: url("/static/worlds_of_zzt/LessPerfectDOSVGA.ttf");
+	font-weight: normal;
+	font-style: normal;
+}
+
+.cp437
+{
+    font-family:"cp437";
+    letter-spacing:1px;
+}
+
+.fr
+{
+    display:inline-block;
+    float:right;
+}
+
+.winning
+{
+    color:#FFFF55;
+}
+</style>
+{% endblock %}
+
+{% block main %}
+<div id="main">
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar">
+    <div class="block about">
+        <h3>Worlds of ZZT</h3>
+        <div class="logo"><img src="{% static 'worlds_of_zzt/avatar-150.png' %}"></div>
+        <p>
+            <a href="https://twitter.com/worldsofzzt" class="twitter-follow-button" data-show-count="false">Follow @worldsofzzt</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <br>
+        Tweets every third hour!
+        </p>
+        <p><a href="https://patreon.com/worldsofzzt" target="_blank">Support Worlds of ZZT on Patreon</a></p>
+        <p><a href="{% url 'woz_poll' %}">Closer Look Poll</a></p>
+        <p><a href="http://worldsofzzt.tumblr.com">Worlds of ZZT on Tumblr</a></p>
+        <p><a href="{% url 'woz_faq' %}">Worlds of ZZT FAQ</a>
+    </div>
+</div>
+{% endblock %}

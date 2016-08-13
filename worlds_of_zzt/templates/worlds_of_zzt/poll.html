@@ -1,0 +1,120 @@
+{% extends "worlds_of_zzt/woz_main.html" %}
+{% load staticfiles %}
+
+{% block opengraph %}{% endblock %}
+
+{% block main %}
+<div id="main">
+    <div class="block">
+        {% if poll %}
+            <h1>Closer Look - Patron Poll</h1>
+            
+            <div class="poll">
+                <div class="option cp437">
+                    <img src="{% static 'worlds_of_zzt/poll/'|add:poll.option1.image %}">
+                    <br>
+                    <span class="title">{{poll.option1.name}}</span>
+                    <br>
+                        by {{poll.option1.author}}, {{poll.option1.released|date:"M. Y"}}
+                    <br>
+                    <p>{{poll.option1.summary}}</p>
+                </div>
+                
+                <div class="option cp437">
+                    <img src="{% static 'worlds_of_zzt/poll/'|add:poll.option2.image %}">
+                    <br>
+                    <span class="title">{{poll.option2.name}}</span>
+                    <br>
+                        by {{poll.option2.author}}, {{poll.option2.released|date:"M. Y"}}
+                    <br>
+                    <p>{{poll.option2.summary}}</p>
+                </div>
+                
+                <div class="option cp437">
+                    <img src="{% static 'worlds_of_zzt/poll/'|add:poll.option3.image %}">
+                    <br>
+                    <span class="title">{{poll.option3.name}}</span>
+                    <br>
+                        by {{poll.option3.author}}, {{poll.option3.released|date:"M. Y"}}
+                    <br>
+                    <p>{{poll.option3.summary}}</p>
+                </div>
+                
+                <div class="option cp437">
+                    <img src="{% static 'worlds_of_zzt/poll/'|add:poll.option4.image %}">
+                    <br>
+                    <span class="title">{{poll.option4.name}}</span>
+                    <br>
+                        by {{poll.option4.author}}, {{poll.option4.released|date:"M. Y"}}
+                    <br>
+                    <p>{{poll.option4.summary}}</p>
+                </div>
+                
+                <div class="option cp437">
+                    <img src="{% static 'worlds_of_zzt/poll/'|add:poll.option5.image %}">
+                    <br>
+                    <span class="title">{{poll.option5.name}}</span>
+                    <br>
+                        by {{poll.option5.author}}, {{poll.option5.released|date:"M. Y"}}
+                    <br>
+                    <p>{{poll.option5.summary}}</p>
+                </div>
+            </div>
+            
+            <br>
+            
+            {% if poll_open %}
+            <div class="status c">
+                Poll closes: {{poll.end_date}}
+            </div>
+            <form method="POST" id="form" class="cp437">
+                {% csrf_token %}
+                <label style="background-color:#0000AA">{{poll.option1.name}} <input name="vote" type="radio" value="{{poll.option1_id}}"></label>
+                <label style="background-color:#00AA00">{{poll.option2.name}} <input name="vote" type="radio" value="{{poll.option2_id}}"></label>
+                <label style="background-color:#00AAAA">{{poll.option3.name}} <input name="vote" type="radio" value="{{poll.option3_id}}"></label>
+                <label style="background-color:#AA0000">{{poll.option4.name}} <input name="vote" type="radio" value="{{poll.option4_id}}"></label>
+                <label style="background-color:#AA00AA">{{poll.option5.name}} <input name="vote" type="radio" value="{{poll.option5_id}}"></label>
+                <label style="background-color:#AAAA00">Your Patron E-Mail <input name="email" value=""></label>
+                <label style="background-color:#AAAAAA"><input type="submit" value="Vote"></label>
+                {% comment %}<input type="hidden" name="key" value="{{key}}">{% endcomment %}
+            </form>
+            {% else %}
+            <div class="status c">
+                Poll opens: {{poll.start_date}}
+            </div>
+            {% endif %}
+        {% else %}
+            <p>No open poll found!</p>
+        {% endif %}
+        
+            <h1>Poll Rules</h1>
+            <ul>
+                <li>Only Patrons pledging at least $2/month are eligible for voting.</li>
+                <li>Votes which do not meet this requirement or do not provide a matching e-mail will be rejected.</li>
+                <li>Patrons at the $20/month level can select a game to be featured in the poll. Patrons who do so will have their chosen game
+                    in all subsequent polls until it receives a Closer Look article or the patron opts to change it.</li>
+                <li>Patrons who do not select a game will have one substitued by me.</li>
+                <li>Only the last vote for an e-mail address will be counted, you may vote additional times as way to change your vote.</li>
+            </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function (){
+    $(".option img").click(function (){
+        if ($(this).css("max-width") != "480px")
+        {
+            $(this).css({"max-width":"480px", "cursor":"zoom-out"});
+            $(this).parent().css("width","480px");
+        }
+        else
+        {
+            $(this).css({"max-width":"240px", "cursor":"zoom-in"});
+            $(this).parent().css("width","240px");
+        }
+    });
+});
+</script>
+{% endblock %}
