@@ -49,6 +49,34 @@ def navigate(request, id=None, dir="next"):
         return redirect("blog")
     return redirect("entry", post.id, slugify(post.title))
     
+def preview(request):
+    if (ENV != "DEV"):
+        return redirect("/")
+    
+    data = {}
+    data["blocks"] = ["about", "v-ad"]
+    #data["latest"] = Post.objects.only("id", "title").all().order_by("-id")[:10]
+    #data["tagged"] = Tag.objects.all().order_by("?")[:10]
+    
+    post = Post.objects.all()[0]
+    post.title = "TEST POST"
+    post.author = "Dr. Dos"
+    if request.GET.get("id"):
+        post.content = open("/var/projects/pokyfriends/blog/static/blog/posts/"+request.GET.get("id")+"/post.html", "r").read()
+    else:
+        post.content = "Set get param \"id\" with post ID that has post.html"
+    
+    data["post"] = post
+    data["title"] = post.title
+    data["page"] = int(request.GET.get("p", 1))
+    
+    if "<!--Page-->" in data["post"].content:
+        data["page_count"] = range(1, data["post"].content.count("<!--Page-->")+2)
+        data["has_pages"] = True if len(data["page_count"]) > 1 else False
+        data["post"].content = data["post"].content.split("<!--Page-->")[data["page"]-1]
+        
+    return render(request, "blog/index.html", data)
+    
 def tagged(request, page=1, slug=None):
     data = {}
     data["latest"] = Post.objects.only("id", "title").all().order_by("-id")[:10]

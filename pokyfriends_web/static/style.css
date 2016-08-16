@@ -361,3 +361,15 @@ nav.pages a.selected
 {
     background:#CCC;
 }
+
+.patreon
+{
+    font-style:italic;
+    text-align:center;
+    border-top:1px dotted #AAA;
+}
+
+.patreon a
+{
+    font-weight:bold;
+}
