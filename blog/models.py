@@ -7,7 +7,8 @@ class Tag(models.Model):
     slug            = models.CharField(max_length=50, db_index=True, default="")
     
     class Meta:
-        app_label = 'blog'
+        app_label = "blog"
+        ordering = "name"
         
     def __str__(self):
         return self.name
@@ -22,7 +23,7 @@ class Post(models.Model):
     tags            = models.ManyToManyField("Tag")
     
     class Meta:
-        app_label = 'blog'
+        app_label = "blog"
         
     def __str__(self):
         return self.title
