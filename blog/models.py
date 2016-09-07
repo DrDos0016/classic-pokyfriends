@@ -8,7 +8,7 @@ class Tag(models.Model):
     
     class Meta:
         app_label = "blog"
-        ordering = "name"
+        ordering = ("name",)
         
     def __str__(self):
         return self.name
