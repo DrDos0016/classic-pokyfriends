@@ -308,7 +308,7 @@ h2 a
 label
 {
     display:inline-block;
-    width:50%;
+    width:65%;
     height:2em;
 }
 
@@ -373,3 +373,49 @@ nav.pages a.selected
 {
     font-weight:bold;
 }
+
+/* ZZT Specific */
+.zzt-scroll
+{
+    background-image:url("/static/blog/zzt-scroll.png");
+    max-width:392px;
+    height:266px;
+    font-family:monospace;
+    font-size:14px;
+    line-height:14px;
+    text-align:left;
+    color:#FFFF55;
+    margin:auto;
+    margin-bottom:0.25em;
+}
+
+.zzt-scroll .name
+{
+    padding:14px 0px 14px 32px;
+    text-align:center;
+    width:360px;
+}
+
+.zzt-scroll .content
+{
+    padding-left:32px;
+    width:360px; /*336*/
+    height:210px;
+    overflow-y:scroll;
+    overflow-x:none;
+}
+
+.zzt-scroll .white
+{
+    color:#FFFFFF;
+}
+
+.zzt-scroll .hypertext
+{
+background-repeat: no-repeat;
+background-position:16px;
+background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAOCAYAAAASVl2WAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTJDBGvsAAAAQ0lEQVQoU5WMQQoAIAzD9kn//5SqSNmEOPAQBk1YSGrBsRIa64AwJ2iiDB7RHUDIgfn/UITJAOTmBCAMjhUcKzgmigkcKlhhXdQ3uAAAAABJRU5ErkJggg==);
+color:white;
+padding-left:40px;
+}
+/* End ZZT Specific */

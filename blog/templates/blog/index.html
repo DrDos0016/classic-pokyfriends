@@ -1,6 +1,7 @@
 {% extends "main.html" %}
 {% load staticfiles %}
 {% load as_template %}
+{% load zzt_tags %}
 
 {% block canon %}<link rel="canonical" href="{{PROTOCOL}}{{request.get_host}}/blog/{{post.id}}/{{post.title|slugify}}" />{% endblock %}
 

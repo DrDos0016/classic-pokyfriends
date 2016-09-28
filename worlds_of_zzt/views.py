@@ -46,7 +46,10 @@ def results(request, id):
         log[vote.email] = vote.option_id
         
     # Sum votes
-    for k in log:
-        totals[log[k]-1] += 1
+    for k in log.keys():
+        if int(id) == 1:
+            totals[log[k]-1] += 1
+        else:
+            totals[log[k]-(int(id)*5 - 5)] += 1
     data["totals"] = totals
     return render(request, "worlds_of_zzt/results.html", data)

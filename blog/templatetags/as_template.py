@@ -6,5 +6,5 @@ register = Library()
 @register.filter
 @stringfilter
 def as_template(raw):
-    raw = "{% load staticfiles %}\n"+raw
+    raw = "{% load staticfiles %}\n{% load zzt_tags %}"+raw
     return Template(raw).render(Context())

@@ -1,30 +1,31 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from pokyfriends_web.common import *
+import codecs
 
 # Create your views here.
 
 #TODO: Actually Implement _using_ pages
 def archive(request, page=1):
     data = {}
-    data["latest"] = Post.objects.only("id", "title").all().order_by("-id")[:10]
+    data["latest"] = Post.objects.only("id", "title").filter(published=True).order_by("-id")[:10]
     data["tagged"] = Tag.objects.all().order_by("?")[:10]
     rpp = 50
     data["page"] = request.GET.get("page", page)
     data["title"] = "Blog Post Archive"
-    data["posts"] = Post.objects.only("title", "timestamp").all().order_by("-id")[(page-1)*rpp:(page-1)*rpp+rpp]
+    data["posts"] = Post.objects.only("title", "timestamp").filter(published=True).order_by("-timestamp")[(page-1)*rpp:(page-1)*rpp+rpp]
     return render(request, "blog/archive.html", data)
 
 def index(request, id=None):
     data = {}
     data["blocks"] = ["about", "v-ad"]
-    data["latest"] = Post.objects.only("id", "title").all().order_by("-id")[:10]
+    data["latest"] = Post.objects.filter(published=True).only("id", "title").filter(published=True).order_by("-id")[:10]
     data["tagged"] = Tag.objects.all().order_by("?")[:10]
     if not id:
-        posts = Post.objects.all().order_by("-id")[:1]
+        posts = Post.objects.filter(published=True, spotlight=True).order_by("-timestamp")[:1]
         data["title"] = "Let's Be Pokyfriends!"
     else:
-        posts = Post.objects.filter(pk=int(id))
+        posts = Post.objects.filter(pk=int(id), published=True)
         
     data["post"] = posts[0]
     data["title"] = posts[0].title
@@ -39,9 +40,9 @@ def index(request, id=None):
     
 def navigate(request, id=None, dir="next"):
     if dir == "next":
-        posts = Post.objects.only("id").filter(pk__gt=int(id)).order_by("id")
+        posts = Post.objects.only("id").filter(pk__gt=int(id), published=True).order_by("id")
     if dir == "prev":
-        posts = Post.objects.only("id").filter(pk__lt=int(id)).order_by("-id")
+        posts = Post.objects.only("id").filter(pk__lt=int(id), published=True).order_by("-id")
         
     if posts:
         post = posts[0]
@@ -62,7 +63,7 @@ def preview(request):
     post.title = "TEST POST"
     post.author = "Dr. Dos"
     if request.GET.get("id"):
-        post.content = open("/var/projects/pokyfriends/blog/static/blog/posts/"+request.GET.get("id")+"/post.html", "r").read()
+        post.content = codecs.open("/var/projects/pokyfriends/blog/static/blog/posts/"+request.GET.get("id")+"/post.html", "r", encoding="utf-8").read()
     else:
         post.content = "Set get param \"id\" with post ID that has post.html"
     
@@ -79,7 +80,7 @@ def preview(request):
     
 def tagged(request, page=1, slug=None):
     data = {}
-    data["latest"] = Post.objects.only("id", "title").all().order_by("-id")[:10]
+    data["latest"] = Post.objects.filter(published=True).only("id", "title").filter(published=True).order_by("-id")[:10]
     data["tagged"] = Tag.objects.all().order_by("?")[:10]
     data["title"] = "Blog Post Tags"
     data["slug"] = slug
