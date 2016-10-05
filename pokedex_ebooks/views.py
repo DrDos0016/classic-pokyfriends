@@ -174,7 +174,7 @@ def to_json(request):
     data["version"] = version
     data["markov"] = post
     data["settings"] = {"length":length, "ambiguous":int(ambiguous), "starts_with":user_starts_with, "seed":seed}
-    data["link"] = "https://pokyfriends.com/pokedex-ebooks/?v="+str(version)+"size="+str(length)+"&ambiguous="+str(int(ambiguous))+"&starts_with="+user_starts_with+"&seed="+seed
+    data["link"] = "https://pokyfriends.com/pokedex-ebooks/?v="+str(version)+"&size="+str(length)+"&ambiguous="+str(int(ambiguous))+"&starts_with="+user_starts_with+"&seed="+seed
 
     return HttpResponse(json.dumps(data), content_type="application/json")
     
