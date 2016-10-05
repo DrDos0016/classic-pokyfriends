@@ -85,6 +85,7 @@ input[type="submit"]
 
         <div class="controls">
             <form>
+            <input type="hidden" name="v" value="{{request.GET.v|default:'2'}}">
             <div class="col" id="length">
                 <label>Entry length</label><br>
                 <div><input type="radio" name="size" value="140" {% if request.GET.size == '140' %} checked {% endif %}{% if not request.GET.size %} checked {% endif %}> Short </div>
@@ -103,7 +104,7 @@ input[type="submit"]
             <div class="col" id="reroll">
                 <input type="submit" value="New Pokédex Entry"><br>
                 
-                <a href="{% url 'pokedex-ebooks' %}?size={{request.GET.size|default:140}}&ambiguous={{request.GET.ambiguous|default:1}}&starts_with={{request.GET.starts_with}}&seed={{seed}}">Entry Permalink</a>
+                <a href="{% url 'pokedex-ebooks' %}?v={{request.GET.v|default:'1'}}&size={{request.GET.size|default:140}}&ambiguous={{request.GET.ambiguous|default:1}}&starts_with={{request.GET.starts_with}}&seed={{seed}}">Entry Permalink</a>
             </div>
             </form>
         </div>
