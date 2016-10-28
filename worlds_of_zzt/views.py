@@ -37,19 +37,47 @@ def poll(request):
 def results(request, id):
     data = {"title":"Poll Results - Worlds of ZZT"}
     data["poll"] = Poll.objects.get(pk=int(id))
+    data["poll"].option1_votes = 0
+    data["poll"].option2_votes = 0
+    data["poll"].option3_votes = 0
+    data["poll"].option4_votes = 0
+    data["poll"].option5_votes = 0
     
     # Calculate results
     log = {}
     totals = [0,0,0,0,0]
     votes = Vote.objects.filter(poll_id=id).order_by("id")
+    
+    voters = {}
+    
     for vote in votes:
-        log[vote.email] = vote.option_id
+        voters[vote.email] = vote.option_id
         
-    # Sum votes
+    # print(voters)
+    for k in voters.keys():
+        if data["poll"].option1_id == voters[k]:
+            data["poll"].option1_votes += 1
+            # print("VOTE FOR", data["poll"].option1.name, "BY", k)
+        if data["poll"].option2_id == voters[k]:
+            data["poll"].option2_votes += 1
+            # print("VOTE FOR", data["poll"].option2.name, "BY", k)
+        if data["poll"].option3_id == voters[k]:
+            data["poll"].option3_votes += 1
+            # print("VOTE FOR", data["poll"].option3.name, "BY", k)
+        if data["poll"].option4_id == voters[k]:
+            data["poll"].option4_votes += 1
+            # print("VOTE FOR", data["poll"].option4.name, "BY", k)
+        if data["poll"].option5_id == voters[k]:
+            data["poll"].option5_votes += 1
+            # print("VOTE FOR", data["poll"].option5.name, "BY", k)
+    
+        
+    """
     for k in log.keys():
         if int(id) == 1:
             totals[log[k]-1] += 1
         else:
             totals[log[k]-(int(id)*5 - 5)] += 1
-    data["totals"] = totals
+    """
+    #data["totals"] = totals
     return render(request, "worlds_of_zzt/results.html", data)

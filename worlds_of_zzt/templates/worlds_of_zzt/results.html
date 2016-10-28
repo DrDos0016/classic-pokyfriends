@@ -63,11 +63,11 @@
             <br>
             
             <form method="POST" id="form" class="cp437">
-                <label style="background-color:#0000AA">{{poll.option1.name}} <div class="fr{% if winning == 1 %} winning {% endif %}">{{totals.0}}</div></label>
-                <label style="background-color:#00AA00">{{poll.option2.name}} <div class="fr{% if winning == 2 %} winning {% endif %}">{{totals.1}}</div></label>
-                <label style="background-color:#00AAAA">{{poll.option3.name}} <div class="fr{% if winning == 3 %} winning {% endif %}">{{totals.2}}</div></label>
-                <label style="background-color:#AA0000">{{poll.option4.name}} <div class="fr{% if winning == 4 %} winning {% endif %}">{{totals.3}}</div></label>
-                <label style="background-color:#AA00AA">{{poll.option5.name}} <div class="fr{% if winning == 5 %} winning {% endif %}">{{totals.4}}</div></label>
+                <label style="background-color:#0000AA">{{poll.option1.name}} <div class="fr{% if winning == 1 %} winning {% endif %}">{{poll.option1_votes}}</div></label>
+                <label style="background-color:#00AA00">{{poll.option2.name}} <div class="fr{% if winning == 2 %} winning {% endif %}">{{poll.option2_votes}}</div></label>
+                <label style="background-color:#00AAAA">{{poll.option3.name}} <div class="fr{% if winning == 3 %} winning {% endif %}">{{poll.option3_votes}}</div></label>
+                <label style="background-color:#AA0000">{{poll.option4.name}} <div class="fr{% if winning == 4 %} winning {% endif %}">{{poll.option4_votes}}</div></label>
+                <label style="background-color:#AA00AA">{{poll.option5.name}} <div class="fr{% if winning == 5 %} winning {% endif %}">{{poll.option5_votes}}</div></label>
             </form>
         
             <h1>Results Info</h1>
