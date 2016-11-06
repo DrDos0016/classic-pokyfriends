@@ -120,7 +120,6 @@ def results(request, poke1, poke2, poke3):
     pokemon[1]["overall_stats"]["total"] = pokemon[1]["overall_stats"]["train"] + pokemon[1]["overall_stats"]["box"] + pokemon[1]["overall_stats"]["release"]
     pokemon[2]["overall_stats"]["total"] = pokemon[2]["overall_stats"]["train"] + pokemon[2]["overall_stats"]["box"] + pokemon[2]["overall_stats"]["release"]
 
-    print data["overall_stats"]
     return render(request, "tbr_results.html", data)
     
 def submit(request):    

@@ -35,10 +35,7 @@ def load_url(request):
             for t in tag.find_all("a"):
                 if t.has_attr("rel") and t.has_attr("href"):
                     images.append(t["href"])
-            print tag
-            print "-"*40
         #return HttpResponse('{"status":"FAILURE", "msg":"No photoset information was found"}')
-        
     
     if len(images) != 0:
         output = {"status":"SUCCESS", "images":images}

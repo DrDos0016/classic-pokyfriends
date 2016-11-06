@@ -12,6 +12,6 @@ class Answer(models.Model):
     def images(self):
         triplet = self.trio.split("/")
         output = ""
-        for x in xrange(0,3):
+        for x in range(0,3):
             output += '<img src="/static/train_box_release/icons/'+triplet[x]+'.png" alt="'+triplet[x]+'">'
         return output

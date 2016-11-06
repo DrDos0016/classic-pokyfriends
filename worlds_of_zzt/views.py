@@ -17,7 +17,6 @@ def poll(request):
     data = {"title":"Poll - Worlds of ZZT"}
     today = datetime.now().date()
     polls = Poll.objects.filter(end_date__gte=today).order_by("start_date")
-    print polls.query
     if polls:
         data["poll"] = polls[0]
         data["key"] = request.GET.get("key", "")
@@ -28,7 +27,7 @@ def poll(request):
             try:
                 vote.save()
             except:
-                print "Vote error!"
+                print("Vote error!")
                 
             return redirect("woz_results", id=data["poll"].id)
     
@@ -52,32 +51,17 @@ def results(request, id):
     
     for vote in votes:
         voters[vote.email] = vote.option_id
-        
-    # print(voters)
+
     for k in voters.keys():
         if data["poll"].option1_id == voters[k]:
             data["poll"].option1_votes += 1
-            # print("VOTE FOR", data["poll"].option1.name, "BY", k)
         if data["poll"].option2_id == voters[k]:
             data["poll"].option2_votes += 1
-            # print("VOTE FOR", data["poll"].option2.name, "BY", k)
         if data["poll"].option3_id == voters[k]:
             data["poll"].option3_votes += 1
-            # print("VOTE FOR", data["poll"].option3.name, "BY", k)
         if data["poll"].option4_id == voters[k]:
             data["poll"].option4_votes += 1
-            # print("VOTE FOR", data["poll"].option4.name, "BY", k)
         if data["poll"].option5_id == voters[k]:
             data["poll"].option5_votes += 1
-            # print("VOTE FOR", data["poll"].option5.name, "BY", k)
-    
-        
-    """
-    for k in log.keys():
-        if int(id) == 1:
-            totals[log[k]-1] += 1
-        else:
-            totals[log[k]-(int(id)*5 - 5)] += 1
-    """
-    #data["totals"] = totals
     return render(request, "worlds_of_zzt/results.html", data)
+    
