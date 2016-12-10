@@ -14,6 +14,12 @@
 {% endblock %}
 
 {% block main %}
+{% if request.GET.spellcheck %}
+<style>
+.zzt-scroll { display: none; }
+img { display:none; }
+</style>
+{% endif %}
 <div id="main">
 <div class="block post">
     <h2><a href="{% url 'entry' post.id post.title|slugify %}">{{post.title}}</a></h2>
