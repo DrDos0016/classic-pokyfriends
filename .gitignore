@@ -16,6 +16,10 @@ pokyfriends/private_settings.py
 pokyfriends_web/static/images/meowth
 pokyfriends_web/static/images/shuffle
 
+robin/
+
+/static/
+
 train_box_release/static/train_box_release/x-y
 train_box_release/static/train_box_release/icons
 

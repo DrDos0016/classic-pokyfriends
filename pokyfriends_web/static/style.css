@@ -420,3 +420,14 @@ color:white;
 padding-left:40px;
 }
 /* End ZZT Specific */
+
+.post figure img
+{
+    border:2px solid #CCC;
+}
+.post figure
+{
+    background:#CCC;
+    display:inline-block;
+    text-align:center;
+}
