@@ -272,7 +272,7 @@ h2 a
 {
     font-family:monospace;
     font-size:larger;
-    display:inline-block; 
+    display:inline-block;
 }
 
 @media(max-width: 799px)
@@ -284,7 +284,7 @@ h2 a
         order:1;
         flex-basis:auto;
     }
-    
+
     #sidebar
     {
         width:100%;
@@ -294,12 +294,12 @@ h2 a
         order:3;
         flex-basis:auto;
     }
-    
+
     #pages
     {
         order:2;
     }
-    
+
     #pages .button
     {
         width:auto;
@@ -430,4 +430,75 @@ padding-left:40px;
     background:#CCC;
     display:inline-block;
     text-align:center;
+}
+
+.zzt-img
+{
+    display:block;
+    margin:auto;
+    border:1px solid #AAA;
+    overflow:hidden;
+    max-width:640px;
+    max-height:350px;
+}
+
+.zzt-img
+
+.zzt-img.zzt-sidebar
+{
+    width:160px;
+}
+
+img.zzt-sidebar
+{
+    position:relative;
+    left:-480px;
+}
+
+.zzt-img.zzt-hud
+{
+    width:160px;
+    height:112px;
+}
+
+img.zzt-hud
+{
+    position:relative;
+    left:-480px;
+    top:-84px;
+}
+
+.zzt-img.zzt-message
+{
+    width:480px;
+    height:14px;
+}
+
+div.zzt-img + div.zzt-img
+{
+    margin-top:2px;
+}
+
+img.zzt-message
+{
+    position:relative;
+    top:-336px;
+}
+
+.zzt-img.zzt-cheat
+{
+    width:160px;
+    height:42px;
+}
+
+img.zzt-cheat
+{
+    position:relative;
+    left:-480px;
+    top:-56px;
+}
+
+.zzt-img img
+{
+    max-width:none;
 }
