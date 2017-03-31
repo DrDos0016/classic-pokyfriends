@@ -104,3 +104,25 @@ def zzt_img(source, shorthand="", alt="", tl="", br="", css=""):
         img = img + " style='{}'".format(img_css)
 
     return mark_safe("<" + div + "><" + img + "></div>\n")
+
+
+@register.simple_tag()
+def content_warning(*args, **kwargs):
+    output = """
+        <div class="content-warning">
+        <div class="text">
+            <b class="heading">CONTENT WARNING</b>
+            <p>The following content contains material which may be offensive
+            to some audiences. It was most likely originally created by a
+            teenager who has since grown up. This material does not necessarily
+            reflect its creator's current opinions nor behaviors.</p>
+
+            <p>Specifically, this page contains depictions of or references to:
+            <br><b>{}</b></p>
+        </div>
+    </div>
+    """
+
+    output = output.format(", ".join(args).title())
+
+    return mark_safe(output + "\n")
