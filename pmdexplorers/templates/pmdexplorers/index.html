@@ -1,0 +1,70 @@
+{% extends "main.html" %}
+{% load staticfiles %}
+
+{% block opengraph %}{% endblock %}
+
+{% block css %}
+<style>
+#output
+{
+    height:331px;
+    text-align:center;
+    margin:auto;
+}
+
+#output img
+{
+    border:8px solid #000;
+}
+
+input
+{
+    width:10em;
+}
+</style>
+{% endblock %}
+
+{% block main %}
+<div id="main">
+
+    {% if ADS %}
+    <div class="block ad">
+        <!-- Pokyfriends - Responsive Ad --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
+    </div>
+    {% endif %}
+
+    <div class="block">
+        <form method="POST">
+        {% csrf_token %}
+
+        <div style="Text-align:center">
+        <h1>Pokémon Mystery Dungeon Explorers of...</h1>
+        <input name="darkness" placeholder="Darkness" maxlength="32" value="{{darkness}}"> /
+        <input name="time" placeholder="Time" maxlength="32" value="{{time}}">
+        <br>
+        <input type="submit" name="action" value="Submit">
+        <p>Only letters and spaces are permitted. Leave a field blank to only generate one game title.</p>
+        </div>
+
+        </form>
+
+        <div id="output"><img src="/static/pmdexplorers/output/{{filename|default:'darkness-time.png'}}"></div>
+    </div>
+
+    {% if ADS %}
+    <div class="block ad">
+        <!-- Pokyfriends - Responsive Ad --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4412759244252723" data-ad-slot="2115202160" data-ad-format="auto"></ins>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar">
+    <div class="block">
+        <h3>Sidebar</h3>
+
+    </div>
+</div>
+{% endblock %}
